@@ -1,5 +1,7 @@
 ENV["RACK_ENV"] ||= "test"
 
+require 'simplecov'
+SimpleCov.start
 require 'bundler'
 Bundler.require
 
@@ -12,4 +14,10 @@ require 'database_cleaner'
 
 Capybara.app = RushHour::Server
 DatabaseCleaner.strategy = :truncation
-# DatabaseCleaner.clean
+
+module TestHelpers
+  def teardown
+    DatabaseCleaner.clean
+    super
+  end
+end

@@ -13,4 +13,8 @@ group :development, :test do
   gem 'launchy'
   gem 'rack-test'
   gem 'database_cleaner'
+  gem 'simplecov'
+  gem 'cane'
+  gem 'reek'
+  gem 'rake'
 end
