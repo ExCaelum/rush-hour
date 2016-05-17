@@ -3,7 +3,7 @@ class PayloadRequest < ActiveRecord::Base
   validates :requested_at, presence: true
   validates :responded_in, presence: true
   validates :referred_by, presence: true
-  validates :request_type, presence: true
+  validates :request_type_id, presence: true
   validates :event_name, presence: true
   validates :user_agent, presence: true
   validates :resolution_width, presence: true
@@ -11,4 +11,5 @@ class PayloadRequest < ActiveRecord::Base
   validates :ip, presence: true
 
   belongs_to :url
+  belongs_to :request_type
 end

@@ -1,22 +1,22 @@
 require_relative '../test_helper'
 
-class UrlTest < Minitest::Test
+class RequestTypeTest < Minitest::Test
   include TestHelpers
 
-  def test_it_creates_a_url
-    url = Url.create(address: "www.turing.com")
+  def test_it_creates_a_request_type
+    rt = RequestType.create(verb: "GET")
 
-    assert_equal "www.turing.com", url.address
+    assert_equal "GET", rt.verb
   end
 
-  def test_it_invalidates_url
-    url = Url.create
+  def test_it_invalidates_request_type
+    rt = RequestType.create
 
-    assert_equal true, url.invalid?
-    assert_equal 1, url.errors.messages.length
+    assert_equal true, rt.invalid?
+    assert_equal 1, rt.errors.messages.length
   end
 
-  def test_url_payload_requests_relationship
+  def test_request_type_payload_request_relationship
     pr = PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 48,
                           referred_by: "www.referrer.com",
@@ -28,11 +28,11 @@ class UrlTest < Minitest::Test
                           resolution_height:"1000",
                           ip: "100.00.00.00",
                           url_id: 1)
+    rt = RequestType.create(verb: "POST")
 
-    url = Url.create(address: "www.turing.com")
-
-    assert_equal 1, url.payload_requests.count
-    assert_equal 48, url.payload_requests.first.responded_in
-    assert_equal "www.turing.com", pr.url.address
+    assert_equal 1, rt.payload_requests.count
+    assert_equal 48, rt.payload_requests.first.responded_in
+    assert_equal "POST", pr.request_type.verb
   end
+
 end

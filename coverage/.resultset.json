@@ -14,7 +14,7 @@
         2,
         null,
         null,
-        3,
+        4,
         null,
         null,
         1,
@@ -52,6 +52,14 @@
         1,
         null,
         1,
+        1,
+        null
+      ],
+      "/Users/Caelum/Turing/Module 2/projects/rush-hour/app/models/request_type.rb": [
+        1,
+        1,
+        null,
+        1,
         null
       ],
       "/Users/Caelum/Turing/Module 2/projects/rush-hour/app/models/url.rb": [
@@ -73,6 +81,46 @@
         null,
         null,
         null,
+        null,
+        null,
+        null
+      ],
+      "/Users/Caelum/Turing/Module 2/projects/rush-hour/test/models/request_type_test.rb": [
+        1,
+        null,
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        null,
+        1,
+        1,
+        1,
         null,
         null,
         null
@@ -118,6 +166,6 @@
         null
       ]
     },
-    "timestamp": 1463517793
+    "timestamp": 1463521406
   }
 }
