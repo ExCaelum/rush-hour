@@ -22,7 +22,7 @@ class RequestTypeTest < Minitest::Test
                           referred_by: "www.referrer.com",
                           request_type_id: 1,
                           parameters: "[]",
-                          event_name: "event",
+                          event_name_id: 1,
                           user_agent: "browswer and OS",
                           resolution_width: "1000",
                           resolution_height:"1000",
