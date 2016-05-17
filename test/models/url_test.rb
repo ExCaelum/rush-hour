@@ -20,7 +20,7 @@ class UrlTest < Minitest::Test
     pr = PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 48,
                           referred_by: "www.referrer.com",
-                          request_type: "GET",
+                          request_type_id: 1,
                           parameters: "[]",
                           event_name_id: 1,
                           user_agent: "browswer and OS",
@@ -33,6 +33,7 @@ class UrlTest < Minitest::Test
 
     assert_equal 1, url.payload_requests.count
     assert_equal 1, url.payload_requests.first.event_name_id
+    assert_equal 48, url.payload_requests.first.responded_in
     assert_equal "www.turing.com", pr.url.address
   end
 end
