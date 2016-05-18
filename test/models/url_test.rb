@@ -18,15 +18,15 @@ class UrlTest < Minitest::Test
 
   def test_url_payload_requests_relationship
     pr = PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 48,
-                          referred_by: "www.referrer.com",
-                          request_type_id: 1,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          resolution_id: 1,
-                          user_agent_id: 1,
-                          ip: "100.00.00.00",
-                          url_id: 1)
+                               responded_in: 48,
+                               referrer_id: 1,
+                               request_type_id: 1,
+                               parameters: "[]",
+                               event_name_id: 1,
+                               resolution_id: 1,
+                               user_agent_id: 1,
+                               ip_id: 1,
+                               url_id: 1)
 
     url = Url.create(address: "www.turing.com")
 
@@ -39,7 +39,7 @@ class UrlTest < Minitest::Test
   def test_it_sorts_by_requested
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
     responded_in: 48,
-    referred_by: "www.referrer.com",
+    referrer_id: 1,
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 1,
@@ -49,7 +49,7 @@ class UrlTest < Minitest::Test
     url_id: 1)
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
     responded_in: 48,
-    referred_by: "www.referrer.com",
+    referrer_id: 1,
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 1,
@@ -59,7 +59,7 @@ class UrlTest < Minitest::Test
     url_id: 1)
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
     responded_in: 48,
-    referred_by: "www.referrer.com",
+    referrer_id: 1,
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 1,
@@ -69,7 +69,7 @@ class UrlTest < Minitest::Test
     url_id: 2)
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
     responded_in: 48,
-    referred_by: "www.referrer.com",
+    referrer_id: 1,
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 1,
@@ -79,7 +79,7 @@ class UrlTest < Minitest::Test
     url_id: 3)
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
     responded_in: 48,
-    referred_by: "www.referrer.com",
+    referrer_id: 1,
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 1,
@@ -96,7 +96,7 @@ class UrlTest < Minitest::Test
 
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
     responded_in: 48,
-    referred_by: "www.referrer.com",
+    referrer_id: 1,
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 1,
@@ -106,7 +106,7 @@ class UrlTest < Minitest::Test
     url_id: 3)
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
     responded_in: 48,
-    referred_by: "www.referrer.com",
+    referrer_id: 1,
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 1,
@@ -123,7 +123,7 @@ class UrlTest < Minitest::Test
   def test_response_time_list_includes_all_when_only_one_url
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
     responded_in: 48,
-    referred_by: "www.referrer.com",
+    referrer_id: 1,
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 1,
@@ -134,7 +134,7 @@ class UrlTest < Minitest::Test
 
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
     responded_in: 40,
-    referred_by: "www.referrer.com",
+    referrer_id: 1,
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 1,
@@ -153,7 +153,7 @@ class UrlTest < Minitest::Test
   def test_response_time_list_includes_all_when_multiple_urls
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
     responded_in: 48,
-    referred_by: "www.referrer.com",
+    referrer_id: 1,
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 1,
@@ -164,7 +164,7 @@ class UrlTest < Minitest::Test
 
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
     responded_in: 40,
-    referred_by: "www.referrer.com",
+    referrer_id: 1,
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 1,
@@ -183,7 +183,7 @@ class UrlTest < Minitest::Test
   def test_response_time_list_includes_duplicates
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
     responded_in: 48,
-    referred_by: "www.referrer.com",
+    referrer_id: 1,
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 1,
@@ -194,7 +194,7 @@ class UrlTest < Minitest::Test
 
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
     responded_in: 48,
-    referred_by: "www.referrer.com",
+    referrer_id: 1,
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 1,
@@ -256,8 +256,6 @@ class UrlTest < Minitest::Test
     assert_equal ["referrer2", "referrer1"], url.top_three_referrers
 
   end
-
-
 
   def test_returns_top_referrers_for_url_more_than_3
     skip
@@ -321,7 +319,7 @@ class UrlTest < Minitest::Test
   def test_url_has_verb_association
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 40,
-                          referred_by: "4",
+                          referrer_id: 1,
                           request_type_id: 1,
                           parameters: "[]",
                           event_name_id: 4,
@@ -339,7 +337,7 @@ class UrlTest < Minitest::Test
   def test_url_has_verb_association_without_duplicates
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 40,
-                          referred_by: "4",
+                          referrer_id: 1,
                           request_type_id: 1,
                           parameters: "[]",
                           event_name_id: 4,
@@ -349,7 +347,7 @@ class UrlTest < Minitest::Test
                           url_id: 1)
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 40,
-                          referred_by: "4",
+                          referrer_id: 1,
                           request_type_id: 1,
                           parameters: "[]",
                           event_name_id: 4,
@@ -367,7 +365,7 @@ class UrlTest < Minitest::Test
   def test_url_can_find_one_popular_agent
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 40,
-                          referred_by: "4",
+                          referrer_id: 1,
                           request_type_id: 1,
                           parameters: "[]",
                           event_name_id: 4,
@@ -385,7 +383,7 @@ class UrlTest < Minitest::Test
   def test_url_can_find_popular_agents
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 40,
-                          referred_by: "4",
+                          referrer_id: 1,
                           request_type_id: 1,
                           parameters: "[]",
                           event_name_id: 4,
@@ -395,7 +393,7 @@ class UrlTest < Minitest::Test
                           url_id: 1)
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 40,
-                          referred_by: "4",
+                          referrer_id: 1,
                           request_type_id: 1,
                           parameters: "[]",
                           event_name_id: 4,
@@ -405,7 +403,7 @@ class UrlTest < Minitest::Test
                           url_id: 1)
       PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                             responded_in: 40,
-                            referred_by: "4",
+                            referrer_id: 1,
                             request_type_id: 1,
                             parameters: "[]",
                             event_name_id: 4,
@@ -415,7 +413,7 @@ class UrlTest < Minitest::Test
                             url_id: 1)
       PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                             responded_in: 40,
-                            referred_by: "4",
+                            referrer_id: 1,
                             request_type_id: 1,
                             parameters: "[]",
                             event_name_id: 4,
@@ -425,7 +423,7 @@ class UrlTest < Minitest::Test
                             url_id: 1)
       PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                             responded_in: 40,
-                            referred_by: "4",
+                            referrer_id: 1,
                             request_type_id: 1,
                             parameters: "[]",
                             event_name_id: 4,
@@ -435,7 +433,7 @@ class UrlTest < Minitest::Test
                             url_id: 1)
       PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                             responded_in: 40,
-                            referred_by: "4",
+                            referrer_id: 1,
                             request_type_id: 1,
                             parameters: "[]",
                             event_name_id: 4,
@@ -457,10 +455,35 @@ class UrlTest < Minitest::Test
     assert_equal ["Windows Chrome", "Macintosh Safari", "Linux Internet Explorer"], url.popular_agents
   end
 
+  def test_it_can_find_calculate_response_time_stats
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                               responded_in: 100,
+                               referrer_id: 1,
+                               request_type: "GET",
+                               parameters: "[]",
+                               event_name: "event",
+                               user_agent: "browswer and OS",
+                               resolution_width: "1000",
+                               resolution_height:"1000",
+                               ip_id: 1,
+                               url_id: 1)
 
-
-
-
-
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                               responded_in: 20,
+                               referrer_id: 1,
+                               request_type: "GET",
+                               parameters: "[]",
+                               event_name: "event",
+                               user_agent: "browswer and OS",
+                               resolution_width: "1000",
+                               resolution_height:"1000",
+                               ip_id: 1,
+                               url_id: 1)
+    assert_equal 2, PayloadRequest.count
+    Url.create(address: "www.turing.com")
+    assert_equal 100, Url.max_response
+    assert_equal 20, Url.min_response
+    assert_equal 60, Url.average_response
+  end
 
 end

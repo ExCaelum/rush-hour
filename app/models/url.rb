@@ -34,4 +34,17 @@ class Url < ActiveRecord::Base
       "#{UserAgent.find(id).os} #{UserAgent.find(id).browser}"
     end
   end
+
+  def self.max_response
+    PayloadRequest.maximum(:responded_in)
+  end
+  
+  def self.min_response
+    PayloadRequest.minimum(:responded_in)
+  end
+  
+  def self.average_response
+    PayloadRequest.average(:responded_in)
+  end
+  
 end

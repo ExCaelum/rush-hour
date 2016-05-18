@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160518045743) do
+ActiveRecord::Schema.define(version: 20160518131004) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,12 +22,18 @@ ActiveRecord::Schema.define(version: 20160518045743) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "ips", force: :cascade do |t|
+    t.string   "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "payload_requests", force: :cascade do |t|
     t.datetime "requested_at"
     t.integer  "responded_in"
-    t.string   "referred_by"
+    t.integer  "referrer_id"
     t.string   "parameters"
-    t.string   "ip"
+    t.integer  "ip_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.integer  "url_id"
@@ -40,6 +46,8 @@ ActiveRecord::Schema.define(version: 20160518045743) do
   add_index "payload_requests", ["event_name_id"], name: "index_payload_requests_on_event_name_id", using: :btree
   add_index "payload_requests", ["request_type_id"], name: "index_payload_requests_on_request_type_id", using: :btree
   add_index "payload_requests", ["resolution_id"], name: "index_payload_requests_on_resolution_id", using: :btree
+  add_index "payload_requests", ["ip_id"], name: "index_payload_requests_on_ip_id", using: :btree
+  add_index "payload_requests", ["referrer_id"], name: "index_payload_requests_on_referrer_id", using: :btree
   add_index "payload_requests", ["url_id"], name: "index_payload_requests_on_url_id", using: :btree
   add_index "payload_requests", ["user_agent_id"], name: "index_payload_requests_on_user_agent_id", using: :btree
 
@@ -54,6 +62,10 @@ ActiveRecord::Schema.define(version: 20160518045743) do
     t.string   "width"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "referrers", force: :cascade do |t|
+    t.string "address"
   end
 
   create_table "urls", force: :cascade do |t|
