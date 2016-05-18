@@ -99,6 +99,7 @@ GEM
       sinatra (>= 1.2.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    user_agent_parser (2.3.0)
     virtus (1.0.5)
       axiom-types (~> 0.1)
       coercible (~> 1.0)
@@ -126,6 +127,7 @@ DEPENDENCIES
   sinatra
   sinatra-activerecord
   tux
+  user_agent_parser
 
 BUNDLED WITH
    1.11.2

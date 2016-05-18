@@ -23,8 +23,8 @@ class UrlTest < Minitest::Test
                           request_type_id: 1,
                           parameters: "[]",
                           event_name_id: 1,
-                          user_agent: "browswer and OS",
                           resolution_id: 1,
+                          user_agent_id: 1,
                           ip: "100.00.00.00",
                           url_id: 1)
 
