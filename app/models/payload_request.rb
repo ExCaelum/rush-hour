@@ -16,10 +16,16 @@ class PayloadRequest < ActiveRecord::Base
   belongs_to :user_agent
 
   def self.web_browser_breakdown
-    joins(:user_agent).pluck(:browser).uniq
+    user_agent_id = PayloadRequest.distinct.pluck(:user_agent_id)
+    user_agent_id.map do |id|
+      UserAgent.find(id).browser
+    end
   end
 
   def self.os_breakdown
-    joins(:user_agent).pluck(:os).uniq
+    user_agent_id = PayloadRequest.distinct.pluck(:user_agent_id)
+    user_agent_id.map do |id|
+      UserAgent.find(id).os
+    end
   end
 end

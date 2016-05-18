@@ -20,4 +20,18 @@ class Url < ActiveRecord::Base
     top_referrer_ids.map {|ref_id| Referrer.find(ref_id).name}
 
   end
+
+  def http_verbs
+    request_type_id = payload_requests.pluck(:request_type_id)
+    request_type_id.map do |id|
+      RequestType.find(id).verb
+    end.uniq
+  end
+
+  def popular_agents
+    top_user_agents = payload_requests.group(:user_agent_id).order('count_all desc').count.keys.take(3)
+    top_user_agents.map do |id|
+      "#{UserAgent.find(id).os} #{UserAgent.find(id).browser}"
+    end
+  end
 end
