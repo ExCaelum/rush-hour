@@ -11,8 +11,7 @@ class PayloadRequestTest < Minitest::Test
                           parameters: "[]",
                           event_name_id: 1,
                           user_agent: "browswer and OS",
-                          resolution_width: "1000",
-                          resolution_height:"1000",
+                          resolution_id: 1,
                           ip: "100.00.00.00",
                           url_id: 1)
     # url = Url.create(address: "www.turing.com")
@@ -32,8 +31,7 @@ class PayloadRequestTest < Minitest::Test
                           parameters: "[]",
                           event_name_id: 1,
                           user_agent: "browswer and OS",
-                          resolution_width: "1000",
-                          resolution_height:"1000",
+                          resolution_id: 1,
                           ip: "100.00.00.00",
                           url_id: 1)
 
@@ -51,8 +49,7 @@ class PayloadRequestTest < Minitest::Test
                           parameters: "[]",
                           event_name_id: 1,
                           user_agent: "browswer and OS",
-                          resolution_width: "1000",
-                          resolution_height:"1000",
+                          resolution_id: 1,
                           ip: "100.00.00.00",
                           url_id: 1)
 
@@ -64,7 +61,7 @@ class PayloadRequestTest < Minitest::Test
 
   def test_it_rejects_payload_request_with_missing_data
     pr = PayloadRequest.create
-    assert_equal 10, pr.errors.messages.length
+    assert_equal 9, pr.errors.messages.length
     assert_equal true, pr.invalid?
     # assert_equal true, pr.errors.messages.keys.sort(:url)
   end
@@ -77,12 +74,15 @@ class PayloadRequestTest < Minitest::Test
                           parameters: "[]",
                           event_name_id: 1,
                           user_agent: "browswer and OS",
-                          resolution_width: "1000",
-                          resolution_height:"1000",
+                          resolution_id: 1,
                           ip: "100.00.00.00",
                           url_id: 1)
 
     assert_equal true, pr.valid?
     assert_equal 0, pr.errors.messages.length
   end
+
+
+
+
 end
