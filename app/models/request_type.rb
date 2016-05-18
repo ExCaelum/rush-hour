@@ -8,4 +8,8 @@ class RequestType < ActiveRecord::Base
     request_frequency.max_by { |k,v,| v }.first
   end
 
+  def self.all_http_verbs
+    RequestType.all.pluck(:verb).uniq
+  end
+
 end
