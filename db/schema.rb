@@ -11,10 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160518131004) do
+ActiveRecord::Schema.define(version: 20160518230014) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "clients", force: :cascade do |t|
+    t.string   "root_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "event_names", force: :cascade do |t|
     t.string   "name"
@@ -35,14 +41,16 @@ ActiveRecord::Schema.define(version: 20160518131004) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.integer  "url_id"
-    t.integer  "referrer_id"
     t.integer  "request_type_id"
-    t.integer  "event_name_id"
     t.integer  "resolution_id"
+    t.integer  "event_name_id"
     t.integer  "user_agent_id"
+    t.integer  "referrer_id"
     t.integer  "ip_id"
+    t.integer  "client_id"
   end
 
+  add_index "payload_requests", ["client_id"], name: "index_payload_requests_on_client_id", using: :btree
   add_index "payload_requests", ["event_name_id"], name: "index_payload_requests_on_event_name_id", using: :btree
   add_index "payload_requests", ["ip_id"], name: "index_payload_requests_on_ip_id", using: :btree
   add_index "payload_requests", ["referrer_id"], name: "index_payload_requests_on_referrer_id", using: :btree

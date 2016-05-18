@@ -2,6 +2,7 @@ class Url < ActiveRecord::Base
   validates :address, presence: true
 
   has_many :payload_requests
+  has_many :clients, through: :payload_requests
 
   def self.most_to_least_requested
     ordered_hash = PayloadRequest.group(:url).order('count_all desc').count
@@ -38,13 +39,13 @@ class Url < ActiveRecord::Base
   def self.max_response
     PayloadRequest.maximum(:responded_in)
   end
-  
+
   def self.min_response
     PayloadRequest.minimum(:responded_in)
   end
-  
+
   def self.average_response
     PayloadRequest.average(:responded_in)
   end
-  
+
 end
