@@ -56,7 +56,8 @@ class EventNameTest < Minitest::Test
     assert_equal ["event3", "event1", "event2"], EventName.most_to_least_received
 
 
+
   end
 
-  
+
 end
