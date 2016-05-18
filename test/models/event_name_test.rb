@@ -38,11 +38,11 @@ class EventNameTest < Minitest::Test
 
 
   def test_it_sorts_by_requested
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",responded_in: 48,  referred_by: "www.referrer.com", request_type_id: 1, parameters: "[]",event_name_id: 1, user_agent: "browswer and OS", resolution_id: 1, ip: "100.00.00.00", url_id: 1)
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",responded_in: 48,  referred_by: "www.referrer.com", request_type_id: 1, parameters: "[]",event_name_id: 1, user_agent: "browswer and OS", resolution_id: 1, ip: "100.00.00.00", url_id: 1)
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",responded_in: 48,  referred_by: "www.referrer.com", request_type_id: 1, parameters: "[]",event_name_id: 2, user_agent: "browswer and OS", resolution_id: 1, ip: "100.00.00.00", url_id: 2)
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",responded_in: 48,  referred_by: "www.referrer.com", request_type_id: 1, parameters: "[]",event_name_id: 3, user_agent: "browswer and OS", resolution_id: 1, ip: "100.00.00.00", url_id: 3)
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",responded_in: 48,  referred_by: "www.referrer.com", request_type_id: 1, parameters: "[]",event_name_id: 3, user_agent: "browswer and OS", resolution_id: 1, ip: "100.00.00.00", url_id: 3)
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",responded_in: 48,  referred_by: "www.referrer.com", request_type_id: 1, parameters: "[]",event_name_id: 1, user_agent_id: 1, resolution_id: 1, ip: "100.00.00.00", url_id: 1)
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",responded_in: 48,  referred_by: "www.referrer.com", request_type_id: 1, parameters: "[]",event_name_id: 1, user_agent_id: 1, resolution_id: 1, ip: "100.00.00.00", url_id: 1)
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",responded_in: 48,  referred_by: "www.referrer.com", request_type_id: 1, parameters: "[]",event_name_id: 2, user_agent_id: 1, resolution_id: 1, ip: "100.00.00.00", url_id: 2)
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",responded_in: 48,  referred_by: "www.referrer.com", request_type_id: 1, parameters: "[]",event_name_id: 3, user_agent_id: 1, resolution_id: 1, ip: "100.00.00.00", url_id: 3)
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",responded_in: 48,  referred_by: "www.referrer.com", request_type_id: 1, parameters: "[]",event_name_id: 3, user_agent_id: 1, resolution_id: 1, ip: "100.00.00.00", url_id: 3)
 
     EventName.create(name: "event1")
     EventName.create(name: "event2")
