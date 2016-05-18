@@ -18,4 +18,8 @@ class PayloadRequest < ActiveRecord::Base
   def self.web_browser_breakdown
     joins(:user_agent).pluck(:browser).uniq
   end
+
+  def self.os_breakdown
+    joins(:user_agent).pluck(:os).uniq
+  end
 end
