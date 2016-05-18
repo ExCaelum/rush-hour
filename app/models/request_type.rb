@@ -5,8 +5,7 @@ class RequestType < ActiveRecord::Base
 
   def self.most_frequent_request_type
     request_frequency = PayloadRequest.group(:request_type).order("count_all desc").count
-    request_frequency.max_by { |k,v,| v }.first
-    #works, could be better
+    request_frequency.keys.first.verb
   end
 
   def self.all_http_verbs

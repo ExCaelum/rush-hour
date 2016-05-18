@@ -48,7 +48,7 @@ class RequestTypeTest < Minitest::Test
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 48,
                           referred_by: "www.referrer.com",
-                          request_type_id: 1,
+                          request_type_id: 2,
                           parameters: "[]",
                           event_name_id: 1,
                           resolution_id: 1,
@@ -66,10 +66,10 @@ class RequestTypeTest < Minitest::Test
                           ip: "100.00.00.00",
                           url_id: 1)
 
-    RequestType.create(verb: "POST")
     RequestType.create(verb: "GET")
+    RequestType.create(verb: "POST")
 
-    assert_equal "POST", RequestType.most_frequent_request_type.verb
+    assert_equal "POST", RequestType.most_frequent_request_type
   end
 
   def test_we_can_see_all_http_verbs
