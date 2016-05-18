@@ -66,7 +66,7 @@ class ResolutionTest < Minitest::Test
 
     assert_equal ["1 x 1"], Resolution.list_of_resolutions
 
-    resolution = Resolution.create(height: "2", width: "2")
+    Resolution.create(height: "2", width: "2")
 
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
     responded_in: 48,

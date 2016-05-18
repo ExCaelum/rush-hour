@@ -3,9 +3,21 @@ class Url < ActiveRecord::Base
 
   has_many :payload_requests
 
-
   def self.most_to_least_requested
     ordered_hash = PayloadRequest.group(:url).order('count_all desc').count
     ordered_hash.keys.map {|url_obj| url_obj[:address]}
+  end
+
+  def list_response_times
+    payload_requests.pluck(:responded_in)
+  end
+
+  #tested it with event name instead bc didnt have referrer yet/passed
+  #doesn't handle ties for third in any manner
+  def top_three_referrers
+    top_referrer_ids = payload_requests.group(:referrer_id).
+                       order('count_all desc').count.keys.take(3)
+    top_referrer_ids.map {|ref_id| Referrer.find(ref_id).name}
+
   end
 end
