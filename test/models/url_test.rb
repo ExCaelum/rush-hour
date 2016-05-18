@@ -318,6 +318,147 @@ class UrlTest < Minitest::Test
 
   end
 
+  def test_url_has_verb_association
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 40,
+                          referred_by: "4",
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 4,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip: "100.00.00.00",
+                          url_id: 1)
+
+    url = Url.create(address: "www.turing.com")
+    RequestType.create(verb: "GET")
+
+    assert_equal ["GET"], url.http_verbs
+  end
+
+  def test_url_has_verb_association_without_duplicates
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 40,
+                          referred_by: "4",
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 4,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip: "100.00.00.00",
+                          url_id: 1)
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 40,
+                          referred_by: "4",
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 4,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip: "100.00.00.00",
+                          url_id: 1)
+
+    url = Url.create(address: "www.turing.com")
+    RequestType.create(verb: "GET")
+
+    assert_equal ["GET"], url.http_verbs
+  end
+
+  def test_url_can_find_one_popular_agent
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 40,
+                          referred_by: "4",
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 4,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip: "100.00.00.00",
+                          url_id: 1)
+    UserAgent.create(os: "Windows", browser: "Chrome")
+    url = Url.create(address: "www.turing.com")
+
+
+    assert_equal ["Windows Chrome"], url.popular_agents
+  end
+
+  def test_url_can_find_popular_agents
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 40,
+                          referred_by: "4",
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 4,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip: "100.00.00.00",
+                          url_id: 1)
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 40,
+                          referred_by: "4",
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 4,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip: "100.00.00.00",
+                          url_id: 1)
+      PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 40,
+                            referred_by: "4",
+                            request_type_id: 1,
+                            parameters: "[]",
+                            event_name_id: 4,
+                            user_agent_id: 1,
+                            resolution_id: 1,
+                            ip: "100.00.00.00",
+                            url_id: 1)
+      PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 40,
+                            referred_by: "4",
+                            request_type_id: 1,
+                            parameters: "[]",
+                            event_name_id: 4,
+                            user_agent_id: 2,
+                            resolution_id: 1,
+                            ip: "100.00.00.00",
+                            url_id: 1)
+      PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 40,
+                            referred_by: "4",
+                            request_type_id: 1,
+                            parameters: "[]",
+                            event_name_id: 4,
+                            user_agent_id: 2,
+                            resolution_id: 1,
+                            ip: "100.00.00.00",
+                            url_id: 1)
+      PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                            responded_in: 40,
+                            referred_by: "4",
+                            request_type_id: 1,
+                            parameters: "[]",
+                            event_name_id: 4,
+                            user_agent_id: 3,
+                            resolution_id: 1,
+                            ip: "100.00.00.00",
+                            url_id: 1)
+
+    UserAgent.create(os: "Windows", browser: "Chrome")
+    UserAgent.create(os: "Macintosh", browser: "Safari")
+    UserAgent.create(os: "Linux", browser: "Internet Explorer")
+    UserAgent.create(os: "Macintosh", browser: "Firefox")
+
+
+
+    url = Url.create(address: "www.turing.com")
+
+
+    assert_equal ["Windows Chrome", "Macintosh Safari", "Linux Internet Explorer"], url.popular_agents
+  end
+
+
+
 
 
 
