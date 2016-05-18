@@ -16,6 +16,7 @@ class PayloadRequest < ActiveRecord::Base
   belongs_to :user_agent
   belongs_to :referrer
   belongs_to :ip
+  belongs_to :client
 
   def self.web_browser_breakdown
     user_agent_id = PayloadRequest.distinct.pluck(:user_agent_id)
