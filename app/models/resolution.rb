@@ -6,7 +6,9 @@ class Resolution < ActiveRecord::Base
 
   def self.list_of_resolutions
     id_list = PayloadRequest.distinct.pluck(:resolution_id)
-    id_list.map {|id| "#{Resolution.find(id).height} x #{Resolution.find(id).width}"}
+    id_list.map do |id|
+      "#{Resolution.find(id).height} x #{Resolution.find(id).width}"
+    end
   end
 
 end

@@ -5,7 +5,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <script src='./assets/0.10.0/application.js' type='text/javascript'></script>    
     <link href='./assets/0.10.0/application.css' media='screen, projection, print' rel='stylesheet' type='text/css'>
-    <link rel="shortcut icon" type="image/png" href="./assets/0.10.0/favicon_green.png" />
+    <link rel="shortcut icon" type="image/png" href="./assets/0.10.0/favicon_yellow.png" />
     <link rel="icon" type="image/png" href="./assets/0.10.0/favicon.png" />
   </head>
   
@@ -14,27 +14,27 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2016-05-17T21:53:26-06:00">2016-05-17T21:53:26-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2016-05-17T22:11:22-06:00">2016-05-17T22:11:22-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="green">91.07%</span></span>
+    (<span class="covered_percent"><span class="yellow">86.44%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.13
+         1.01
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>8</b> files in total.
-    <b>56</b> relevant lines. 
+    <b>59</b> relevant lines. 
     <span class="green"><b>51</b> lines covered</span> and
-    <span class="red"><b>5</b> lines missed </span>
+    <span class="red"><b>8</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -73,11 +73,11 @@
       <tr>
         <td class="strong"><a href="#1f8241e5505b8e7940cb89827fd63456dda7058b" class="src_link" title="app/models/payload_request.rb">app/models/payload_request.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>17</td>
-        <td>14</td>
-        <td>14</td>
+        <td>24</td>
+        <td>16</td>
+        <td>16</td>
         <td>0</td>
-        <td>1.0</td>
+        <td>1.1</td>
       </tr>
       
       <tr>
@@ -92,12 +92,12 @@
       
       <tr>
         <td class="strong"><a href="#ea64dde30cd9d932f9bde3591ce958f8db203a24" class="src_link" title="app/models/resolution.rb">app/models/resolution.rb</a></td>
-        <td class="green strong">100.0 %</td>
-        <td>12</td>
-        <td>7</td>
-        <td>7</td>
-        <td>0</td>
-        <td>1.7</td>
+        <td class="red strong">62.5 %</td>
+        <td>14</td>
+        <td>8</td>
+        <td>5</td>
+        <td>3</td>
+        <td>0.6</td>
       </tr>
       
       <tr>
@@ -289,8 +289,8 @@
     <h3>app/models/payload_request.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>14</b> relevant lines. 
-      <span class="green"><b>14</b> lines covered</span> and
+      <b>16</b> relevant lines. 
+      <span class="green"><b>16</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -397,6 +397,48 @@
         <li class="never" data-hits="" data-linenumber="17">
           
           
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="18">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="19">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def self.list_response_times_for_url(url_id)</code>
+        </li>
+      
+        <li class="covered" data-hits="3" data-linenumber="20">
+          <span class="hits">3</span>
+          
+          <code class="ruby">    Url.find(url_id).payload_requests.pluck(:responded_in)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="21">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="22">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="23">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="24">
+          
+          
           <code class="ruby">end</code>
         </li>
       
@@ -455,11 +497,11 @@
         <div class="source_table" id="ea64dde30cd9d932f9bde3591ce958f8db203a24">
   <div class="header">
     <h3>app/models/resolution.rb</h3>
-    <h4><span class="green">100.0 %</span> covered</h4>
+    <h4><span class="red">62.5 %</span> covered</h4>
     <div>
-      <b>7</b> relevant lines. 
-      <span class="green"><b>7</b> lines covered</span> and
-      <span class="red"><b>0</b> lines missed.</span>
+      <b>8</b> relevant lines. 
+      <span class="green"><b>5</b> lines covered</span> and
+      <span class="red"><b>3</b> lines missed.</span>
     </div>
   </div>
   
@@ -508,31 +550,43 @@
           <code class="ruby">  def self.list_of_resolutions</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="8">
-          <span class="hits">2</span>
+        <li class="missed" data-hits="0" data-linenumber="8">
+          
           
           <code class="ruby">    id_list = PayloadRequest.distinct.pluck(:resolution_id)</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="9">
-          <span class="hits">5</span>
+        <li class="missed" data-hits="0" data-linenumber="9">
           
-          <code class="ruby">    id_list.map {|id| &quot;#{Resolution.find(id).height} x #{Resolution.find(id).width}&quot;}</code>
+          
+          <code class="ruby">    id_list.map do |id|</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="10">
+        <li class="missed" data-hits="0" data-linenumber="10">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby">      &quot;#{Resolution.find(id).height} x #{Resolution.find(id).width}&quot;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="11">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">    end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="12">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="13">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="14">
           
           
           <code class="ruby">end</code>

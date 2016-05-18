@@ -81,4 +81,94 @@ class PayloadRequestTest < Minitest::Test
     assert_equal true, pr.valid?
     assert_equal 0, pr.errors.messages.length
   end
+
+
+  def test_response_time_list_includes_all_when_only_one_url
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+    responded_in: 48,
+    referred_by: "www.referrer.com",
+    request_type_id: 1,
+    parameters: "[]",
+    event_name_id: 1,
+    user_agent: "browswer and OS",
+    resolution_id: 1,
+    ip: "100.00.00.00",
+    url_id: 1)
+
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+    responded_in: 40,
+    referred_by: "www.referrer.com",
+    request_type_id: 1,
+    parameters: "[]",
+    event_name_id: 1,
+    user_agent: "browswer and OS",
+    resolution_id: 1,
+    ip: "100.00.00.00",
+    url_id: 1)
+
+    url1= Url.create(address: "www.url1.com")
+
+    assert_equal [48, 40], PayloadRequest.list_response_times_for_url(1)
+
+  end
+
+
+  def test_response_time_list_includes_all_when_multiple_urls
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+    responded_in: 48,
+    referred_by: "www.referrer.com",
+    request_type_id: 1,
+    parameters: "[]",
+    event_name_id: 1,
+    user_agent: "browswer and OS",
+    resolution_id: 1,
+    ip: "100.00.00.00",
+    url_id: 1)
+
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+    responded_in: 40,
+    referred_by: "www.referrer.com",
+    request_type_id: 1,
+    parameters: "[]",
+    event_name_id: 1,
+    user_agent: "browswer and OS",
+    resolution_id: 1,
+    ip: "100.00.00.00",
+    url_id: 2)
+
+    url1= Url.create(address: "www.url1.com")
+
+    assert_equal [48], PayloadRequest.list_response_times_for_url(1)
+
+  end
+
+
+  def test_response_time_list_includes_duplicates
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+    responded_in: 48,
+    referred_by: "www.referrer.com",
+    request_type_id: 1,
+    parameters: "[]",
+    event_name_id: 1,
+    user_agent: "browswer and OS",
+    resolution_id: 1,
+    ip: "100.00.00.00",
+    url_id: 1)
+
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+    responded_in: 48,
+    referred_by: "www.referrer.com",
+    request_type_id: 1,
+    parameters: "[]",
+    event_name_id: 1,
+    user_agent: "browswer and OS",
+    resolution_id: 1,
+    ip: "100.00.00.00",
+    url_id: 1)
+
+    url1= Url.create(address: "www.url1.com")
+
+    assert_equal [48, 48], PayloadRequest.list_response_times_for_url(1)
+
+  end
 end

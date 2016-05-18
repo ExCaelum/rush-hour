@@ -14,4 +14,11 @@ class PayloadRequest < ActiveRecord::Base
   belongs_to :request_type
   belongs_to :resolution
 
+
+
+  def self.list_response_times_for_url(url_id)
+    Url.find(url_id).payload_requests.pluck(:responded_in)
+  end
+
+
 end
