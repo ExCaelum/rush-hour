@@ -14,4 +14,8 @@ class PayloadRequest < ActiveRecord::Base
   belongs_to :event_name
   belongs_to :request_type
   belongs_to :user_agent
+
+  def self.web_browser_breakdown
+    joins(:user_agent).pluck(:browser).uniq
+  end
 end
