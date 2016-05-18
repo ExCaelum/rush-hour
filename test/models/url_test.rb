@@ -43,7 +43,7 @@ class UrlTest < Minitest::Test
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 1,
-    user_agent: "browswer and OS",
+    user_agent_id: 1,
     resolution_id: 1,
     ip: "100.00.00.00",
     url_id: 1)
@@ -53,7 +53,7 @@ class UrlTest < Minitest::Test
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 1,
-    user_agent: "browswer and OS",
+    user_agent_id: 1,
     resolution_id: 1,
     ip: "100.00.00.00",
     url_id: 1)
@@ -63,7 +63,7 @@ class UrlTest < Minitest::Test
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 1,
-    user_agent: "browswer and OS",
+    user_agent_id: 1,
     resolution_id: 1,
     ip: "100.00.00.00",
     url_id: 2)
@@ -73,7 +73,7 @@ class UrlTest < Minitest::Test
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 1,
-    user_agent: "browswer and OS",
+    user_agent_id: 1,
     resolution_id: 1,
     ip: "100.00.00.00",
     url_id: 3)
@@ -83,7 +83,7 @@ class UrlTest < Minitest::Test
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 1,
-    user_agent: "browswer and OS",
+    user_agent_id: 1,
     resolution_id: 1,
     ip: "100.00.00.00",
     url_id: 3)
@@ -100,7 +100,7 @@ class UrlTest < Minitest::Test
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 1,
-    user_agent: "browswer and OS",
+    user_agent_id: 1,
     resolution_id: 1,
     ip: "100.00.00.00",
     url_id: 3)
@@ -110,7 +110,7 @@ class UrlTest < Minitest::Test
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 1,
-    user_agent: "browswer and OS",
+    user_agent_id: 1,
     resolution_id: 1,
     ip: "100.00.00.00",
     url_id: 3)
@@ -127,7 +127,7 @@ class UrlTest < Minitest::Test
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 1,
-    user_agent: "browswer and OS",
+    user_agent_id: 1,
     resolution_id: 1,
     ip: "100.00.00.00",
     url_id: 1)
@@ -138,7 +138,7 @@ class UrlTest < Minitest::Test
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 1,
-    user_agent: "browswer and OS",
+    user_agent_id: 1,
     resolution_id: 1,
     ip: "100.00.00.00",
     url_id: 1)
@@ -157,7 +157,7 @@ class UrlTest < Minitest::Test
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 1,
-    user_agent: "browswer and OS",
+    user_agent_id: 1,
     resolution_id: 1,
     ip: "100.00.00.00",
     url_id: 1)
@@ -168,7 +168,7 @@ class UrlTest < Minitest::Test
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 1,
-    user_agent: "browswer and OS",
+    user_agent_id: 1,
     resolution_id: 1,
     ip: "100.00.00.00",
     url_id: 2)
@@ -187,7 +187,7 @@ class UrlTest < Minitest::Test
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 1,
-    user_agent: "browswer and OS",
+    user_agent_id: 1,
     resolution_id: 1,
     ip: "100.00.00.00",
     url_id: 1)
@@ -198,7 +198,7 @@ class UrlTest < Minitest::Test
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 1,
-    user_agent: "browswer and OS",
+    user_agent_id: 1,
     resolution_id: 1,
     ip: "100.00.00.00",
     url_id: 1)
@@ -220,7 +220,7 @@ class UrlTest < Minitest::Test
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 2,
-    user_agent: "browswer and OS",
+    user_agent_id: 1,
     resolution_id: 1,
     ip: "100.00.00.00",
     url_id: 1)
@@ -231,7 +231,7 @@ class UrlTest < Minitest::Test
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 1,
-    user_agent: "browswer and OS",
+    user_agent_id: 1,
     resolution_id: 1,
     ip: "100.00.00.00",
     url_id: 1)
@@ -242,7 +242,7 @@ class UrlTest < Minitest::Test
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 2,
-    user_agent: "browswer and OS",
+    user_agent_id: 1,
     resolution_id: 1,
     ip: "100.00.00.00",
     url_id: 1)
@@ -268,7 +268,7 @@ class UrlTest < Minitest::Test
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 1,
-    user_agent: "browswer and OS",
+    user_agent_id: 1,
     resolution_id: 1,
     ip: "100.00.00.00",
     url_id: 1)
@@ -279,7 +279,7 @@ class UrlTest < Minitest::Test
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 2,
-    user_agent: "browswer and OS",
+    user_agent_id: 1,
     resolution_id: 1,
     ip: "100.00.00.00",
     url_id: 1)
@@ -290,7 +290,7 @@ class UrlTest < Minitest::Test
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 3,
-    user_agent: "browswer and OS",
+    user_agent_id: 1,
     resolution_id: 1,
     ip: "100.00.00.00",
     url_id: 1)
@@ -301,7 +301,7 @@ class UrlTest < Minitest::Test
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 4,
-    user_agent: "browswer and OS",
+    user_agent_id: 1,
     resolution_id: 1,
     ip: "100.00.00.00",
     url_id: 1)
