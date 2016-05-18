@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160517212503) do
+ActiveRecord::Schema.define(version: 20160518045743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,20 +27,21 @@ ActiveRecord::Schema.define(version: 20160517212503) do
     t.integer  "responded_in"
     t.string   "referred_by"
     t.string   "parameters"
-    t.string   "user_agent"
     t.string   "resolution_width"
     t.string   "resolution_height"
     t.string   "ip"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.integer  "url_id"
-    t.integer  "event_name_id"
     t.integer  "request_type_id"
+    t.integer  "event_name_id"
+    t.integer  "user_agent_id"
   end
 
   add_index "payload_requests", ["event_name_id"], name: "index_payload_requests_on_event_name_id", using: :btree
   add_index "payload_requests", ["request_type_id"], name: "index_payload_requests_on_request_type_id", using: :btree
   add_index "payload_requests", ["url_id"], name: "index_payload_requests_on_url_id", using: :btree
+  add_index "payload_requests", ["user_agent_id"], name: "index_payload_requests_on_user_agent_id", using: :btree
 
   create_table "request_types", force: :cascade do |t|
     t.string   "verb"
@@ -50,6 +51,13 @@ ActiveRecord::Schema.define(version: 20160517212503) do
 
   create_table "urls", force: :cascade do |t|
     t.string   "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_agents", force: :cascade do |t|
+    t.string   "os"
+    t.string   "browser"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
