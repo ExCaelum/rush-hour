@@ -11,28 +11,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160517202213) do
+ActiveRecord::Schema.define(version: 20160518131004) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "ips", force: :cascade do |t|
+    t.string   "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "payload_requests", force: :cascade do |t|
     t.datetime "requested_at"
     t.integer  "responded_in"
-    t.string   "referred_by"
     t.string   "request_type"
     t.string   "parameters"
     t.string   "event_name"
     t.string   "user_agent"
     t.string   "resolution_width"
     t.string   "resolution_height"
-    t.string   "ip"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.integer  "url_id"
+    t.integer  "referrer_id"
+    t.integer  "ip_id"
   end
 
+  add_index "payload_requests", ["ip_id"], name: "index_payload_requests_on_ip_id", using: :btree
+  add_index "payload_requests", ["referrer_id"], name: "index_payload_requests_on_referrer_id", using: :btree
   add_index "payload_requests", ["url_id"], name: "index_payload_requests_on_url_id", using: :btree
+
+  create_table "referrers", force: :cascade do |t|
+    t.string "address"
+  end
 
   create_table "urls", force: :cascade do |t|
     t.string   "address"

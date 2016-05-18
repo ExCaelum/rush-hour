@@ -6,14 +6,14 @@ class PayloadRequestTest < Minitest::Test
   def test_it_can_add_a_payload_request
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 48,
-                          referred_by: "www.referrer.com",
+                          referrer_id: 1,
                           request_type: "GET",
                           parameters: "[]",
                           event_name: "event",
                           user_agent: "browswer and OS",
                           resolution_width: "1000",
                           resolution_height:"1000",
-                          ip: "100.00.00.00",
+                          ip_id: 1,
                           url_id: 1)
     # url = Url.create(address: "www.turing.com")
     #
@@ -27,14 +27,14 @@ class PayloadRequestTest < Minitest::Test
   def test_payload_info_stored_in_correct_format
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 48,
-                          referred_by: "www.referrer.com",
+                          referrer_id: 1,
                           request_type: "GET",
                           parameters: "[]",
                           event_name: "event",
                           user_agent: "browswer and OS",
                           resolution_width: "1000",
                           resolution_height:"1000",
-                          ip: "100.00.00.00",
+                          ip_id: 1,
                           url_id: 1)
 
     assert_equal Fixnum, PayloadRequest.first.id.class
@@ -46,14 +46,14 @@ class PayloadRequestTest < Minitest::Test
   def test_payload_request_can_be_found_by_id
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 48,
-                          referred_by: "www.referrer.com",
+                          referrer_id: 1,
                           request_type: "GET",
                           parameters: "[]",
                           event_name: "event",
                           user_agent: "browswer and OS",
                           resolution_width: "1000",
                           resolution_height:"1000",
-                          ip: "100.00.00.00",
+                          ip_id: 1,
                           url_id: 1)
 
     time = Time.new(2013, 02, 16, 21, 38, 28, "-07:00")
@@ -72,14 +72,14 @@ class PayloadRequestTest < Minitest::Test
   def test_that_the_payload_request_is_valid
     pr = PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 48,
-                          referred_by: "www.referrer.com",
+                          referrer_id: 1,
                           request_type: "GET",
                           parameters: "[]",
                           event_name: "event",
                           user_agent: "browswer and OS",
                           resolution_width: "1000",
                           resolution_height:"1000",
-                          ip: "100.00.00.00",
+                          ip_id: 1,
                           url_id: 1)
 
     assert_equal true, pr.valid?
