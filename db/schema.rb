@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160517212503) do
+ActiveRecord::Schema.define(version: 20160518021848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,22 +28,29 @@ ActiveRecord::Schema.define(version: 20160517212503) do
     t.string   "referred_by"
     t.string   "parameters"
     t.string   "user_agent"
-    t.string   "resolution_width"
-    t.string   "resolution_height"
     t.string   "ip"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.integer  "url_id"
     t.integer  "event_name_id"
     t.integer  "request_type_id"
+    t.integer  "resolution_id"
   end
 
   add_index "payload_requests", ["event_name_id"], name: "index_payload_requests_on_event_name_id", using: :btree
   add_index "payload_requests", ["request_type_id"], name: "index_payload_requests_on_request_type_id", using: :btree
+  add_index "payload_requests", ["resolution_id"], name: "index_payload_requests_on_resolution_id", using: :btree
   add_index "payload_requests", ["url_id"], name: "index_payload_requests_on_url_id", using: :btree
 
   create_table "request_types", force: :cascade do |t|
     t.string   "verb"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "resolutions", force: :cascade do |t|
+    t.string   "height"
+    t.string   "width"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
