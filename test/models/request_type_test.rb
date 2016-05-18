@@ -23,7 +23,7 @@ class RequestTypeTest < Minitest::Test
                           request_type_id: 1,
                           parameters: "[]",
                           event_name_id: 1,
-                          user_agent: "browswer and OS",
+                          user_agent_id: 1,
                           resolution_width: "1000",
                           resolution_height:"1000",
                           ip: "100.00.00.00",
