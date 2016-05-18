@@ -34,4 +34,27 @@ class EventNameTest < Minitest::Test
     assert_equal 1, event_name.payload_requests.first.event_name_id
     assert_equal "event", pr.event_name.name
   end
+
+
+
+  def test_it_sorts_by_requested
+    pr1 = PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",responded_in: 48,  referred_by: "www.referrer.com", request_type_id: 1, parameters: "[]",event_name_id: 1, user_agent: "browswer and OS", resolution_id: 1, ip: "100.00.00.00", url_id: 1)
+    pr2 = PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",responded_in: 48,  referred_by: "www.referrer.com", request_type_id: 1, parameters: "[]",event_name_id: 1, user_agent: "browswer and OS", resolution_id: 1, ip: "100.00.00.00", url_id: 1)
+    pr3 = PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",responded_in: 48,  referred_by: "www.referrer.com", request_type_id: 1, parameters: "[]",event_name_id: 2, user_agent: "browswer and OS", resolution_id: 1, ip: "100.00.00.00", url_id: 2)
+    pr4 = PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",responded_in: 48,  referred_by: "www.referrer.com", request_type_id: 1, parameters: "[]",event_name_id: 3, user_agent: "browswer and OS", resolution_id: 1, ip: "100.00.00.00", url_id: 3)
+    pr5 = PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",responded_in: 48,  referred_by: "www.referrer.com", request_type_id: 1, parameters: "[]",event_name_id: 3, user_agent: "browswer and OS", resolution_id: 1, ip: "100.00.00.00", url_id: 3)
+
+    evt1 = EventName.create(name: "event1")
+    evt2 = EventName.create(name: "event2")
+    evt3 = EventName.create(name: "event3")
+
+    assert_equal ["event1", "event3", "event2"], EventName.most_to_least_received
+
+    pr6 = PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",responded_in: 48,  referred_by: "www.referrer.com", request_type_id: 1, parameters: "[]",event_name_id: 3, user_agent: "browswer and OS", resolution_id: 1, ip: "100.00.00.00", url_id: 3)
+    pr7 = PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",responded_in: 48,  referred_by: "www.referrer.com", request_type_id: 1, parameters: "[]",event_name_id: 3, user_agent: "browswer and OS", resolution_id: 1, ip: "100.00.00.00", url_id: 3)
+
+    assert_equal ["event3", "event1", "event2"], EventName.most_to_least_received
+
+
+  end
 end

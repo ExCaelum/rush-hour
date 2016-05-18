@@ -43,6 +43,11 @@
         1,
         null,
         1,
+        null,
+        1,
+        2,
+        8,
+        null,
         null
       ],
       "/Users/kerrysheldon/turing/2module/projects/rush-hour/app/models/payload_request.rb": [
@@ -87,9 +92,8 @@
         null,
         null,
         1,
-        2,
-        8,
-        null,
+        0,
+        0,
         null,
         null
       ],
@@ -110,6 +114,6 @@
         null
       ]
     },
-    "timestamp": 1463541558
+    "timestamp": 1463542013
   }
 }
