@@ -19,13 +19,13 @@ class UserAgentTest < Minitest::Test
   def test_user_agent_payload_requests_relationship
     pr = PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 48,
-                          referred_by: "www.referrer.com",
+                          referrer_id: 1,
                           request_type_id: 1,
                           parameters: "[]",
                           event_name_id: 1,
                           user_agent_id: 1,
                           resolution_id: 1,
-                          ip: "100.00.00.00",
+                          ip_id: 1,
                           url_id: 1)
 
     ua = UserAgent.create(os: "osX", browser: "Chrome")

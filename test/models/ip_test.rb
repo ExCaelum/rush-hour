@@ -15,12 +15,11 @@ class IpTest < Minitest::Test
     pr = PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 48,
                           referrer_id: 1,
-                          request_type: "GET",
+                          request_type_id: 1,
                           parameters: "[]",
-                          event_name: "event",
-                          user_agent: "browswer and OS",
-                          resolution_width: "1000",
-                          resolution_height:"1000",
+                          event_name_id: 1,
+                          user_agent_id: 1,
+                          resolution_id: 1,
                           ip_id: 1,
                           url_id: 1)
     assert_equal "127.0.0.1", pr.ip.address

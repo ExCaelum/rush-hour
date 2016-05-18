@@ -17,7 +17,7 @@ class Url < ActiveRecord::Base
   def top_three_referrers
     top_referrer_ids = payload_requests.group(:referrer_id).
                        order('count_all desc').count.keys.take(3)
-    top_referrer_ids.map {|ref_id| Referrer.find(ref_id).name}
+    top_referrer_ids.map {|ref_id| Referrer.find(ref_id).address}
 
   end
 
