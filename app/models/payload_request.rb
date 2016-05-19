@@ -44,4 +44,11 @@ class PayloadRequest < ActiveRecord::Base
     PayloadRequest.average(:responded_in)
   end
 
+  def self.duplicate?
+    #
+  end
+
+
+
+
 end
