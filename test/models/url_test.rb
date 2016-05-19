@@ -453,14 +453,14 @@ class UrlTest < Minitest::Test
     assert_equal ["Windows Chrome", "Macintosh Safari", "Linux Internet Explorer"], url.popular_agents
   end
 
-  def test_it_can_find_calculate_response_time_stats
+  def test_it_can_find_calculate_response_time_stats_for_one_url
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                                responded_in: 100,
                                referrer_id: 1,
-                               request_type_id: 1, 
+                               request_type_id: 1,
                                parameters: "[]",
                                event_name_id: 1,
-                               user_agent_id: 1, 
+                               user_agent_id: 1,
                                resolution_id: 1,
                                ip_id: 1,
                                url_id: 1)
@@ -468,19 +468,28 @@ class UrlTest < Minitest::Test
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                                responded_in: 20,
                                referrer_id: 1,
-                               request_type_id: 1, 
+                               request_type_id: 1,
                                parameters: "[]",
                                event_name_id: 1,
-                               user_agent_id: 1, 
+                               user_agent_id: 1,
                                resolution_id: 1,
                                ip_id: 1,
                                url_id: 1)
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                               responded_in: 2000,
+                               referrer_id: 1,
+                               request_type_id: 1,
+                               parameters: "[]",
+                               event_name_id: 1,
+                               user_agent_id: 1,
+                               resolution_id: 1,
+                               ip_id: 1,
+                               url_id: 2)
 
-    assert_equal 2, PayloadRequest.count
-    Url.create(address: "www.turing.com")
-    assert_equal 100, Url.max_response
-    assert_equal 20, Url.min_response
-    assert_equal 60, Url.average_response
+    url = Url.create(address: "www.turing.com")
+    assert_equal 100, url.max_response_for_url
+    assert_equal 20, url.min_response_for_url
+    assert_equal 60, url.average_response_for_url
   end
 
 end

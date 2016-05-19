@@ -135,5 +135,34 @@ class PayloadRequestTest < Minitest::Test
     assert_equal ["Macintosh", "Windows"], PayloadRequest.os_breakdown
   end
 
+  def test_it_can_find_calculate_response_time_stats_for_all_urls
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                               responded_in: 100,
+                               referrer_id: 1,
+                               request_type_id: 1,
+                               parameters: "[]",
+                               event_name_id: 1,
+                               user_agent_id: 1,
+                               resolution_id: 1,
+                               ip_id: 1,
+                               url_id: 1)
+
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                               responded_in: 20,
+                               referrer_id: 1,
+                               request_type_id: 1,
+                               parameters: "[]",
+                               event_name_id: 1,
+                               user_agent_id: 1,
+                               resolution_id: 1,
+                               ip_id: 1,
+                               url_id: 2)
+
+    assert_equal 2, PayloadRequest.count
+    assert_equal 100, PayloadRequest.max_response
+    assert_equal 20, PayloadRequest.min_response
+    assert_equal 60, PayloadRequest.average_response
+  end
+
 
 end
