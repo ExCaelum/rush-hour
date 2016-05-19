@@ -37,8 +37,8 @@ class ClientTest < Minitest::Test
                           ip_id: 1,
                           url_id: 1,
                           client_id: 2)
-    c1 = Client.create(root_url: "www.BestBuy.com")
-    Client.create(root_url: "www.KingSoopers.com")
+    c1 = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
+    Client.create(identifier: "KingSoopers", root_url: "www.KingSoopers.com")
     url = Url.create(address: "www.BestBuy.com/cameras")
 
     assert_equal 2, c1.payload_requests.length
