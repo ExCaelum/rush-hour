@@ -6,6 +6,7 @@ gem 'activerecord'
 gem 'sinatra-activerecord'
 gem 'user_agent_parser'
 
+
 group :development, :test do
   gem 'shotgun'
   gem 'minitest'
@@ -18,4 +19,5 @@ group :development, :test do
   gem 'cane'
   gem 'reek'
   gem 'rake'
+  gem 'pry'
 end

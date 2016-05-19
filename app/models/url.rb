@@ -36,16 +36,18 @@ class Url < ActiveRecord::Base
     end
   end
 
-  def self.max_response
-    PayloadRequest.maximum(:responded_in)
+
+
+  def max_response_for_url
+    payload_requests.maximum(:responded_in)
   end
 
-  def self.min_response
-    PayloadRequest.minimum(:responded_in)
+  def min_response_for_url
+    payload_requests.minimum(:responded_in)
   end
 
-  def self.average_response
-    PayloadRequest.average(:responded_in)
+  def average_response_for_url
+    payload_requests.average(:responded_in)
   end
 
 end
