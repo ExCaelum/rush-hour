@@ -30,7 +30,9 @@ class RushHourApp < Sinatra::Base
       PayloadRequest.record_payload(params[:payload], identifier)
       status 200
     end
-
   end
-
 end
+# else
+#   status 403
+#   body "This payload was already received."
+# end
