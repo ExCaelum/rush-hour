@@ -20,19 +20,19 @@ class RushHourApp < Sinatra::Base
     if params.empty? || !params.key?('payload') ||(params['payload'] && params['payload'].empty?)
       status 400
       body "Payload data was not provided."
-    # elsif PayloadRequest.duplicate?(params[:payload], identifier)
-    #   status 403
-    #   body "This payload was already received."
+    elsif PayloadRequest.duplicate?(params[:payload], identifier)
+      status 403
+      body "This payload was already received."
     elsif !Client.identifier_exists?(identifier)
       status 403
       body "#{identifier} is not a registered application."
     else
-      if PayloadRequest.record_payload(params[:payload], identifier)
-        status 200
-      else
-        status 403
-        body "This payload was already received."
-      end
+      PayloadRequest.record_payload(params[:payload], identifier)
+      status 200
     end
-
+  end
 end
+# else
+#   status 403
+#   body "This payload was already received."
+# end
