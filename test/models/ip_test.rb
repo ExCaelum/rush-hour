@@ -4,7 +4,6 @@ class IpTest < Minitest::Test
   include TestHelpers
 
   def test_it_creates_an_ip
-
     ip = Ip.create(address: "127.0.0.1")
 
     assert_equal ("127.0.0.1"), ip.address
