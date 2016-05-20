@@ -49,35 +49,34 @@ class PayloadRequest < ActiveRecord::Base
 
   def self.duplicate?(payload, client_identifier)
     # parse the payload
+    parsed_payload = PayloadParser.parse_json(payload)
+
     # add the client key value pair to the parsed payload
-      #parsed_payload['client'] = Client.find_by(identifier: client_identifier)
+    parsed_payload[:client] = Client.find_by(identifier: client_identifier)
+
     # generate SHA from parsed payload with added client key-value pair == SHA *****
-    # Now SHA reflects the whole record
+    key = PayloadParser.generate_sha(parsed_payload)
+
     # check to see if SHA exists in the database
-      #PayloadRequest.find_by(key: SHA)
-    #if it exists
-      #return true
-    #else
-      #return false
-    #end
+    pr = PayloadRequest.find_by(key: key)
+    if pr.class == PayloadRequest
+      true
+    else
+      false
+    end
   end
-
-  def generate_sha(payload)
-    Digest::SHA1.hexdigest(payload)
-  end
-
 
   def self.record_payload(raw_json, client_identifier)
     payload = PayloadParser.parse_json(raw_json)
     client = Client.find_by(identifier: client_identifier)
-    #parsed_payload['client'] = client
+    inclusive_payload = payload
+    inclusive_payload[:client] = client
 
 
 
     pr = PayloadRequest.new
     pr.requested_at = payload[:requested_at]
     pr.responded_in = payload[:responded_in]
-    # pr.key = SHAFUNCTON CLASS.generate_sha(
     pr.referrer = Referrer.find_or_create_by(payload[:referrer])
     pr.request_type = RequestType.find_or_create_by(payload[:request_type])
     pr.event_name = EventName.find_or_create_by(payload[:event_name])
@@ -87,10 +86,8 @@ class PayloadRequest < ActiveRecord::Base
     pr.url = Url.find_or_create_by(payload[:url])
     pr.client = client
     pr.parameters = "[]"
-    require "pry"; binding.pry
+    pr.key = PayloadParser.generate_sha(inclusive_payload)
     pr.save
-
   end
-
 
 end

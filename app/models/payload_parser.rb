@@ -19,6 +19,10 @@ module PayloadParser
 		result
   end
 
+	def self.generate_sha(payload)
+    Digest::SHA1.hexdigest(payload.to_s)
+  end
+
 	# def initialize(params)
 	# 	final_params = create_payload(params)
 	# end
@@ -32,7 +36,7 @@ module PayloadParser
 	# end
 	#
   # def get_response(request, payload, client)
-  #   if #check to see that the sha isnt the same SHA1
+  #   if PayloadRequest.exists?(payload[:digest])
 	# 		[403, "#{client.identifier}: This request has already been created."]
 	# 	elsif request.save
 	# 		[200, "Payload Request Created"]
