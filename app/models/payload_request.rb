@@ -48,17 +48,11 @@ class PayloadRequest < ActiveRecord::Base
   end
 
   def self.duplicate?(payload, client_identifier)
-    # parse the payload
     parsed_payload = PayloadParser.parse_json(payload)
-
-    # add the client key value pair to the parsed payload
     parsed_payload[:client] = Client.find_by(identifier: client_identifier)
-
-    # generate SHA from parsed payload with added client key-value pair == SHA *****
     key = PayloadParser.generate_sha(parsed_payload)
-
-    # check to see if SHA exists in the database
     pr = PayloadRequest.find_by(key: key)
+
     if pr.class == PayloadRequest
       true
     else
@@ -71,8 +65,6 @@ class PayloadRequest < ActiveRecord::Base
     client = Client.find_by(identifier: client_identifier)
     inclusive_payload = payload
     inclusive_payload[:client] = client
-
-
 
     pr = PayloadRequest.new
     pr.requested_at = payload[:requested_at]

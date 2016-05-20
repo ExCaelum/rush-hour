@@ -151,7 +151,6 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_that_the_payload_request_can_find_all_os
-    skip
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 48,
                           referrer_id: 1,
