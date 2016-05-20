@@ -34,7 +34,7 @@ class RegisterClientTest < Minitest::Test
 
     assert_equal 1, Client.count
     assert_equal 403, last_response.status
-    assert_equal "Client with this identifier is already registered.", last_response.body
+    assert_equal "Client with CLIENT1 identifier is already registered.", last_response.body
 
   end
 

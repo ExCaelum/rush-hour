@@ -47,6 +47,10 @@ class PayloadRequest < ActiveRecord::Base
     PayloadRequest.average(:responded_in)
   end
 
+  def self.duplicate?(payload, client_identifier)
+
+  end
+
   def self.record_payload(raw_json, client_identifier)
     payload = PayloadParser.parse_json(raw_json)
 
@@ -68,7 +72,6 @@ class PayloadRequest < ActiveRecord::Base
     pr.save
 
   end
-
 
 
 end
