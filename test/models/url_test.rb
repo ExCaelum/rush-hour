@@ -116,7 +116,6 @@ class UrlTest < Minitest::Test
     url_id: 3)
 
     assert_equal ["www.url3.com", "www.url1.com", "www.url2.com"], Url.most_to_least_requested
-
   end
 
 
@@ -146,7 +145,6 @@ class UrlTest < Minitest::Test
     url= Url.create(address: "www.url1.com")
 
     assert_equal [48, 40], url.list_response_times
-
   end
 
 
@@ -176,7 +174,6 @@ class UrlTest < Minitest::Test
     url= Url.create(address: "www.url1.com")
 
     assert_equal [48], url.list_response_times
-
   end
 
 
@@ -206,7 +203,6 @@ class UrlTest < Minitest::Test
     url= Url.create(address: "www.url1.com")
 
     assert_equal [48, 48], url.list_response_times
-
   end
 
 
@@ -253,7 +249,6 @@ class UrlTest < Minitest::Test
     Referrer.create(address: "referrer2")
 
     assert_equal ["referrer2", "referrer1"], url.top_three_referrers
-
   end
 
   def test_returns_top_referrers_for_url_more_than_3
@@ -311,7 +306,6 @@ class UrlTest < Minitest::Test
     Referrer.create(address: "referrer4")
 
     assert_equal ["referrer1", "referrer2", "referrer3"], url.top_three_referrers
-
   end
 
   def test_url_has_verb_association
@@ -491,5 +485,4 @@ class UrlTest < Minitest::Test
     assert_equal 20, url.min_response_for_url
     assert_equal 60, url.average_response_for_url
   end
-
 end

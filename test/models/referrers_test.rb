@@ -31,6 +31,8 @@ class ReferrerTest < Minitest::Test
                                url_id: 1)
 
     ref = Referrer.create(address: "www.turing.io")
+
+    assert_equal Referrer, pr.referrer.class
   end
 
 end

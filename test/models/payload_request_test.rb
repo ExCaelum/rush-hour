@@ -25,7 +25,7 @@ class PayloadRequestTest < Minitest::Test
     assert_equal 1, Referrer.count
     assert_equal 1, Resolution.count
     assert_equal 1, UserAgent.count
-
+    # assert PayloadRequest.key
   end
 
   def test_it_handles_similar_payload_requests
@@ -40,6 +40,7 @@ class PayloadRequestTest < Minitest::Test
     assert_equal 1, Referrer.count
     assert_equal 1, Resolution.count
     assert_equal 1, UserAgent.count
+    # assert PayloadRequest.key
 
   end
 
@@ -61,6 +62,7 @@ class PayloadRequestTest < Minitest::Test
     assert_equal 1, PayloadRequest.count
     assert_equal 1, PayloadRequest.first.id
     assert_equal 48, PayloadRequest.first.responded_in
+    # assert PayloadRequest.key
   end
 
   def test_payload_info_stored_in_correct_format
@@ -204,5 +206,83 @@ class PayloadRequestTest < Minitest::Test
     assert_equal 60, PayloadRequest.average_response
   end
 
+
+# NOT WRITING TO DATABASE YET:
+
+  def test_that_parsed_json_has_client_key_value_pair
+    client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
+    raw_payload = '{"url":"http://jumpstartlab.com/blog","requestedAt":"2013-02-16 21:38:28 -0700","respondedIn":37,"referredBy":"http://jumpstartlab.com","requestType":"GET","parameters":[],"eventName": "socialLogin","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"1920","resolutionHeight":"1280","ip":"63.29.38.211"}'
+
+    parsed_payload = PayloadParser.parse_json(raw_payload)
+    parsed_payload[:client] = Client.find_by(identifier: "BestBuy")
+
+    assert_equal client, parsed_payload[:client]
+  end
+
+  def test_we_generate_a_sha_from_payload
+    client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
+    raw_payload = '{"url":"http://jumpstartlab.com/blog","requestedAt":"2013-02-16 21:38:28 -0700","respondedIn":37,"referredBy":"http://jumpstartlab.com","requestType":"GET","parameters":[],"eventName": "socialLogin","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"1920","resolutionHeight":"1280","ip":"63.29.38.211"}'
+
+    parsed_payload = PayloadParser.parse_json(raw_payload)
+    parsed_payload[:client] = Client.find_by(identifier: "BestBuy")
+
+    key = Digest::SHA1.hexdigest(parsed_payload.to_s)
+
+    assert_equal String, key.class
+    assert_equal 40, key.length
+  end
+
+  def test_duplicates_payloads_share_same_sha
+    client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
+    raw_payload = '{"url":"http://jumpstartlab.com/blog","requestedAt":"2013-02-16 21:38:28 -0700","respondedIn":37,"referredBy":"http://jumpstartlab.com","requestType":"GET","parameters":[],"eventName": "socialLogin","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"1920","resolutionHeight":"1280","ip":"63.29.38.211"}'
+
+    parsed_payload = PayloadParser.parse_json(raw_payload)
+    parsed_payload[:client] = Client.find_by(identifier: "BestBuy")
+
+    key = Digest::SHA1.hexdigest(parsed_payload.to_s)
+    key2 = Digest::SHA1.hexdigest(parsed_payload.to_s)
+    key3 = Digest::SHA1.hexdigest(parsed_payload.to_s)
+
+    assert_equal key, key2
+    assert_equal key, key3
+  end
+
+  def test_if_unique_shas_are_generated_for_different_payloads
+    client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
+    raw_payload = '{"url":"http://jumpstartlab.com/blog","requestedAt":"2013-02-16 21:38:28 -0700","respondedIn":37,"referredBy":"http://jumpstartlab.com","requestType":"GET","parameters":[],"eventName": "socialLogin","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"1920","resolutionHeight":"1280","ip":"63.29.38.211"}'
+    client2 = Client.create(identifier: "MicroCenter", root_url: "www.MicroCenter.com")
+    raw_payload2 = '{"url":"http://pivotallabs.com/blog","requestedAt":"2014-02-16 21:38:28 -0700","respondedIn":57,"referredBy":"http://pivotallab.com","requestType":"POST","parameters":[],"eventName": "nonsocialLogin","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"1920","resolutionHeight":"1280","ip":"63.29.38.211"}'
+
+    parsed_payload = PayloadParser.parse_json(raw_payload)
+    parsed_payload[:client] = Client.find_by(identifier: "BestBuy")
+    parsed_payload2 = PayloadParser.parse_json(raw_payload2)
+    parsed_payload2[:client] = Client.find_by(identifier: "MicroCenter")
+
+    key = Digest::SHA1.hexdigest(parsed_payload.to_s)
+    key2 = Digest::SHA1.hexdigest(parsed_payload2.to_s)
+
+    refute_equal key, key2
+  end
+
+  def test_duplicate_payload_is_rejected
+    client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
+    client_identifier = "BestBuy"
+    raw_payload = '{"url":"http://jumpstartlab.com/blog","requestedAt":"2013-02-16 21:38:28 -0700","respondedIn":37,"referredBy":"http://jumpstartlab.com","requestType":"GET","parameters":[],"eventName": "socialLogin","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"1920","resolutionHeight":"1280","ip":"63.29.38.211"}'
+
+    PayloadRequest.record_payload(raw_payload, client_identifier)
+    assert_equal 1, PayloadRequest.count
+
+    boolean = PayloadRequest.duplicate?(raw_payload, client_identifier)
+    assert_equal true, boolean
+  end
+
+  def test_non_duplicate_payload_is_passed_through
+    client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
+    client_identifier = "BestBuy"
+    raw_payload = '{"url":"http://jumpstartlab.com/blog","requestedAt":"2013-02-16 21:38:28 -0700","respondedIn":37,"referredBy":"http://jumpstartlab.com","requestType":"GET","parameters":[],"eventName": "socialLogin","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"1920","resolutionHeight":"1280","ip":"63.29.38.211"}'
+
+    boolean = PayloadRequest.duplicate?(raw_payload, client_identifier)
+    assert_equal false, boolean
+  end
 
 end

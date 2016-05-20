@@ -8,7 +8,6 @@ class ResolutionTest < Minitest::Test
 
     assert_equal "1000", resolution.height
     assert_equal "100", resolution.width
-
   end
 
   def test_it_invalidates_resolution
@@ -80,6 +79,5 @@ class ResolutionTest < Minitest::Test
     url_id: 1)
 
     assert_equal ["1 x 1", "2 x 2"], Resolution.list_of_resolutions
-
   end
 end
