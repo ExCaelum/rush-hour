@@ -5,7 +5,7 @@ class RushHourApp < Sinatra::Base
 
     if Client.find_by(identifier: params['identifier'])
       status 403
-      body "Client with this identifier is already registered." #add interpolation
+      body "Client with #{params[:identifier].upcase} identifier is already registered." 
     elsif client.save
       status 200
       body "{\"Identifier\": #{params[:identifier]}}"
