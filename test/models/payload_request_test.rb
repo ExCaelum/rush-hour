@@ -3,6 +3,46 @@ require_relative "../test_helper"
 class PayloadRequestTest < Minitest::Test
   include TestHelpers
 
+
+  def test_can_write_raw_json_to_database
+    raw_json = '{"url":"http://jumpstartlab.com/blog","requestedAt":"2013-02-16 21:38:28 -0700","respondedIn":37,"referredBy":"http://jumpstartlab.com","requestType":"GET","parameters":[],"eventName": "socialLogin","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"1920","resolutionHeight":"1280","ip":"63.29.38.211"}'
+    Client.create(identifier: "client1", root_url: "www.example.com")
+    PayloadRequest.record_payload(raw_json, "client1")
+
+    assert_equal 1, PayloadRequest.count
+
+    pr = PayloadRequest.find(1)
+
+    assert_kind_of Time, pr.requested_at
+    assert_equal Time.parse("2013-02-16 21:38:28 -0700"), pr.requested_at
+
+    assert_kind_of Numeric, pr.responded_in
+    assert_equal 37, pr.responded_in
+
+    assert_kind_of Fixnum, pr.client_id
+    assert_equal 1, pr.client_id
+
+    assert_equal 1, Referrer.count
+    assert_equal 1, Resolution.count
+    assert_equal 1, UserAgent.count
+
+  end
+
+  def test_it_handles_similar_payload_requests
+    raw_json_1 = '{"url":"http://jumpstartlab.com/blog","requestedAt":"2013-02-16 21:38:28 -0700","respondedIn":37,"referredBy":"http://jumpstartlab.com","requestType":"GET","parameters":[],"eventName": "socialLogin","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"1920","resolutionHeight":"1280","ip":"63.29.38.211"}'
+    Client.create(identifier: "client1", root_url: "www.example.com")
+    PayloadRequest.record_payload(raw_json_1, "client1")
+
+    raw_json_2 = '{"url":"http://jumpstartlab.com/blog","requestedAt":"2014-02-16 21:38:28 -0700","respondedIn":37,"referredBy":"http://jumpstartlab.com","requestType":"GET","parameters":[],"eventName": "socialLogin","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"1920","resolutionHeight":"1280","ip":"63.29.38.211"}'
+    PayloadRequest.record_payload(raw_json_2, "client1")
+
+    assert_equal 2, PayloadRequest.count
+    assert_equal 1, Referrer.count
+    assert_equal 1, Resolution.count
+    assert_equal 1, UserAgent.count
+
+  end
+
   def test_it_can_add_a_payload_request
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 48,

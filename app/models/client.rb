@@ -11,6 +11,4 @@ class Client < ActiveRecord::Base
   has_many :urls, through: :payload_requests
   has_many :user_agents, through: :payload_requests
 
-
-
 end
