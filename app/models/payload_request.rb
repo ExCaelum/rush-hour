@@ -69,6 +69,7 @@ class PayloadRequest < ActiveRecord::Base
     # Do something:
     pr.client = client
     pr.parameters = "[]"
+    require "pry"; binding.pry
     pr.save
 
   end

@@ -25,7 +25,7 @@ class PayloadRequestTest < Minitest::Test
     assert_equal 1, Referrer.count
     assert_equal 1, Resolution.count
     assert_equal 1, UserAgent.count
-
+    assert PayloadRequest.key
   end
 
   def test_it_handles_similar_payload_requests
@@ -40,6 +40,7 @@ class PayloadRequestTest < Minitest::Test
     assert_equal 1, Referrer.count
     assert_equal 1, Resolution.count
     assert_equal 1, UserAgent.count
+    assert PayloadRequest.key
 
   end
 
@@ -61,6 +62,7 @@ class PayloadRequestTest < Minitest::Test
     assert_equal 1, PayloadRequest.count
     assert_equal 1, PayloadRequest.first.id
     assert_equal 48, PayloadRequest.first.responded_in
+    assert PayloadRequest.key
   end
 
   def test_payload_info_stored_in_correct_format
@@ -204,5 +206,36 @@ class PayloadRequestTest < Minitest::Test
     assert_equal 60, PayloadRequest.average_response
   end
 
+
+# NOT WRITING TO DATABASE YET:
+
+  def test_that_parsed_json_has_client_key_value_pair
+    # parsed_payload -> Shaw
+  end
+
+  def test_we_generate_a_sha_from_payload
+  end
+
+  def test_duplicates_payloads_share_same_sha
+  end
+
+  def test_if_unique_shas_are_generated_for_different_payloads
+  end
+
+# BELOW TESTS WRITE TO DATABASE:
+
+  def test_duplicate_payload_is_rejected
+    # payload = curl
+    #client_identifier = thing
+    # x2 ^^
+    # PayloadRequest.record_payload(payload, client_identifier)
+
+    # PayloadRequest.duplicate?(payload, client_identifier) returns false?
+  end
+
+  def test_we_can_find_non_duplicates
+    # PayloadRequest.record_payload(payload, client_identifier)
+    # PayloadRequest.duplicate?(payload, client_identifier) returns true?
+  end
 
 end
