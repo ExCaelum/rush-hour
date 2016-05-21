@@ -52,6 +52,7 @@ class UserSeesSingleEventTest < FeatureTest
     visit('/sources/Client1/events/Event1')
 # save_and_open_page
 
+    assert page.has_content?("Total requests: 4")
     assert page.has_content?("Requests by Hour for Event1")
     within('.am12') do
       assert page.has_content?("0")

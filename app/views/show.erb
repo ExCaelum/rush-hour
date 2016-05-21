@@ -1,5 +1,8 @@
 
   <h1><%= @event_name  %></h1>
+
+  <h4> Total requests: <%= @count_by_hour.values.inject(0) {|sum, hour_count|sum + hour_count} %> </h4>
+
   <h4> Requests by Hour for <%= @event_name %></h4>
 
   <table>
