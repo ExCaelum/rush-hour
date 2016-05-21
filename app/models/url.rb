@@ -36,8 +36,6 @@ class Url < ActiveRecord::Base
     end
   end
 
-
-
   def max_response_for_url
     payload_requests.maximum(:responded_in)
   end

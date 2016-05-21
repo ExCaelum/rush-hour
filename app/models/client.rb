@@ -11,7 +11,6 @@ class Client < ActiveRecord::Base
   has_many :urls, through: :payload_requests
   has_many :user_agents, through: :payload_requests
 
-
   def average_response_time_for_client
     payload_requests.average(:responded_in)
   end
@@ -47,12 +46,15 @@ class Client < ActiveRecord::Base
   def url_list_ordered_by_request_count
     urls.group(:address).order('count_all desc').count.keys
   end
-  
+
 
   def all_screen_resolutions_for_client
     resolution_list = resolutions.pluck('DISTINCT width, height')
     resolution_list.map {|resolution| "#{resolution[0]} x #{resolution[1]}"}
   end
 
+  def self.identifier_exists?(identifier)
+    Client.find_by(identifier: identifier)
+  end
 
 end

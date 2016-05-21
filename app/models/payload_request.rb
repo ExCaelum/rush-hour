@@ -1,4 +1,6 @@
 class PayloadRequest < ActiveRecord::Base
+  include PayloadParser
+
   validates :url_id, presence: true
   validates :requested_at, presence: true
   validates :responded_in, presence: true
@@ -8,6 +10,7 @@ class PayloadRequest < ActiveRecord::Base
   validates :resolution_id, presence: true
   validates :user_agent_id, presence: true
   validates :ip_id, presence: true
+  # validates :client_id, presence: true
 
   belongs_to :url
   belongs_to :event_name
@@ -42,6 +45,41 @@ class PayloadRequest < ActiveRecord::Base
 
   def self.average_response
     PayloadRequest.average(:responded_in)
+  end
+
+  def self.duplicate?(payload, client_identifier)
+    parsed_payload = PayloadParser.parse_json(payload)
+    parsed_payload[:client] = Client.find_by(identifier: client_identifier)
+    key = PayloadParser.generate_sha(parsed_payload)
+    pr = PayloadRequest.find_by(key: key)
+
+    if pr.class == PayloadRequest
+      true
+    else
+      false
+    end
+  end
+
+  def self.record_payload(raw_json, client_identifier)
+    payload = PayloadParser.parse_json(raw_json)
+    client = Client.find_by(identifier: client_identifier)
+    inclusive_payload = payload
+    inclusive_payload[:client] = client
+
+    pr = PayloadRequest.new
+    pr.requested_at = payload[:requested_at]
+    pr.responded_in = payload[:responded_in]
+    pr.referrer = Referrer.find_or_create_by(payload[:referrer])
+    pr.request_type = RequestType.find_or_create_by(payload[:request_type])
+    pr.event_name = EventName.find_or_create_by(payload[:event_name])
+    pr.resolution = Resolution.find_or_create_by(payload[:resolution])
+    pr.user_agent = UserAgent.find_or_create_by(payload[:user_agent])
+    pr.ip = Ip.find_or_create_by(payload[:ip])
+    pr.url = Url.find_or_create_by(payload[:url])
+    pr.client = client
+    pr.parameters = "[]"
+    pr.key = PayloadParser.generate_sha(inclusive_payload)
+    pr.save
   end
 
 end

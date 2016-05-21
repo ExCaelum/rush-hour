@@ -3,7 +3,7 @@ require_relative '../test_helper'
 class EventNameTest < Minitest::Test
   include TestHelpers
 
-  def test_it_creates_a_event_name
+  def test_it_creates_an_event_name
     event_name = EventName.create(name: "event")
 
     assert_equal "event", event_name.name
@@ -54,9 +54,6 @@ class EventNameTest < Minitest::Test
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",responded_in: 48,  referrer_id: 1, request_type_id: 1, parameters: "[]",event_name_id: 3, user_agent_id: 1, resolution_id: 1, ip_id: 1, url_id: 3)
 
     assert_equal ["event3", "event1", "event2"], EventName.most_to_least_received
-
-
-
   end
 
 

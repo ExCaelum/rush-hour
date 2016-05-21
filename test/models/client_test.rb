@@ -3,7 +3,7 @@ require_relative "../test_helper"
 class ClientTest < Minitest::Test
   include TestHelpers
 
-  def test_everything
+  def test_client_connections
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 48,
                           referrer_id: 1,
