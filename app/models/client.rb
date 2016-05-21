@@ -1,3 +1,4 @@
+require 'pry'
 class Client < ActiveRecord::Base
   validates :root_url, presence: true
   validates :identifier, presence: true, uniqueness: true
@@ -31,10 +32,6 @@ class Client < ActiveRecord::Base
     request_types.pluck('DISTINCT verb')
   end
 
-  def all_http_verbs_for_client
-    request_types.pluck('DISTINCT verb')
-  end
-
   def browser_breakdown_for_client
     user_agents.group(:browser).order('count_all desc').count
   end
@@ -56,5 +53,18 @@ class Client < ActiveRecord::Base
   def self.identifier_exists?(identifier)
     Client.find_by(identifier: identifier)
   end
+
+
+  def find_url_by_relative_path(relative_path)
+    full_path = root_url + "/" + relative_path
+    urls.find_by(address: full_path)
+  end
+
+  def relative_path_exists?(relative_path)
+    full_path = root_url + "/" + relative_path
+    !urls.find_by(address: full_path).nil?
+  end
+
+
 
 end

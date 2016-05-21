@@ -45,7 +45,12 @@ class Url < ActiveRecord::Base
   end
 
   def average_response_for_url
-    payload_requests.average(:responded_in)
+    payload_requests.average(:responded_in).round(2)
   end
+
+  def response_times_order
+    list_response_times.sort.reverse
+  end
+
 
 end

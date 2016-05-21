@@ -31,6 +31,32 @@ module RushHour
         status 200
       end
     end
+
+    get '/sources/:identifier' do |identifier|
+      client = Client.find_by(identifier: identifier)
+      if Client.identifier_exists?(identifier)
+        if client.payload_requests.count > 0
+          @client = client
+          erb :dashboard
+        else
+          @client = client
+          erb :no_payload
+        end
+      else #no client
+        erb :error
+      end
+    end
+
+    get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
+      client = Client.find_by(identifier: identifier)
+      if client.relative_path_exists?(relative_path)
+        @url = client.find_url_by_relative_path(relative_path)
+        erb :url_dashboard
+      else
+        @path = relative_path
+        erb :url_error
+      end
+    end
+
   end
 end
-

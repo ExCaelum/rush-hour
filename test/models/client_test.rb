@@ -274,7 +274,7 @@ class ClientTest < Minitest::Test
     req2 = RequestType.create(verb: "POST")
     req3 = RequestType.create(verb: "PUT")
     req4 = RequestType.create(verb: "DELETE")
-    assert_equal ["GET", "POST"], client.all_http_verbs_for_client
+    assert_equal ["GET", "POST"], client.all_http_verbs_for_client.sort
   end
 
   def test_it_lists_all_resoultions_for_client
@@ -345,7 +345,7 @@ class ClientTest < Minitest::Test
       assert_equal true, client.all_screen_resolutions_for_client.include?("1 x 2")
       assert_equal true, client.all_screen_resolutions_for_client.include?("1 x 3")
       assert_equal false, client.all_screen_resolutions_for_client.include?("1 x 4")
-      assert_equal client.all_screen_resolutions_for_client, client.all_screen_resolutions_for_client.uniq
+      assert_equal ["1 x 1", "1 x 2", "1 x 3"], client.all_screen_resolutions_for_client.uniq.sort
 
 
     end
@@ -554,8 +554,144 @@ class ClientTest < Minitest::Test
 
             assert_equal expected, client.url_list_ordered_by_request_count
 
+  end
 
-          end
+  def test_client_can_return_list_of_relative_paths
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 48,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 1,
+                          user_agent_id: 1,
+                          ip_id: 1,
+                          url_id: 1,
+                          client_id: 1)
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 50,
+                          referrer_id: 1,
+                          request_type_id: 2,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 2,
+                          user_agent_id: 2,
+                          ip_id: 1,
+                          url_id: 3,
+                          client_id: 1)
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 50,
+                          referrer_id: 1,
+                          request_type_id: 2,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 3,
+                          user_agent_id: 1,
+                          ip_id: 1,
+                          url_id: 3,
+                          client_id: 1)
+
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 50,
+                          referrer_id: 1,
+                          request_type_id: 2,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 3,
+                          user_agent_id: 1,
+                          ip_id: 1,
+                          url_id: 2,
+                          client_id: 1)
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 100,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 4,
+                          user_agent_id: 3,
+                          ip_id: 1,
+                          url_id: 1,
+                          client_id: 2)
+
+    client = Client.create(identifier: "BestBuy", root_url: "www.test.com")
+    Url.create(address: "www.test.com")
+    Url.create(address: "www.test.com/list")
+    Url.create(address: "www.test.com/new")
+
+    result = client.find_url_by_relative_path("list")
+
+    assert_equal "www.test.com/list", result.address
+  end
+
+  def test_relative_path_exists
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 48,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 1,
+                          user_agent_id: 1,
+                          ip_id: 1,
+                          url_id: 1,
+                          client_id: 1)
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 50,
+                          referrer_id: 1,
+                          request_type_id: 2,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 2,
+                          user_agent_id: 2,
+                          ip_id: 1,
+                          url_id: 3,
+                          client_id: 1)
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 50,
+                          referrer_id: 1,
+                          request_type_id: 2,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 3,
+                          user_agent_id: 1,
+                          ip_id: 1,
+                          url_id: 3,
+                          client_id: 1)
+
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 50,
+                          referrer_id: 1,
+                          request_type_id: 2,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 3,
+                          user_agent_id: 1,
+                          ip_id: 1,
+                          url_id: 2,
+                          client_id: 1)
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 100,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 4,
+                          user_agent_id: 3,
+                          ip_id: 1,
+                          url_id: 1,
+                          client_id: 2)
+
+    client = Client.create(identifier: "BestBuy", root_url: "www.test.com")
+    Url.create(address: "www.test.com")
+    Url.create(address: "www.test.com/list")
+    Url.create(address: "www.test.com/new")
+
+    assert client.relative_path_exists?("list")
+    assert client.relative_path_exists?("new")
+    refute client.relative_path_exists?("gokart")
+  end
+
 
 
 
