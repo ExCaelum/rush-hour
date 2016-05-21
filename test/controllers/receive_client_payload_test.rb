@@ -5,7 +5,7 @@ class ReceiveClientPayloadTest < Minitest::Test
   include TestHelpers
 
   def app
-    RushHourApp
+    RushHour::Server
   end
 
   def test_it_returns_400_error_for_missing_payload

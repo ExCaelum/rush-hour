@@ -88,6 +88,14 @@ class ClientTest < Minitest::Test
   assert_equal expected, client.event_requests_by_hour("event1")
 end
 
+def test_groups_events_by_hour_returns_empty_if_no_requests
+
+  client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
+  event = EventName.create(name: "event1")
+
+  assert_equal ({}), client.event_requests_by_hour("event1")
+end
+
 
 
 end

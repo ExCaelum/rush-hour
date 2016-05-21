@@ -16,7 +16,9 @@ class Client < ActiveRecord::Base
   end
 
   def event_requests_by_hour(event_name)
-    payload_requests.joins(:event_name).where("event_names.name='#{event_name}'").group("date_part('hour', requested_at AT TIME ZONE 'GMT-7')").count
+    payload_requests.joins(:event_name).
+    where("event_names.name='#{event_name}'").
+    group("date_part('hour', requested_at AT TIME ZONE 'GMT-7')").count
   end
 
 

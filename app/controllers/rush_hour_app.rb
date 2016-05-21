@@ -31,8 +31,24 @@ class RushHourApp < Sinatra::Base
       status 200
     end
   end
+
+  get '/sources/:identifier/events' do |identifier|
+    @identifier = identifier
+    @events = Client.find_by(identifier: identifier).event_names
+    status 200
+    last_response = "event listing for #{identifier}"
+    # erb :index
+  end
+
+  # get 'sources/*/events/*' do
+  #   identifier = params[:splat].first
+  #   event_name = params[:splat].last
+  #   pass unless
+
+  # get 'sources/:identifier/events/:event_name' do |identifier, event_name|
+  #   @count_by_hour = Client.find_by(identifier: identifier).event_requests_by_hour
+  #   erb :show
+  # end
+
+
 end
-# else
-#   status 403
-#   body "This payload was already received."
-# end
