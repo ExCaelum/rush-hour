@@ -8,4 +8,7 @@ class EventName < ActiveRecord::Base
     ordered_hash = PayloadRequest.group(:event_name).order('count_all desc').count
     ordered_hash.keys.map {|event_obj| event_obj[:name]}
   end
+
+  
+
 end
