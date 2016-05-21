@@ -32,10 +32,6 @@ class Client < ActiveRecord::Base
     request_types.pluck('DISTINCT verb')
   end
 
-  def all_http_verbs_for_client
-    request_types.pluck('DISTINCT verb')
-  end
-
   def browser_breakdown_for_client
     user_agents.group(:browser).order('count_all desc').count
   end
@@ -60,7 +56,6 @@ class Client < ActiveRecord::Base
 
 
   def find_url_by_relative_path(relative_path)
-    # binding.pry
     full_path = root_url + "/" + relative_path
     urls.find_by(address: full_path)
   end

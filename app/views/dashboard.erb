@@ -43,4 +43,15 @@
       <td> <%= @client.all_screen_resolutions_for_client %> </td>
     </tr>
   </table>
+  <table class="table">
+    <tr>
+      <td> Urls </td>
+      <% @client.url_list_ordered_by_request_count.each do |url| %>
+        <tr>
+          <td> <%= url %> </td>
+          <td> <a href="/sources/<%= @client.identifier %>/urls/<%= url.split('/').last %>">Link </a> </td>
+        </tr>
+      <% end %>
+    </tr>
+  </table>
 </div>
