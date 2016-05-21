@@ -147,7 +147,7 @@ class PayloadRequestTest < Minitest::Test
     UserAgent.create(os: "Macintosh", browser: "Chrome")
     UserAgent.create(os: "Macintosh", browser: "Safari")
 
-    assert_equal ["Chrome", "Safari"], PayloadRequest.web_browser_breakdown
+    assert_equal ["Chrome", "Safari"], PayloadRequest.web_browser_breakdown.sort
   end
 
   def test_that_the_payload_request_can_find_all_os
@@ -174,7 +174,7 @@ class PayloadRequestTest < Minitest::Test
     UserAgent.create(os: "Macintosh", browser: "Chrome")
     UserAgent.create(os: "Windows", browser: "Safari")
 
-    assert_equal ["Macintosh", "Windows"], PayloadRequest.os_breakdown
+    assert_equal ["Macintosh", "Windows"], PayloadRequest.os_breakdown.sort
   end
 
   def test_it_can_find_calculate_response_time_stats_for_all_urls

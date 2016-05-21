@@ -10,12 +10,17 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'capybara/dsl'
 require 'database_cleaner'
+require 'tilt/erb'
 
 
 Capybara.app = RushHour::Server
 DatabaseCleaner.strategy = :truncation
 
 module TestHelpers
+  def setup
+    DatabaseCleaner.start
+    super
+  end
   def teardown
     DatabaseCleaner.clean
     super

@@ -78,6 +78,6 @@ class ResolutionTest < Minitest::Test
     ip_id: 1,
     url_id: 1)
 
-    assert_equal ["1 x 1", "2 x 2"], Resolution.list_of_resolutions
+    assert_equal ["1 x 1", "2 x 2"], Resolution.list_of_resolutions.sort
   end
 end

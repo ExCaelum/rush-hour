@@ -288,7 +288,7 @@ class UrlTest < Minitest::Test
 
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
     responded_in: 40,
-    referrer_id: 4,
+    referrer_id: 1,
     request_type_id: 1,
     parameters: "[]",
     event_name_id: 4,
@@ -305,7 +305,7 @@ class UrlTest < Minitest::Test
     Referrer.create(address: "referrer3")
     Referrer.create(address: "referrer4")
 
-    assert_equal ["referrer1", "referrer2", "referrer3"], url.top_three_referrers
+    assert_equal ["referrer1", "referrer2", "referrer3"], url.top_three_referrers.sort
   end
 
   def test_url_has_verb_association
@@ -485,4 +485,5 @@ class UrlTest < Minitest::Test
     assert_equal 20, url.min_response_for_url
     assert_equal 60, url.average_response_for_url
   end
+
 end

@@ -1,3 +1,4 @@
+require 'pry'
 class Client < ActiveRecord::Base
   validates :root_url, presence: true
   validates :identifier, presence: true, uniqueness: true
@@ -25,10 +26,6 @@ class Client < ActiveRecord::Base
 
   def most_frequent_request_type_for_client
     request_types.group(:verb).order('count_all desc').count.keys.first
-  end
-
-  def all_http_verbs_for_client
-    request_types.pluck('DISTINCT verb')
   end
 
   def all_http_verbs_for_client
@@ -63,8 +60,14 @@ class Client < ActiveRecord::Base
     group("date_part('hour', requested_at AT TIME ZONE 'GMT-7')").count
   end
 
+  def find_url_by_relative_path(relative_path)
+    full_path = root_url + "/" + relative_path
+    urls.find_by(address: full_path)
+  end
 
-
-
+  def relative_path_exists?(relative_path)
+    full_path = root_url + "/" + relative_path
+    !urls.find_by(address: full_path).nil?
+  end
 
 end
