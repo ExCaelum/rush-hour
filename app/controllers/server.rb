@@ -39,20 +39,30 @@ module RushHour
       get '/sources/:identifier/events' do |identifier|
         @identifier = identifier
         @events = Client.find_by(identifier: identifier).event_names
-        erb :index
+        erb :event_index
 
       end
-
-      # get 'sources/*/events/*' do
-      #   identifier = params[:splat].first
-      #   event_name = params[:splat].last
-      #   pass unless
 
       get '/sources/:identifier/events/:event_name' do |identifier, event_name|
-        @event_name = event_name
-        @count_by_hour = Client.find_by(identifier: identifier).event_requests_by_hour(event_name)
-        last_response = "event info for #{identifier} event: #{event_name}"
-        erb :show
+        client = Client.find_by(identifier: identifier)
+
+        event = client.event_names.find_by(name: event_name)
+
+        pass unless event
+
+        @event_name = event.name
+
+        @count_by_hour = client.event_requests_by_hour(event_name)
+
+        erb :event_show
       end
+
+      get '/sources/:identifier/events/*' do |identifier, splat|
+        @identifier = identifier
+        @bad_event_name = params[:splat].first
+        erb :event_not_found
+      end
+
+
     end
 end
