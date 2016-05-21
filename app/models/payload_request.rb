@@ -11,6 +11,7 @@ class PayloadRequest < ActiveRecord::Base
   validates :user_agent_id, presence: true
   validates :ip_id, presence: true
   # validates :client_id, presence: true
+  # validates :key, presence: true
 
   belongs_to :url
   belongs_to :event_name
