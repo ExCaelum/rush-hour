@@ -5,7 +5,7 @@ class RegisterClientTest < Minitest::Test
   include TestHelpers
 
   def app
-    RushHourApp
+    RushHour::Server
   end
 
   def test_it_registers_a_client_with_valid_attributes
