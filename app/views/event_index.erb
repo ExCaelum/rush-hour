@@ -1,0 +1,9 @@
+
+    <h1>
+      Event Listing
+    </h1>
+    <ul>
+      <% @events.each do |event| %>
+        <li><a href="/sources/<%= @identifier %>/events/<%= event.name %>"><%= event.name %></a></li>
+      <% end %>
+    </ul>
