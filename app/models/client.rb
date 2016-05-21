@@ -58,4 +58,12 @@ class Client < ActiveRecord::Base
     Client.find_by(identifier: identifier)
   end
 
+
+  def find_url_by_relative_path(relative_path)
+    # binding.pry
+    full_path = root_url + "/" + relative_path
+    urls.find_by(address: full_path)
+  end
+
+
 end
