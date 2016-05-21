@@ -39,6 +39,7 @@ module RushHour
           @client = client
           erb :dashboard
         else
+          @client = client
           erb :no_payload
         end
       else #no client
