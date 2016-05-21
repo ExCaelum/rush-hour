@@ -8,199 +8,101 @@
   <table>
     <tr class="am12">
       <th>12AM</th>
-      <%if @count_by_hour[0.0] %>
-        <td><%=@count_by_hour[0.0]%></td>
-      <% else %>
-        <td>0</td>
-      <% end %>
+      <%= erb :_hour_data, locals: {count: @count_by_hour[0.0]} %>
     </tr>
     <tr class="am1">
       <th>1AM</th>
-      <%if @count_by_hour[1.0] %>
-        <td><%=@count_by_hour[1.0]%></td>
-      <% else %>
-        <td>0</td>
-      <% end %>
+      <%= erb :_hour_data, locals: {count: @count_by_hour[1.0]} %>
     </tr>
     <tr class="am2">
       <th>2AM</th>
-      <%if @count_by_hour[2.0] %>
-        <td><%=@count_by_hour[2.0]%></td>
-      <% else %>
-        <td>0</td>
-      <% end %>
+      <%= erb :_hour_data, locals: {count: @count_by_hour[2.0]} %>
     </tr>
     <tr class="am3">
       <th>3AM</th>
-      <%if @count_by_hour[3.0] %>
-        <td><%=@count_by_hour[3.0]%></td>
-      <% else %>
-        <td>0</td>
-      <% end %>
+      <%= erb :_hour_data, locals: {count: @count_by_hour[3.0]} %>
     </tr>
     <tr class="am4">
       <th>4AM</th>
-      <%if @count_by_hour[4.0] %>
-        <td><%=@count_by_hour[4.0]%></td>
-      <% else %>
-        <td>0</td>
-      <% end %>
+      <%= erb :_hour_data, locals: {count: @count_by_hour[4.0]} %>
     </tr>
     <tr>
       <th>5AM</th>
-      <%if @count_by_hour[5.0] %>
-        <td><%=@count_by_hour[5.0]%></td>
-      <% else %>
-        <td>0</td>
-      <% end %>
+      <%= erb :_hour_data, locals: {count: @count_by_hour[5.0]} %>
     </tr>
-
-
     <tr>
       <th>6AM</th>
-      <%if @count_by_hour[6.0] %>
-        <td><%=@count_by_hour[6.0]%></td>
-      <% else %>
-        <td>0</td>
-      <% end %>
+      <%= erb :_hour_data, locals: {count: @count_by_hour[6.0]} %>
     </tr>
     <tr>
       <th>7AM</th>
-      <%if @count_by_hour[7.0] %>
-        <td><%=@count_by_hour[7.0]%></td>
-      <% else %>
-        <td>0</td>
-      <% end %>
+      <%= erb :_hour_data, locals: {count: @count_by_hour[7.0]} %>
     </tr>
     <tr>
       <th>8AM</th>
-      <%if @count_by_hour[8.0] %>
-        <td><%=@count_by_hour[8.0]%></td>
-      <% else %>
-        <td>0</td>
-      <% end %>
+      <%= erb :_hour_data, locals: {count: @count_by_hour[8.0]} %>
     </tr>
     <tr>
       <th>9AM</th>
-      <%if @count_by_hour[9.0] %>
-        <td><%=@count_by_hour[9.0]%></td>
-      <% else %>
-        <td>0</td>
-      <% end %>
+      <%= erb :_hour_data, locals: {count: @count_by_hour[9.0]} %>
     </tr>
     <tr>
       <th>10AM</th>
-      <%if @count_by_hour[10.0] %>
-        <td><%=@count_by_hour[10.0]%></td>
-      <% else %>
-        <td>0</td>
-      <% end %>
+      <%= erb :_hour_data, locals: {count: @count_by_hour[10.0]} %>
     </tr>
     <tr>
       <th>11AM</th>
-      <%if @count_by_hour[11.0] %>
-        <td><%=@count_by_hour[11.0]%></td>
-      <% else %>
-        <td>0</td>
-      <% end %>
+      <%= erb :_hour_data, locals: {count: @count_by_hour[11.0]} %>
     </tr>
 
     <tr>
       <th>12PM</th>
-      <%if @count_by_hour[12.0] %>
-        <td><%=@count_by_hour[12.0]%></td>
-      <% else %>
-        <td>0</td>
-      <% end %>
+      <%= erb :_hour_data, locals: {count: @count_by_hour[12.0]} %>
     </tr>
     <tr>
       <th>1PM</th>
-      <%if @count_by_hour[13.0] %>
-        <td><%=@count_by_hour[13.0]%></td>
-      <% else %>
-        <td>0</td>
-      <% end %>
+      <%= erb :_hour_data, locals: {count: @count_by_hour[13.0]} %>
     </tr>
     <tr>
       <th>2PM</th>
-      <%if @count_by_hour[14.0] %>
-        <td><%=@count_by_hour[14.0]%></td>
-      <% else %>
-        <td>0</td>
-      <% end %>
+      <%= erb :_hour_data, locals: {count: @count_by_hour[14.0]} %>
     </tr>
     <tr>
       <th>3PM</th>
-      <%if @count_by_hour[15.0] %>
-        <td><%=@count_by_hour[15.0]%></td>
-      <% else %>
-        <td>0</td>
-      <% end %>
+      <%= erb :_hour_data, locals: {count: @count_by_hour[15.0]} %>
     </tr>
     <tr>
       <th>4PM</th>
-      <%if @count_by_hour[16.0] %>
-        <td><%=@count_by_hour[16.0]%></td>
-      <% else %>
-        <td>0</td>
-      <% end %>
+      <%= erb :_hour_data, locals: {count: @count_by_hour[16.0]} %>
     </tr>
     <tr>
       <th>5PM</th>
-      <%if @count_by_hour[17.0] %>
-        <td><%=@count_by_hour[17.0]%></td>
-      <% else %>
-        <td>0</td>
-      <% end %>
+      <%= erb :_hour_data, locals: {count: @count_by_hour[17.0]} %>
     </tr>
 
 
     <tr>
       <th>6PM</th>
-      <%if @count_by_hour[18.0] %>
-        <td><%=@count_by_hour[18.0]%></td>
-      <% else %>
-        <td>0</td>
-      <% end %>
+      <%= erb :_hour_data, locals: {count: @count_by_hour[18.0]} %>
     </tr>
     <tr>
       <th>7PM</th>
-      <%if @count_by_hour[19.0] %>
-        <td><%=@count_by_hour[19.0]%></td>
-      <% else %>
-        <td>0</td>
-      <% end %>
+      <%= erb :_hour_data, locals: {count: @count_by_hour[19.0]} %>
     </tr>
     <tr>
       <th>8PM</th>
-      <%if @count_by_hour[20.0] %>
-        <td><%=@count_by_hour[20.0]%></td>
-      <% else %>
-        <td>0</td>
-      <% end %>
+      <%= erb :_hour_data, locals: {count: @count_by_hour[20.0]} %>
     </tr>
     <tr>
       <th>9PM</th>
-      <%if @count_by_hour[21.0] %>
-        <td><%=@count_by_hour[21.0]%></td>
-      <% else %>
-        <td>0</td>
-      <% end %>
+      <%= erb :_hour_data, locals: {count: @count_by_hour[21.0]} %>
     </tr>
     <tr>
       <th>10PM</th>
-      <%if @count_by_hour[22.0] %>
-        <td><%=@count_by_hour[22.0]%></td>
-      <% else %>
-        <td>0</td>
-      <% end %>
+      <%= erb :_hour_data, locals: {count: @count_by_hour[22.0]} %>
     </tr>
     <tr>
       <th>11PM</th>
-      <%if @count_by_hour[23.0] %>
-        <td><%=@count_by_hour[23.0]%></td>
-      <% else %>
-        <td>0</td>
-      <% end %>
+      <%= erb :_hour_data, locals: {count: @count_by_hour[23.0]} %>
     </tr>
   </table>
