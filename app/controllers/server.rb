@@ -33,8 +33,17 @@ module RushHour
     end
 
     get '/sources/:identifier' do |identifier|
-      @client = Client.find_by(identifier: identifier)
-      erb :dashboard
+      client = Client.find_by(identifier: identifier)
+      if Client.identifier_exists?(identifier)
+        if client.payload_requests.count > 0
+          @client = client
+          erb :dashboard
+        else
+          erb :no_payload
+        end
+      else #no client
+        erb :error
+      end
     end
 
   end
