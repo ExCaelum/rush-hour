@@ -53,6 +53,7 @@ module RushHour
         @url = client.find_url_by_relative_path(relative_path)
         erb :url_dashboard
       else
+        @path = relative_path
         erb :url_error
       end
     end
