@@ -31,6 +31,11 @@ module RushHour
         status 200
       end
     end
+
+    get '/sources/:identifier' do |identifier|
+      @client = Client.find_by(identifier: identifier)
+      erb: dashboard
+    end
+    
   end
 end
-
