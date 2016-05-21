@@ -34,8 +34,8 @@ module RushHour
 
     get '/sources/:identifier' do |identifier|
       @client = Client.find_by(identifier: identifier)
-      erb: dashboard
+      erb :dashboard
     end
-    
+
   end
 end

@@ -1,0 +1,45 @@
+<div class="container">
+  <h1> <%= @client.identifier %></h1>
+  <table class="table">
+    <tr>
+      <td> Name </td>
+      <td> Data </td>
+    </tr>
+    <tr>
+      <td> Average Response Time </td>
+      <td> <%= @client.average_response_time_for_client %> </td>
+    </tr>
+    <tr>
+      <td> Minimum Response Time </td>
+      <td> <%= @client.min_response_time_for_client %> </td>
+    </tr>
+    <tr>
+      <td> Maximum Response Time </td>
+      <td> <%= @client.max_response_time_for_client %> </td>
+    </tr>
+    <tr>
+      <td> Most Frequent Request Type </td>
+      <td> <%= @client.most_frequent_request_type_for_client %> </td>
+    </tr>
+    <tr>
+      <td> HTTP Verbs Used </td>
+      <td> <%= @client.all_http_verbs_for_client %> </td>
+    </tr>
+    <tr>
+      <td> Urls </td>
+      <td> <%= @client.url_list_ordered_by_request_count %> </td>
+    </tr>
+    <tr>
+      <td> Web Browsers</td>
+      <td> <%= @client.browser_breakdown_for_client %> </td>
+    </tr>
+    <tr>
+      <td> Operating Systems </td>
+      <td> <%= @client.operating_system_breakdown_for_client %> </td>
+    </tr>
+    <tr>
+      <td> Resolutions </td>
+      <td> <%= @client.all_screen_resolutions_for_client %> </td>
+    </tr>
+  </table>
+</div>
