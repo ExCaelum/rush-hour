@@ -624,6 +624,75 @@ class ClientTest < Minitest::Test
     assert_equal "www.test.com/list", result.address
   end
 
+  def test_relative_path_exists
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 48,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 1,
+                          user_agent_id: 1,
+                          ip_id: 1,
+                          url_id: 1,
+                          client_id: 1)
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 50,
+                          referrer_id: 1,
+                          request_type_id: 2,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 2,
+                          user_agent_id: 2,
+                          ip_id: 1,
+                          url_id: 3,
+                          client_id: 1)
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 50,
+                          referrer_id: 1,
+                          request_type_id: 2,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 3,
+                          user_agent_id: 1,
+                          ip_id: 1,
+                          url_id: 3,
+                          client_id: 1)
+
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 50,
+                          referrer_id: 1,
+                          request_type_id: 2,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 3,
+                          user_agent_id: 1,
+                          ip_id: 1,
+                          url_id: 2,
+                          client_id: 1)
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 100,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 4,
+                          user_agent_id: 3,
+                          ip_id: 1,
+                          url_id: 1,
+                          client_id: 2)
+
+    client = Client.create(identifier: "BestBuy", root_url: "www.test.com")
+    Url.create(address: "www.test.com")
+    Url.create(address: "www.test.com/list")
+    Url.create(address: "www.test.com/new")
+
+    assert client.relative_path_exists?("list")
+    assert client.relative_path_exists?("new")
+    refute client.relative_path_exists?("gokart")
+  end
+
+
 
 
 

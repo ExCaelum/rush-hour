@@ -49,9 +49,12 @@ module RushHour
 
     get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
       client = Client.find_by(identifier: identifier)
-      @url = client.find_url_by_relative_path(relative_path)
-      erb :url_dashboard
-
+      if client.relative_path_exists?(relative_path)
+        @url = client.find_url_by_relative_path(relative_path)
+        erb :url_dashboard
+      else
+        erb :url_error
+      end
     end
 
   end

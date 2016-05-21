@@ -65,5 +65,11 @@ class Client < ActiveRecord::Base
     urls.find_by(address: full_path)
   end
 
+  def relative_path_exists?(relative_path)
+    full_path = root_url + "/" + relative_path
+    !urls.find_by(address: full_path).nil?
+  end
+
+
 
 end
