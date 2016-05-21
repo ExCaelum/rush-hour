@@ -22,7 +22,7 @@ module RushHour
         body "Payload data was not provided."
       elsif PayloadRequest.duplicate?(params[:payload], identifier)
         status 403
-        body "This payload was already received.\n"
+        body "This payload was already received."
       elsif !Client.identifier_exists?(identifier)
         status 403
         body "#{identifier} is not a registered application."
