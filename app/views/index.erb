@@ -1,17 +1,9 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <h2>
+
+    <h1>
       Event Listing
-    </h2>
+    </h1>
     <ul>
       <% @events.each do |event| %>
         <li><a href="/sources/<%= @identifier %>/events/<%= event.name %>"><%= event.name %></a></li>
       <% end %>
     </ul>
-  </body>
-</html>

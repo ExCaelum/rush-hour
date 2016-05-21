@@ -1,8 +1,8 @@
 require_relative '../test_helper'
 
-class UserSeesAllRobotsTest < FeatureTest
+class UserSeesAllEventsTest < FeatureTest
 
-  def test_user_sees_all_robots
+  def test_user_sees_all_events
     Client.create(identifier: "Client1", root_url: "www.client.com")
     EventName.create(name: "Event1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
