@@ -75,13 +75,13 @@ module RushHour
       end
     end
 
-    get '/sources/:identifier/urls/:relative_path' do |identifier, rel_path|
+    get '/sources/:identifier/urls/:rel_path' do |identifier, rel_path|
       client = Client.find_by(identifier: identifier)
       if client.relative_path_exists?(rel_path)
         @url = client.find_url_by_relative_path(rel_path)
         erb :url_dashboard
       else
-        @error_message = "The #{relative_path} URL has not yet been requested
+        @error_message = "The #{rel_path} URL has not yet been requested
                           for #{identifier.capitalize}"
         erb :error
       end
