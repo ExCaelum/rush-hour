@@ -5,8 +5,8 @@ class RequestType < ActiveRecord::Base
   has_many :clients, through: :payload_requests
 
   def self.most_frequent_request_type
-    request_frequency = PayloadRequest.group(:request_type).order("count_all desc").count
-    request_frequency.keys.first
+    PayloadRequest.group(:request_type).
+    order("count_all desc").count.keys.first
   end
 
   def self.all_http_verbs

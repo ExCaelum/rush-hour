@@ -30,7 +30,9 @@ class Url < ActiveRecord::Base
   end
 
   def popular_agents
-    top_user_agents = payload_requests.group(:user_agent_id).order('count_all desc').count.keys.take(3)
+    top_user_agents = payload_requests.group(:user_agent_id).
+                      order('count_all desc').count.keys.take(3)
+
     top_user_agents.map do |id|
       "#{UserAgent.find(id).os} #{UserAgent.find(id).browser}"
     end
