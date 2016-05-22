@@ -21,11 +21,14 @@ class SeeEventIndexTest < Minitest::Test
                                resolution_id: 1,
                                ip_id: 1,
                                url_id: 1,
-                               client_id: 1)
+                               client_id: 1,
+                               key: 1)
     get '/sources/Client1/events'
     assert_equal 200, last_response.status
-    assert_equal true, last_response.body.include?("Event Listing"
-    )
+    assert_equal true, last_response.body.include?("Event1")
+    assert_equal true, last_response.body.include?("Event1")
+    assert_equal true, last_response.body.include?("all of the events")
+
   end
 
   def test_it_hits_event_show_for_valid_event_client_combo
@@ -41,7 +44,8 @@ class SeeEventIndexTest < Minitest::Test
                                resolution_id: 1,
                                ip_id: 1,
                                url_id: 1,
-                               client_id: 1)
+                               client_id: 1,
+                               key: 1)
     get '/sources/Client1/events/Event1'
     assert_equal 200, last_response.status
     assert_equal true, last_response.body.include?("Event1")
@@ -61,10 +65,11 @@ class SeeEventIndexTest < Minitest::Test
                                resolution_id: 1,
                                ip_id: 1,
                                url_id: 1,
-                               client_id: 1)
+                               client_id: 1,
+                               key: 1)
     get '/sources/Client1/events/Event2'
     assert_equal 200, last_response.status
-    expected = "Event2 was not found."
+    expected = "Event2 was not found"
     assert_equal true, last_response.body.include?(expected)
   end
 

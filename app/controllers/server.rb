@@ -4,8 +4,7 @@ module RushHour
     post '/sources' do
       client = Client.new({identifier: params["identifier"],
                            root_url: params["rootUrl"]})
-
-      name = params[:identifier]
+      name   = params[:identifier]
       if Client.find_by(identifier: params['identifier'])
         status 403
         body "Client with #{name.upcase} identifier is already registered."
@@ -16,12 +15,11 @@ module RushHour
         status 400
         body "#{client.errors.full_messages.join(", ")}"
       end
-
     end
 
     post '/sources/:identifier/data' do |identifier|
       payload = params[:payload]
-      if params.empty? || !params.key?('payload') ||(payload && payload.empty?)
+      if params.empty?|| !params.key?('payload')|| (payload && payload.empty?)
         status 400
         body "Payload data was not provided."
       elsif PayloadRequest.duplicate?(params[:payload], identifier)
@@ -40,7 +38,6 @@ module RushHour
       @identifier = identifier
       @events = Client.find_by(identifier: identifier).event_names
       erb :event_index
-
     end
 
     get '/sources/:identifier/events/:event_name' do |identifier, event_name|
@@ -58,33 +55,35 @@ module RushHour
       erb :error
     end
 
-    get '/sources/:identifier' do |identifier|
+    get '/sources/:identifier/urls/:rel_path' do |identifier, rel_path|
       client = Client.find_by(identifier: identifier)
-      if Client.identifier_exists?(identifier)
-        if client.payload_requests.count > 0
-          @client = client
-          erb :dashboard
-        else
-          @error_message = "There is no payload data for
-                           #{identifier.capitalize}"
-          erb :error
-        end
-      else #no client
-        @error_message = "#{identifier.capitalize} does not yet exist"
-        erb :error
-      end
+      @url = client.find_url_by_relative_path(rel_path)
+      pass unless @url
+      erb :url_dashboard
     end
 
-    get '/sources/:identifier/urls/:relative_path' do |identifier, rel_path|
-      client = Client.find_by(identifier: identifier)
-      if client.relative_path_exists?(rel_path)
-        @url = client.find_url_by_relative_path(rel_path)
-        erb :url_dashboard
+    get '/sources/:identifier/urls/*' do |identifier, splat|
+      @error_message = "No Data for #{splat} for #{identifier.capitalize}"
+      erb :error
+    end
+
+    get '/sources/:identifier' do |identifier|
+      @client = Client.find_by(identifier: identifier)
+      pass unless @client
+      payload_requests = @client.payload_requests
+      pass if payload_requests.empty?
+      erb :dashboard
+    end
+
+
+    get '/sources/*' do |splat|
+      if !Client.find_by(identifier: splat)
+        @error_message = "#{splat.capitalize} does not exist"
       else
-        @error_message = "The #{relative_path} URL has not yet been requested
-                          for #{identifier.capitalize}"
-        erb :error
+        @error_message = "There is no payload data for:
+        #{splat.capitalize}"
       end
+      erb :error
     end
 
   end
