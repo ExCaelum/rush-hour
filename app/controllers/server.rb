@@ -53,7 +53,7 @@ module RushHour
     end
 
     get '/sources/:identifier/events/*' do |identifier, splat|
-      @error_message = "#{splat} was not found."
+      @error_message = "#{splat} was not found for #{identifier.capitalize}."
       @body = "<a href='/sources/#{identifier}/events'>See List of Events</a>"
       erb :error
     end
