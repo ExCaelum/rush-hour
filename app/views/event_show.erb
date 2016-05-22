@@ -1,107 +1,97 @@
-
-  <h1><%= @event_name  %></h1>
-
-  <h4> Total requests: <%= @count_by_hour.values.inject(0) {|sum, hour_count|sum + hour_count} %> </h4>
-
-  <h4> Requests by Hour for <%= @event_name %></h4>
-
-  <table>
-    <tr class="am12">
-      <th>12AM</th>
-      <%= erb :_hour_data, locals: {count: @count_by_hour[0.0]} %>
-    </tr>
-    <tr class="am1">
-      <th>1AM</th>
-      <%= erb :_hour_data, locals: {count: @count_by_hour[1.0]} %>
-    </tr>
-    <tr class="am2">
-      <th>2AM</th>
-      <%= erb :_hour_data, locals: {count: @count_by_hour[2.0]} %>
-    </tr>
-    <tr class="am3">
-      <th>3AM</th>
-      <%= erb :_hour_data, locals: {count: @count_by_hour[3.0]} %>
-    </tr>
-    <tr class="am4">
-      <th>4AM</th>
-      <%= erb :_hour_data, locals: {count: @count_by_hour[4.0]} %>
-    </tr>
-    <tr>
-      <th>5AM</th>
-      <%= erb :_hour_data, locals: {count: @count_by_hour[5.0]} %>
-    </tr>
-    <tr>
-      <th>6AM</th>
-      <%= erb :_hour_data, locals: {count: @count_by_hour[6.0]} %>
-    </tr>
-    <tr>
-      <th>7AM</th>
-      <%= erb :_hour_data, locals: {count: @count_by_hour[7.0]} %>
-    </tr>
-    <tr>
-      <th>8AM</th>
-      <%= erb :_hour_data, locals: {count: @count_by_hour[8.0]} %>
-    </tr>
-    <tr>
-      <th>9AM</th>
-      <%= erb :_hour_data, locals: {count: @count_by_hour[9.0]} %>
-    </tr>
-    <tr>
-      <th>10AM</th>
-      <%= erb :_hour_data, locals: {count: @count_by_hour[10.0]} %>
-    </tr>
-    <tr>
-      <th>11AM</th>
-      <%= erb :_hour_data, locals: {count: @count_by_hour[11.0]} %>
-    </tr>
-
-    <tr>
-      <th>12PM</th>
-      <%= erb :_hour_data, locals: {count: @count_by_hour[12.0]} %>
-    </tr>
-    <tr>
-      <th>1PM</th>
-      <%= erb :_hour_data, locals: {count: @count_by_hour[13.0]} %>
-    </tr>
-    <tr>
-      <th>2PM</th>
-      <%= erb :_hour_data, locals: {count: @count_by_hour[14.0]} %>
-    </tr>
-    <tr>
-      <th>3PM</th>
-      <%= erb :_hour_data, locals: {count: @count_by_hour[15.0]} %>
-    </tr>
-    <tr>
-      <th>4PM</th>
-      <%= erb :_hour_data, locals: {count: @count_by_hour[16.0]} %>
-    </tr>
-    <tr>
-      <th>5PM</th>
-      <%= erb :_hour_data, locals: {count: @count_by_hour[17.0]} %>
-    </tr>
-
-    <tr>
-      <th>6PM</th>
-      <%= erb :_hour_data, locals: {count: @count_by_hour[18.0]} %>
-    </tr>
-    <tr>
-      <th>7PM</th>
-      <%= erb :_hour_data, locals: {count: @count_by_hour[19.0]} %>
-    </tr>
-    <tr>
-      <th>8PM</th>
-      <%= erb :_hour_data, locals: {count: @count_by_hour[20.0]} %>
-    </tr>
-    <tr>
-      <th>9PM</th>
-      <%= erb :_hour_data, locals: {count: @count_by_hour[21.0]} %>
-    </tr>
-    <tr>
-      <th>10PM</th>
-      <%= erb :_hour_data, locals: {count: @count_by_hour[22.0]} %>
-    </tr>
-    <tr>
-      <th>11PM</th>
-      <%= erb :_hour_data, locals: {count: @count_by_hour[23.0]} %>
-    </tr>
-  </table>
+<div class="jumbotron text-center col-md-12">
+  <h1><%= @event_name.capitalize  %></h1>
+  <br>
+  <h5> Total requests: <%= @count_by_hour.values.inject(0) {|sum, hour_count|sum + hour_count} %> </h5>
+</div>
+<div class="container-fluid">
+  <div class="text-center">
+    <h2> Requests by Hour for <%= @event_name.capitalize %></h2>
+    <div class="col-md-offset-3 col-md-6">
+      <table class="table table-inverse table-striped table-bordered table-hover table-sm">
+        <thead class="text-center">
+          <tr>
+            <th class="text-center">Time</th>
+            <th class="text-center">Number of Requests</th>
+            <th class="text-center">Time</th>
+            <th class="text-center">Number of Requests</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="am12 info">
+            <td>12AM</td>
+            <%= erb :_hour_data, locals: {count: @count_by_hour[0.0]} %>
+            <td>12PM</td>
+            <%= erb :_hour_data, locals: {count: @count_by_hour[12.0]} %>
+          </tr>
+          <tr class="am1 active">
+            <td>1AM</td>
+            <%= erb :_hour_data, locals: {count: @count_by_hour[1.0]} %>
+            <td>1PM</td>
+            <%= erb :_hour_data, locals: {count: @count_by_hour[13.0]} %>
+          </tr>
+          <tr class="am2 info">
+            <td>2AM</td>
+            <%= erb :_hour_data, locals: {count: @count_by_hour[2.0]} %>
+            <td>2PM</td>
+            <%= erb :_hour_data, locals: {count: @count_by_hour[14.0]} %>
+          </tr>
+          <tr class="am3 active">
+            <td>3AM</td>
+            <%= erb :_hour_data, locals: {count: @count_by_hour[3.0]} %>
+            <td>3PM</td>
+            <%= erb :_hour_data, locals: {count: @count_by_hour[15.0]} %>
+          </tr>
+          <tr class="am4 info">
+            <td>4AM</td>
+            <%= erb :_hour_data, locals: {count: @count_by_hour[4.0]} %>
+            <td>4PM</td>
+            <%= erb :_hour_data, locals: {count: @count_by_hour[16.0]} %>
+          </tr>
+          <tr class="am5 active">
+            <td>5AM</td>
+            <%= erb :_hour_data, locals: {count: @count_by_hour[5.0]} %>
+            <td>5PM</td>
+            <%= erb :_hour_data, locals: {count: @count_by_hour[17.0]} %>
+          </tr>
+          <tr class="am6 info">
+            <td>6AM</td>
+            <%= erb :_hour_data, locals: {count: @count_by_hour[6.0]} %>
+            <td>6PM</td>
+            <%= erb :_hour_data, locals: {count: @count_by_hour[18.0]} %>
+          </tr>
+          <tr class="am7 active">
+            <td>7AM</td>
+            <%= erb :_hour_data, locals: {count: @count_by_hour[7.0]} %>
+            <td>7PM</td>
+            <%= erb :_hour_data, locals: {count: @count_by_hour[19.0]} %>
+          </tr>
+          <tr class="am8 info">
+            <td>8AM</td>
+            <%= erb :_hour_data, locals: {count: @count_by_hour[8.0]} %>
+            <td>8PM</td>
+            <%= erb :_hour_data, locals: {count: @count_by_hour[20.0]} %>
+          </tr>
+          <tr class="am9 active">
+            <td>9AM</td>
+            <%= erb :_hour_data, locals: {count: @count_by_hour[9.0]} %>
+            <td>9PM</td>
+            <%= erb :_hour_data, locals: {count: @count_by_hour[21.0]} %>
+          </tr>
+          <tr class="am10 info">
+            <td>10AM</td>
+            <%= erb :_hour_data, locals: {count: @count_by_hour[10.0]} %>
+            <td>10PM</td>
+            <%= erb :_hour_data, locals: {count: @count_by_hour[22.0]} %>
+          </tr>
+          <tr class="am11 active">
+            <td>11AM</td>
+            <%= erb :_hour_data, locals: {count: @count_by_hour[11.0]} %>
+            <td>11PM</td>
+            <%= erb :_hour_data, locals: {count: @count_by_hour[23.0]} %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+    

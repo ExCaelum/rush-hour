@@ -65,7 +65,8 @@ module RushHour
           @client = client
           erb :dashboard
         else
-          @error_message = "There is no payload data for #{identifier.capitalize}"
+          @error_message = "There is no payload data for
+                           #{identifier.capitalize}"
           erb :error
         end
       else #no client
