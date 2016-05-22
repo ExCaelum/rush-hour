@@ -26,7 +26,9 @@ class UrlTest < Minitest::Test
                                resolution_id: 1,
                                user_agent_id: 1,
                                ip_id: 1,
-                               url_id: 1)
+                               url_id: 1,
+                               client_id: 1,
+                               key: "SHA-1")
 
     url = Url.create(address: "www.turing.com")
 
@@ -38,55 +40,55 @@ class UrlTest < Minitest::Test
 
   def test_it_sorts_by_requested
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-    responded_in: 48,
-    referrer_id: 1,
-    request_type_id: 1,
-    parameters: "[]",
-    event_name_id: 1,
-    user_agent_id: 1,
-    resolution_id: 1,
-    ip_id: 1,
-    url_id: 1)
+                          responded_in: 48,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip_id: 1,
+                          url_id: 1, client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-    responded_in: 48,
-    referrer_id: 1,
-    request_type_id: 1,
-    parameters: "[]",
-    event_name_id: 1,
-    user_agent_id: 1,
-    resolution_id: 1,
-    ip_id: 1,
-    url_id: 1)
+                          responded_in: 48,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip_id: 1,
+                          url_id: 1, client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-    responded_in: 48,
-    referrer_id: 1,
-    request_type_id: 1,
-    parameters: "[]",
-    event_name_id: 1,
-    user_agent_id: 1,
-    resolution_id: 1,
-    ip_id: 1,
-    url_id: 2)
+                          responded_in: 48,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip_id: 1,
+                          url_id: 2, client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-    responded_in: 48,
-    referrer_id: 1,
-    request_type_id: 1,
-    parameters: "[]",
-    event_name_id: 1,
-    user_agent_id: 1,
-    resolution_id: 1,
-    ip_id: 1,
-    url_id: 3)
+                          responded_in: 48,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip_id: 1,
+                          url_id: 3, client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-    responded_in: 48,
-    referrer_id: 1,
-    request_type_id: 1,
-    parameters: "[]",
-    event_name_id: 1,
-    user_agent_id: 1,
-    resolution_id: 1,
-    ip_id: 1,
-    url_id: 3)
+                          responded_in: 48,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip_id: 1,
+                          url_id: 3, client_id: 1, key: "SHA-1")
 
     Url.create(address: "www.url1.com")
     Url.create(address: "www.url2.com")
@@ -95,25 +97,25 @@ class UrlTest < Minitest::Test
     assert_equal ["www.url1.com", "www.url3.com", "www.url2.com"], Url.most_to_least_requested
 
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-    responded_in: 48,
-    referrer_id: 1,
-    request_type_id: 1,
-    parameters: "[]",
-    event_name_id: 1,
-    user_agent_id: 1,
-    resolution_id: 1,
-    ip_id: 1,
-    url_id: 3)
+                          responded_in: 48,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip_id: 1,
+                          url_id: 3, client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-    responded_in: 48,
-    referrer_id: 1,
-    request_type_id: 1,
-    parameters: "[]",
-    event_name_id: 1,
-    user_agent_id: 1,
-    resolution_id: 1,
-    ip_id: 1,
-    url_id: 3)
+                          responded_in: 48,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip_id: 1,
+                          url_id: 3, client_id: 1, key: "SHA-1")
 
     assert_equal ["www.url3.com", "www.url1.com", "www.url2.com"], Url.most_to_least_requested
   end
@@ -121,26 +123,26 @@ class UrlTest < Minitest::Test
 
   def test_response_time_list_includes_all_when_only_one_url
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-    responded_in: 48,
-    referrer_id: 1,
-    request_type_id: 1,
-    parameters: "[]",
-    event_name_id: 1,
-    user_agent_id: 1,
-    resolution_id: 1,
-    ip_id: 1,
-    url_id: 1)
+                          responded_in: 48,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip_id: 1,
+                          url_id: 1, client_id: 1, key: "SHA-1")
 
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-    responded_in: 40,
-    referrer_id: 1,
-    request_type_id: 1,
-    parameters: "[]",
-    event_name_id: 1,
-    user_agent_id: 1,
-    resolution_id: 1,
-    ip_id: 1,
-    url_id: 1)
+                          responded_in: 40,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip_id: 1,
+                          url_id: 1, client_id: 1, key: "SHA-1")
 
     url= Url.create(address: "www.url1.com")
 
@@ -150,26 +152,26 @@ class UrlTest < Minitest::Test
 
   def test_response_time_list_includes_all_when_multiple_urls
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-    responded_in: 48,
-    referrer_id: 1,
-    request_type_id: 1,
-    parameters: "[]",
-    event_name_id: 1,
-    user_agent_id: 1,
-    resolution_id: 1,
-    ip_id: 1,
-    url_id: 1)
+                          responded_in: 48,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip_id: 1,
+                          url_id: 1, client_id: 1, key: "SHA-1")
 
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-    responded_in: 40,
-    referrer_id: 1,
-    request_type_id: 1,
-    parameters: "[]",
-    event_name_id: 1,
-    user_agent_id: 1,
-    resolution_id: 1,
-    ip_id: 1,
-    url_id: 2)
+                          responded_in: 40,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip_id: 1,
+                          url_id: 2, client_id: 1, key: "SHA-1")
 
     url= Url.create(address: "www.url1.com")
 
@@ -179,26 +181,26 @@ class UrlTest < Minitest::Test
 
   def test_response_time_list_includes_duplicates
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-    responded_in: 48,
-    referrer_id: 1,
-    request_type_id: 1,
-    parameters: "[]",
-    event_name_id: 1,
-    user_agent_id: 1,
-    resolution_id: 1,
-    ip_id: 1,
-    url_id: 1)
+                          responded_in: 48,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip_id: 1,
+                          url_id: 1, client_id: 1, key: "SHA-1")
 
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-    responded_in: 48,
-    referrer_id: 1,
-    request_type_id: 1,
-    parameters: "[]",
-    event_name_id: 1,
-    user_agent_id: 1,
-    resolution_id: 1,
-    ip_id: 1,
-    url_id: 1)
+                          responded_in: 48,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip_id: 1,
+                          url_id: 1, client_id: 1, key: "SHA-1")
 
     url= Url.create(address: "www.url1.com")
 
@@ -208,39 +210,38 @@ class UrlTest < Minitest::Test
 
 
   def test_returns_top_referrers_for_url_less_than_3
-    #can remove skip once referrer migration happens
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-    responded_in: 48,
-    referrer_id: 2,
-    request_type_id: 1,
-    parameters: "[]",
-    event_name_id: 2,
-    user_agent_id: 1,
-    resolution_id: 1,
-    ip_id: 1,
-    url_id: 1)
+                          responded_in: 48,
+                          referrer_id: 2,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 2,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip_id: 1,
+                          url_id: 1, client_id: 1, key: "SHA-1")
 
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-    responded_in: 40,
-    referrer_id: 1,
-    request_type_id: 1,
-    parameters: "[]",
-    event_name_id: 1,
-    user_agent_id: 1,
-    resolution_id: 1,
-    ip_id: 1,
-    url_id: 1)
+                          responded_in: 40,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip_id: 1,
+                          url_id: 1, client_id: 1, key: "SHA-1")
 
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-    responded_in: 40,
-    referrer_id: 2,
-    request_type_id: 1,
-    parameters: "[]",
-    event_name_id: 2,
-    user_agent_id: 1,
-    resolution_id: 1,
-    ip_id: 1,
-    url_id: 1)
+                          responded_in: 40,
+                          referrer_id: 2,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 2,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip_id: 1,
+                          url_id: 1, client_id: 1, key: "SHA-1")
 
     url=Url.create(address: "www.url1.com")
 
@@ -252,50 +253,49 @@ class UrlTest < Minitest::Test
   end
 
   def test_returns_top_referrers_for_url_more_than_3
-    #can remove skip once referrer migration happens
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-    responded_in: 48,
-    referrer_id: 1,
-    request_type_id: 1,
-    parameters: "[]",
-    event_name_id: 1,
-    user_agent_id: 1,
-    resolution_id: 1,
-    ip_id: 1,
-    url_id: 1)
+                          responded_in: 48,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip_id: 1,
+                          url_id: 1, client_id: 1, key: "SHA-1")
 
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-    responded_in: 40,
-    referrer_id: 2,
-    request_type_id: 1,
-    parameters: "[]",
-    event_name_id: 2,
-    user_agent_id: 1,
-    resolution_id: 1,
-    ip_id: 1,
-    url_id: 1)
+                          responded_in: 40,
+                          referrer_id: 2,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 2,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip_id: 1,
+                          url_id: 1, client_id: 1, key: "SHA-1")
 
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-    responded_in: 40,
-    referrer_id: 3,
-    request_type_id: 1,
-    parameters: "[]",
-    event_name_id: 3,
-    user_agent_id: 1,
-    resolution_id: 1,
-    ip_id: 1,
-    url_id: 1)
+                          responded_in: 40,
+                          referrer_id: 3,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 3,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip_id: 1,
+                          url_id: 1, client_id: 1, key: "SHA-1")
 
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-    responded_in: 40,
-    referrer_id: 1,
-    request_type_id: 1,
-    parameters: "[]",
-    event_name_id: 4,
-    user_agent_id: 1,
-    resolution_id: 1,
-    ip_id: 1,
-    url_id: 1)
+                          responded_in: 40,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 4,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip_id: 1,
+                          url_id: 1, client_id: 1, key: "SHA-1")
 
     url = Url.create(address: "www.url1.com")
 
@@ -318,7 +318,7 @@ class UrlTest < Minitest::Test
                           user_agent_id: 1,
                           resolution_id: 1,
                           ip_id: 1,
-                          url_id: 1)
+                          url_id: 1, client_id: 1, key: "SHA-1")
 
     url = Url.create(address: "www.turing.com")
     RequestType.create(verb: "GET")
@@ -336,7 +336,7 @@ class UrlTest < Minitest::Test
                           user_agent_id: 1,
                           resolution_id: 1,
                           ip_id: 1,
-                          url_id: 1)
+                          url_id: 1, client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 40,
                           referrer_id: 1,
@@ -346,7 +346,7 @@ class UrlTest < Minitest::Test
                           user_agent_id: 1,
                           resolution_id: 1,
                           ip_id: 1,
-                          url_id: 1)
+                          url_id: 1, client_id: 1, key: "SHA-1")
 
     url = Url.create(address: "www.turing.com")
     RequestType.create(verb: "GET")
@@ -364,7 +364,7 @@ class UrlTest < Minitest::Test
                           user_agent_id: 1,
                           resolution_id: 1,
                           ip_id: 1,
-                          url_id: 1)
+                          url_id: 1, client_id: 1, key: "SHA-1")
     UserAgent.create(os: "Windows", browser: "Chrome")
     url = Url.create(address: "www.turing.com")
 
@@ -382,7 +382,7 @@ class UrlTest < Minitest::Test
                           user_agent_id: 1,
                           resolution_id: 1,
                           ip_id: 1,
-                          url_id: 1)
+                          url_id: 1, client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 40,
                           referrer_id: 1,
@@ -392,47 +392,47 @@ class UrlTest < Minitest::Test
                           user_agent_id: 1,
                           resolution_id: 1,
                           ip_id: 1,
-                          url_id: 1)
-      PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                            responded_in: 40,
-                            referrer_id: 1,
-                            request_type_id: 1,
-                            parameters: "[]",
-                            event_name_id: 4,
-                            user_agent_id: 1,
-                            resolution_id: 1,
-                            ip_id: 1,
-                            url_id: 1)
-      PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                            responded_in: 40,
-                            referrer_id: 1,
-                            request_type_id: 1,
-                            parameters: "[]",
-                            event_name_id: 4,
-                            user_agent_id: 2,
-                            resolution_id: 1,
-                            ip_id: 1,
-                            url_id: 1)
-      PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                            responded_in: 40,
-                            referrer_id: 1,
-                            request_type_id: 1,
-                            parameters: "[]",
-                            event_name_id: 4,
-                            user_agent_id: 2,
-                            resolution_id: 1,
-                            ip_id: 1,
-                            url_id: 1)
-      PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                            responded_in: 40,
-                            referrer_id: 1,
-                            request_type_id: 1,
-                            parameters: "[]",
-                            event_name_id: 4,
-                            user_agent_id: 3,
-                            resolution_id: 1,
-                            ip_id: 1,
-                            url_id: 1)
+                          url_id: 1, client_id: 1, key: "SHA-1")
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 40,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 4,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip_id: 1,
+                          url_id: 1, client_id: 1, key: "SHA-1")
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 40,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 4,
+                          user_agent_id: 2,
+                          resolution_id: 1,
+                          ip_id: 1,
+                          url_id: 1, client_id: 1, key: "SHA-1")
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 40,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 4,
+                          user_agent_id: 2,
+                          resolution_id: 1,
+                          ip_id: 1,
+                          url_id: 1, client_id: 1, key: "SHA-1")
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 40,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 4,
+                          user_agent_id: 3,
+                          resolution_id: 1,
+                          ip_id: 1,
+                          url_id: 1, client_id: 1, key: "SHA-1")
 
     UserAgent.create(os: "Windows", browser: "Chrome")
     UserAgent.create(os: "Macintosh", browser: "Safari")
@@ -449,36 +449,36 @@ class UrlTest < Minitest::Test
 
   def test_it_can_find_calculate_response_time_stats_for_one_url
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                               responded_in: 100,
-                               referrer_id: 1,
-                               request_type_id: 1,
-                               parameters: "[]",
-                               event_name_id: 1,
-                               user_agent_id: 1,
-                               resolution_id: 1,
-                               ip_id: 1,
-                               url_id: 1)
+                          responded_in: 100,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip_id: 1,
+                          url_id: 1, client_id: 1, key: "SHA-1")
 
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                               responded_in: 20,
-                               referrer_id: 1,
-                               request_type_id: 1,
-                               parameters: "[]",
-                               event_name_id: 1,
-                               user_agent_id: 1,
-                               resolution_id: 1,
-                               ip_id: 1,
-                               url_id: 1)
+                          responded_in: 20,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip_id: 1,
+                          url_id: 1, client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                               responded_in: 2000,
-                               referrer_id: 1,
-                               request_type_id: 1,
-                               parameters: "[]",
-                               event_name_id: 1,
-                               user_agent_id: 1,
-                               resolution_id: 1,
-                               ip_id: 1,
-                               url_id: 2)
+                          responded_in: 2000,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip_id: 1,
+                          url_id: 2, client_id: 1, key: "SHA-1")
 
     url = Url.create(address: "www.turing.com")
     assert_equal 100, url.max_response_for_url

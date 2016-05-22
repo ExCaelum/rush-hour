@@ -25,7 +25,7 @@ class PayloadRequestTest < Minitest::Test
     assert_equal 1, Referrer.count
     assert_equal 1, Resolution.count
     assert_equal 1, UserAgent.count
-    # assert PayloadRequest.key
+    assert PayloadRequest.first.key
   end
 
   def test_it_handles_similar_payload_requests
@@ -40,7 +40,7 @@ class PayloadRequestTest < Minitest::Test
     assert_equal 1, Referrer.count
     assert_equal 1, Resolution.count
     assert_equal 1, UserAgent.count
-    # assert PayloadRequest.key
+    assert PayloadRequest.first.key
 
   end
 
@@ -54,15 +54,12 @@ class PayloadRequestTest < Minitest::Test
                           resolution_id: 1,
                           user_agent_id: 1,
                           ip_id: 1,
-                          url_id: 1)
-    # url = Url.create(address: "www.turing.com")
-    #
-    # url.payload_requests << PayloadRequest.find_by(id: 1)
+                          url_id: 1, client_id: 1, key: "SHA-1")
 
     assert_equal 1, PayloadRequest.count
     assert_equal 1, PayloadRequest.first.id
     assert_equal 48, PayloadRequest.first.responded_in
-    # assert PayloadRequest.key
+    assert "SHA-1", PayloadRequest.first.key
   end
 
   def test_payload_info_stored_in_correct_format
@@ -75,7 +72,7 @@ class PayloadRequestTest < Minitest::Test
                           resolution_id: 1,
                           user_agent_id: 1,
                           ip_id: 1,
-                          url_id: 1)
+                          url_id: 1, client_id: 1, key: "SHA-1")
 
     assert_equal Fixnum, PayloadRequest.first.id.class
     assert_equal Time, PayloadRequest.first.requested_at.class
@@ -92,7 +89,7 @@ class PayloadRequestTest < Minitest::Test
                           resolution_id: 1,
                           ip_id: 1,
                           user_agent_id: 1,
-                          url_id: 1)
+                          url_id: 1, client_id: 1, key: "SHA-1")
 
     time = Time.new(2013, 02, 16, 21, 38, 28, "-07:00")
 
@@ -102,22 +99,21 @@ class PayloadRequestTest < Minitest::Test
 
   def test_it_rejects_payload_request_with_missing_data
     pr = PayloadRequest.create
-    assert_equal 10, pr.errors.messages.length
+    assert_equal 12, pr.errors.messages.length
     assert_equal true, pr.invalid?
-    # assert_equal true, pr.errors.messages.keys.sort(:url)
   end
 
   def test_that_the_payload_request_is_valid
     pr = PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 48,
-                          referrer_id: 1,
-                          request_type_id: 1,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          resolution_id: 1,
-                          user_agent_id: 1,
-                          ip_id: 1,
-                          url_id: 1)
+                               responded_in: 48,
+                               referrer_id: 1,
+                               request_type_id: 1,
+                               parameters: "[]",
+                               event_name_id: 1,
+                               resolution_id: 1,
+                               user_agent_id: 1,
+                               ip_id: 1,
+                               url_id: 1, client_id: 1, key: "SHA-1")
 
     assert_equal true, pr.valid?
     assert_equal 0, pr.errors.messages.length
@@ -133,7 +129,7 @@ class PayloadRequestTest < Minitest::Test
                           resolution_id: 1,
                           user_agent_id: 1,
                           ip_id: 1,
-                          url_id: 1)
+                          url_id: 1, client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 48,
                           referrer_id: 1,
@@ -143,7 +139,7 @@ class PayloadRequestTest < Minitest::Test
                           resolution_id: 1,
                           user_agent_id: 2,
                           ip_id: 1,
-                          url_id: 1)
+                          url_id: 1, client_id: 1, key: "SHA-1")
     UserAgent.create(os: "Macintosh", browser: "Chrome")
     UserAgent.create(os: "Macintosh", browser: "Safari")
 
@@ -160,7 +156,7 @@ class PayloadRequestTest < Minitest::Test
                           resolution_id: 1,
                           user_agent_id: 1,
                           ip_id: 1,
-                          url_id: 1)
+                          url_id: 1, client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 48,
                           referrer_id: 1,
@@ -170,7 +166,7 @@ class PayloadRequestTest < Minitest::Test
                           resolution_id: 1,
                           user_agent_id: 2,
                           ip_id: 1,
-                          url_id: 1)
+                          url_id: 1, client_id: 1, key: "SHA-1")
     UserAgent.create(os: "Macintosh", browser: "Chrome")
     UserAgent.create(os: "Windows", browser: "Safari")
 
@@ -187,7 +183,7 @@ class PayloadRequestTest < Minitest::Test
                                user_agent_id: 1,
                                resolution_id: 1,
                                ip_id: 1,
-                               url_id: 1)
+                               url_id: 1, client_id: 1, key: "SHA-1")
 
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                                responded_in: 20,
@@ -198,16 +194,13 @@ class PayloadRequestTest < Minitest::Test
                                user_agent_id: 1,
                                resolution_id: 1,
                                ip_id: 1,
-                               url_id: 2)
+                               url_id: 2, client_id: 1, key: "SHA-1")
 
     assert_equal 2, PayloadRequest.count
     assert_equal 100, PayloadRequest.max_response
     assert_equal 20, PayloadRequest.min_response
     assert_equal 60, PayloadRequest.average_response
   end
-
-
-# NOT WRITING TO DATABASE YET:
 
   def test_that_parsed_json_has_client_key_value_pair
     client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
