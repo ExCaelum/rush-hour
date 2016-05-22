@@ -15,18 +15,7 @@
     <div class="text-center col-md-6">
       <h4>Response Times</h4>
       <table class="table table-striped table-bordered table-hover table-sm">
-        <tr class="info">
-          <td> Average Response Time </td>
-          <td><%= @url.average_response_for_url %> milliseconds </td>
-        </tr>
-        <tr class="active">
-          <td> Minimum Response Time </td>
-          <td> <%= @url.min_response_for_url %> milliseconds </td>
-        </tr>
-        <tr class="info">
-          <td> Maximum Response Time </td>
-          <td> <%= @url.max_response_for_url %> milliseconds </td>
-        </tr>
+        <%= erb :_response_time_table, locals: {average: @url.average_response_for_url, min: @url.min_response_for_url, max: @url.max_response_for_url} %>
       </table>
     </div>
     <div class="text-center col-md-6">
