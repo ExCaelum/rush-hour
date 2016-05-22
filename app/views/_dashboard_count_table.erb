@@ -1,12 +1,16 @@
-<tr class="info">
-  <td> Average Response Time </td>
-  <td> <%= average %> milliseconds</td>
-</tr>
-<tr class="active">
-  <td> Minimum Response Time </td>
-  <td> <%= min %> milliseconds </td>
-</tr>
-<tr class="info">
-  <td> Maximum Response Time </td>
-  <td> <%= max %> milliseconds </td>
-</tr>
+
+<table class="table table-striped table-bordered table-hover table-sm">
+  <% count_hash.each_with_index do |(item, count), index| %>
+    <% if index % 2 == 1 %>
+      <tr class="active">
+        <td> <%= item %> </td>
+        <td> <%= count %> </td>
+      </tr>
+    <% else %>
+      <tr class="info">
+        <td> <%= item %> </td>
+        <td> <%= count %> </td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>

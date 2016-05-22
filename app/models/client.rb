@@ -70,4 +70,11 @@ class Client < ActiveRecord::Base
     !urls.find_by(address: full_path).nil?
   end
 
+  def url_list_with_links_for_dashboard
+    url_list_ordered_by_request_count.map do |url|
+      "<a href=\"/sources/#{identifier}/urls/#{url.split('/').last}\">Dashboard: #{root_url}/#{url.split('/').last}</a>"
+    end
+  end
+
+
 end

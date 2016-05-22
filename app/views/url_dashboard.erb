@@ -15,12 +15,13 @@
     <div class="text-center col-md-6">
       <h4>Response Times</h4>
       <table class="table table-striped table-bordered table-hover table-sm">
-        <%= erb :_response_time_table, locals: {average: @url.average_response_for_url, min: @url.min_response_for_url, max: @url.max_response_for_url} %>
+        <%= erb :_dashboard_response_time_table, locals: {average: @url.average_response_for_url, min: @url.min_response_for_url, max: @url.max_response_for_url} %>
       </table>
     </div>
     <div class="text-center col-md-6">
       <h4>All Response Times</h4>
-      <table class="table table-striped table-bordered table-hover table-sm">
+      <%= erb :_dashboard_list_table, locals: {ordered_list: @url.response_times_order }%>
+      <!-- <table class="table table-striped table-bordered table-hover table-sm">
         <% @url.response_times_order.each_with_index do |time, index| %>
           <% if index % 2 == 1 %>
             <tr class="active">
@@ -32,13 +33,15 @@
             </tr>
           <% end %>
         <% end %>
-      </table>
+      </table> -->
     </div>
   </div>
   <div class="row">
     <div class="text-center col-md-6">
       <h4>Popular Referrers</h4>
-      <table class="table table-striped table-bordered table-hover table-sm">
+      <%= erb :_dashboard_list_table, locals: {ordered_list: @url.top_three_referrers }%>
+
+      <!-- <table class="table table-striped table-bordered table-hover table-sm">
         <% @url.top_three_referrers.each_with_index do |referrer, index| %>
           <% if index % 2 == 1 %>
             <tr class="active">
@@ -50,11 +53,12 @@
             </tr>
           <% end %>
         <% end%>
-      </table>
+      </table> -->
     </div>
     <div class="text-center col-md-6">
       <h4> Popular Agents </h4>
-      <table class="table table-striped table-bordered table-hover table-sm">
+      <%= erb :_dashboard_list_table, locals: {ordered_list: @url.popular_agents }%>
+      <!-- <table class="table table-striped table-bordered table-hover table-sm">
         <% @url.popular_agents.each_with_index do |agent, index| %>
           <% if index % 2 == 1 %>
             <tr class="active">
@@ -66,7 +70,7 @@
             </tr>
           <% end %>
         <% end %>
-      </table>
+      </table> -->
     </div>
   </div>
 </div>
