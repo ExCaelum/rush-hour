@@ -12,15 +12,15 @@ class IpTest < Minitest::Test
   def test_ip_payload_requests_relationship
     ip = Ip.create(address: "127.0.0.1")
     pr = PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 48,
-                          referrer_id: 1,
-                          request_type_id: 1,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          user_agent_id: 1,
-                          resolution_id: 1,
-                          ip_id: 1,
-                          url_id: 1)
+                               responded_in: 48,
+                               referrer_id: 1,
+                               request_type_id: 1,
+                               parameters: "[]",
+                               event_name_id: 1,
+                               user_agent_id: 1,
+                               resolution_id: 1,
+                               ip_id: 1,
+                               url_id: 1, client_id: 1, key: "SHA-1")
     assert_equal "127.0.0.1", pr.ip.address
   end
 end
