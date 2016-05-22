@@ -8,6 +8,7 @@ module PayloadParser
     result = {}
     result[:requested_at] = raw_payload["requestedAt"]
     result[:responded_in] = raw_payload["respondedIn"]
+    result[:parameters] = raw_payload["parameters"]
     result[:referrer] = { address: raw_payload["referredBy"] }
     result[:request_type] = { verb: raw_payload["requestType"] }
     result[:event_name] = { name: raw_payload["eventName"] }
