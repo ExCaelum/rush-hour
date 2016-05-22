@@ -2,14 +2,16 @@ module RushHour
   class Server < Sinatra::Base
 
     post '/sources' do
-      client = Client.new({identifier: params["identifier"], root_url: params["rootUrl"]})
+      client = Client.new({identifier: params["identifier"],
+                           root_url: params["rootUrl"]})
 
+      name = params[:identifier]
       if Client.find_by(identifier: params['identifier'])
         status 403
-        body "Client with #{params[:identifier].upcase} identifier is already registered."
+        body "Client with #{name.upcase} identifier is already registered."
       elsif client.save
         status 200
-        body "{\"Identifier\": #{params[:identifier]}}"
+        body "{\"Identifier\": #{name}}"
       else
         status 400
         body "#{client.errors.full_messages.join(", ")}"
@@ -18,7 +20,8 @@ module RushHour
     end
 
     post '/sources/:identifier/data' do |identifier|
-      if params.empty? || !params.key?('payload') ||(params['payload'] && params['payload'].empty?)
+      payload = params[:payload]
+      if params.empty? || !params.key?('payload') ||(payload && payload.empty?)
         status 400
         body "Payload data was not provided."
       elsif PayloadRequest.duplicate?(params[:payload], identifier)
@@ -71,10 +74,10 @@ module RushHour
       end
     end
 
-    get '/sources/:identifier/urls/:relative_path' do |identifier, relative_path|
+    get '/sources/:identifier/urls/:relative_path' do |identifier, rel_path|
       client = Client.find_by(identifier: identifier)
-      if client.relative_path_exists?(relative_path)
-        @url = client.find_url_by_relative_path(relative_path)
+      if client.relative_path_exists?(rel_path)
+        @url = client.find_url_by_relative_path(rel_path)
         erb :url_dashboard
       else
         @error_message = "The #{relative_path} URL has not yet been requested
