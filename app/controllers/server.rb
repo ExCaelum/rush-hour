@@ -45,22 +45,17 @@ module RushHour
 
     get '/sources/:identifier/events/:event_name' do |identifier, event_name|
       client = Client.find_by(identifier: identifier)
-
       event = client.event_names.find_by(name: event_name)
-
       pass unless event
-
       @event_name = event.name
-
       @count_by_hour = client.event_requests_by_hour(event_name)
-
       erb :event_show
     end
 
     get '/sources/:identifier/events/*' do |identifier, splat|
-      @identifier = identifier
-      @bad_event_name = params[:splat].first
-      erb :event_not_found
+      @error_message = "#{splat} was not found for #{identifier.capitalize}."
+      @body = "<a href='/sources/#{identifier}/events'>See List of Events</a>"
+      erb :error
     end
 
     get '/sources/:identifier' do |identifier|
@@ -70,10 +65,12 @@ module RushHour
           @client = client
           erb :dashboard
         else
-          @client = client
-          erb :no_payload
+          @error_message = "There is no payload data for
+                           #{identifier.capitalize}"
+          erb :error
         end
       else #no client
+        @error_message = "#{identifier.capitalize} does not yet exist"
         erb :error
       end
     end
@@ -84,8 +81,9 @@ module RushHour
         @url = client.find_url_by_relative_path(rel_path)
         erb :url_dashboard
       else
-        @path = rel_path
-        erb :url_error
+        @error_message = "The #{relative_path} URL has not yet been requested
+                          for #{identifier.capitalize}"
+        erb :error
       end
     end
 
