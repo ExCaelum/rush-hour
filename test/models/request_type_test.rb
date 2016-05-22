@@ -18,15 +18,15 @@ class RequestTypeTest < Minitest::Test
 
   def test_request_type_payload_request_relationship
     pr = PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 48,
-                          referrer_id: 1,
-                          request_type_id: 1,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          resolution_id: 1,
-                          user_agent_id: 1,
-                          ip_id: 1,
-                          url_id: 1)
+                               responded_in: 48,
+                               referrer_id: 1,
+                               request_type_id: 1,
+                               parameters: "[]",
+                               event_name_id: 1,
+                               resolution_id: 1,
+                               user_agent_id: 1,
+                               ip_id: 1,
+                               url_id: 1, client_id: 1, key: "SHA-1")
     rt = RequestType.create(verb: "POST")
 
     assert_equal 1, rt.payload_requests.count
@@ -44,7 +44,7 @@ class RequestTypeTest < Minitest::Test
                           resolution_id: 1,
                           user_agent_id: 1,
                           ip_id: 1,
-                          url_id: 1)
+                          url_id: 1, client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 48,
                           referrer_id: 1,
@@ -54,7 +54,7 @@ class RequestTypeTest < Minitest::Test
                           resolution_id: 1,
                           user_agent_id: 1,
                           ip_id: 1,
-                          url_id: 1)
+                          url_id: 1, client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 48,
                           referrer_id: 1,
@@ -64,7 +64,7 @@ class RequestTypeTest < Minitest::Test
                           resolution_id: 1,
                           user_agent_id: 1,
                           ip_id: 1,
-                          url_id: 1)
+                          url_id: 1, client_id: 1, key: "SHA-1")
 
     RequestType.create(verb: "POST")
     RequestType.create(verb: "GET")
@@ -82,7 +82,7 @@ class RequestTypeTest < Minitest::Test
                           resolution_id: 1,
                           user_agent_id: 1,
                           ip_id: 1,
-                          url_id: 1)
+                          url_id: 1, client_id: 1, key: "SHA-1")
 
     RequestType.create(verb: "POST")
 

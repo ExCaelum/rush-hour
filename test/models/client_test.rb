@@ -14,7 +14,7 @@ class ClientTest < Minitest::Test
                           user_agent_id: 1,
                           ip_id: 1,
                           url_id: 1,
-                          client_id: 1)
+                          client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 48,
                           referrer_id: 1,
@@ -25,7 +25,7 @@ class ClientTest < Minitest::Test
                           user_agent_id: 1,
                           ip_id: 1,
                           url_id: 1,
-                          client_id: 1)
+                          client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 48,
                           referrer_id: 1,
@@ -36,7 +36,7 @@ class ClientTest < Minitest::Test
                           user_agent_id: 1,
                           ip_id: 1,
                           url_id: 1,
-                          client_id: 2)
+                          client_id: 2, key: "SHA-1")
     c1 = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
     Client.create(identifier: "KingSoopers", root_url: "www.KingSoopers.com")
     url = Url.create(address: "www.BestBuy.com/cameras")
@@ -57,7 +57,7 @@ class ClientTest < Minitest::Test
                           user_agent_id: 1,
                           ip_id: 1,
                           url_id: 1,
-                          client_id: 1)
+                          client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 50,
                           referrer_id: 1,
@@ -68,7 +68,7 @@ class ClientTest < Minitest::Test
                           user_agent_id: 1,
                           ip_id: 1,
                           url_id: 1,
-                          client_id: 1)
+                          client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 100,
                           referrer_id: 1,
@@ -79,7 +79,7 @@ class ClientTest < Minitest::Test
                           user_agent_id: 1,
                           ip_id: 1,
                           url_id: 1,
-                          client_id: 2)
+                          client_id: 2, key: "SHA-1")
 
     client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
     assert_equal 49, client.average_response_time_for_client
@@ -98,7 +98,7 @@ class ClientTest < Minitest::Test
                           user_agent_id: 1,
                           ip_id: 1,
                           url_id: 1,
-                          client_id: 1)
+                          client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 50,
                           referrer_id: 1,
@@ -109,7 +109,7 @@ class ClientTest < Minitest::Test
                           user_agent_id: 1,
                           ip_id: 1,
                           url_id: 1,
-                          client_id: 1)
+                          client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 100,
                           referrer_id: 1,
@@ -120,7 +120,7 @@ class ClientTest < Minitest::Test
                           user_agent_id: 1,
                           ip_id: 1,
                           url_id: 1,
-                          client_id: 2)
+                          client_id: 2, key: "SHA-1")
 
     client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
     assert_equal 48, client.min_response_time_for_client
@@ -139,7 +139,7 @@ class ClientTest < Minitest::Test
                           user_agent_id: 1,
                           ip_id: 1,
                           url_id: 1,
-                          client_id: 1)
+                          client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 50,
                           referrer_id: 1,
@@ -150,7 +150,7 @@ class ClientTest < Minitest::Test
                           user_agent_id: 1,
                           ip_id: 1,
                           url_id: 1,
-                          client_id: 1)
+                          client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 100,
                           referrer_id: 1,
@@ -161,7 +161,7 @@ class ClientTest < Minitest::Test
                           user_agent_id: 1,
                           ip_id: 1,
                           url_id: 1,
-                          client_id: 2)
+                          client_id: 2, key: "SHA-1")
 
     client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
     assert_equal 50, client.max_response_time_for_client
@@ -180,7 +180,7 @@ class ClientTest < Minitest::Test
                           user_agent_id: 1,
                           ip_id: 1,
                           url_id: 1,
-                          client_id: 1)
+                          client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 50,
                           referrer_id: 1,
@@ -191,7 +191,7 @@ class ClientTest < Minitest::Test
                           user_agent_id: 1,
                           ip_id: 1,
                           url_id: 1,
-                          client_id: 1)
+                          client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 50,
                           referrer_id: 1,
@@ -202,7 +202,7 @@ class ClientTest < Minitest::Test
                           user_agent_id: 1,
                           ip_id: 1,
                           url_id: 1,
-                          client_id: 1)
+                          client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 100,
                           referrer_id: 1,
@@ -213,7 +213,7 @@ class ClientTest < Minitest::Test
                           user_agent_id: 1,
                           ip_id: 1,
                           url_id: 1,
-                          client_id: 2)
+                          client_id: 2, key: "SHA-1")
 
     client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
     req1 = RequestType.create(verb: "GET")
@@ -234,7 +234,7 @@ class ClientTest < Minitest::Test
                           user_agent_id: 1,
                           ip_id: 1,
                           url_id: 1,
-                          client_id: 1)
+                          client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 50,
                           referrer_id: 1,
@@ -245,7 +245,7 @@ class ClientTest < Minitest::Test
                           user_agent_id: 1,
                           ip_id: 1,
                           url_id: 1,
-                          client_id: 1)
+                          client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 50,
                           referrer_id: 1,
@@ -256,7 +256,7 @@ class ClientTest < Minitest::Test
                           user_agent_id: 1,
                           ip_id: 1,
                           url_id: 1,
-                          client_id: 1)
+                          client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 100,
                           referrer_id: 1,
@@ -267,7 +267,7 @@ class ClientTest < Minitest::Test
                           user_agent_id: 1,
                           ip_id: 1,
                           url_id: 1,
-                          client_id: 2)
+                          client_id: 2, key: "SHA-1")
 
     client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
     req1 = RequestType.create(verb: "GET")
@@ -278,282 +278,279 @@ class ClientTest < Minitest::Test
   end
 
   def test_it_lists_all_resoultions_for_client
-      PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                            responded_in: 48,
-                            referrer_id: 1,
-                            request_type_id: 1,
-                            parameters: "[]",
-                            event_name_id: 1,
-                            resolution_id: 1,
-                            user_agent_id: 1,
-                            ip_id: 1,
-                            url_id: 1,
-                            client_id: 1)
-      PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                            responded_in: 50,
-                            referrer_id: 1,
-                            request_type_id: 2,
-                            parameters: "[]",
-                            event_name_id: 1,
-                            resolution_id: 2,
-                            user_agent_id: 1,
-                            ip_id: 1,
-                            url_id: 1,
-                            client_id: 1)
-      PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                            responded_in: 50,
-                            referrer_id: 1,
-                            request_type_id: 2,
-                            parameters: "[]",
-                            event_name_id: 1,
-                            resolution_id: 3,
-                            user_agent_id: 1,
-                            ip_id: 1,
-                            url_id: 1,
-                            client_id: 1)
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 48,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 1,
+                          user_agent_id: 1,
+                          ip_id: 1,
+                          url_id: 1,
+                          client_id: 1, key: "SHA-1")
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 50,
+                          referrer_id: 1,
+                          request_type_id: 2,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 2,
+                          user_agent_id: 1,
+                          ip_id: 1,
+                          url_id: 1,
+                          client_id: 1, key: "SHA-1")
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 50,
+                          referrer_id: 1,
+                          request_type_id: 2,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 3,
+                          user_agent_id: 1,
+                          ip_id: 1,
+                          url_id: 1,
+                          client_id: 1, key: "SHA-1")
 
-      PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                            responded_in: 50,
-                            referrer_id: 1,
-                            request_type_id: 2,
-                            parameters: "[]",
-                            event_name_id: 1,
-                            resolution_id: 3,
-                            user_agent_id: 1,
-                            ip_id: 1,
-                            url_id: 1,
-                            client_id: 1)
-      PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                            responded_in: 100,
-                            referrer_id: 1,
-                            request_type_id: 1,
-                            parameters: "[]",
-                            event_name_id: 1,
-                            resolution_id: 4,
-                            user_agent_id: 1,
-                            ip_id: 1,
-                            url_id: 1,
-                            client_id: 2)
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 50,
+                          referrer_id: 1,
+                          request_type_id: 2,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 3,
+                          user_agent_id: 1,
+                          ip_id: 1,
+                          url_id: 1,
+                          client_id: 1, key: "SHA-1")
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 100,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 4,
+                          user_agent_id: 1,
+                          ip_id: 1,
+                          url_id: 1,
+                          client_id: 2, key: "SHA-1")
 
-      client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
-      Resolution.create(height: '1', width: '1')
-      Resolution.create(height: '2', width: '1')
-      Resolution.create(height: '3', width: '1')
-      Resolution.create(height: '4', width: '1')
+    client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
+    Resolution.create(height: '1', width: '1')
+    Resolution.create(height: '2', width: '1')
+    Resolution.create(height: '3', width: '1')
+    Resolution.create(height: '4', width: '1')
 
-      assert_equal true, client.all_screen_resolutions_for_client.include?("1 x 1")
-      assert_equal true, client.all_screen_resolutions_for_client.include?("1 x 2")
-      assert_equal true, client.all_screen_resolutions_for_client.include?("1 x 3")
-      assert_equal false, client.all_screen_resolutions_for_client.include?("1 x 4")
-      assert_equal ["1 x 1", "1 x 2", "1 x 3"], client.all_screen_resolutions_for_client.uniq.sort
+    assert_equal true, client.all_screen_resolutions_for_client.include?("1 x 1")
+    assert_equal true, client.all_screen_resolutions_for_client.include?("1 x 2")
+    assert_equal true, client.all_screen_resolutions_for_client.include?("1 x 3")
+    assert_equal false, client.all_screen_resolutions_for_client.include?("1 x 4")
+    assert_equal ["1 x 1", "1 x 2", "1 x 3"], client.all_screen_resolutions_for_client.uniq.sort
 
+  end
 
-    end
+  def test_it_provides_breakdown_of_all_browswers_for_client
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 48,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 1,
+                          user_agent_id: 1,
+                          ip_id: 1,
+                          url_id: 1,
+                          client_id: 1, key: "SHA-1")
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 50,
+                          referrer_id: 1,
+                          request_type_id: 2,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 2,
+                          user_agent_id: 2,
+                          ip_id: 1,
+                          url_id: 1,
+                          client_id: 1, key: "SHA-1")
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 50,
+                          referrer_id: 1,
+                          request_type_id: 2,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 3,
+                          user_agent_id: 1,
+                          ip_id: 1,
+                          url_id: 1,
+                          client_id: 1, key: "SHA-1")
 
-    def test_it_provides_breakdown_of_all_browswers_for_client
-        PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                              responded_in: 48,
-                              referrer_id: 1,
-                              request_type_id: 1,
-                              parameters: "[]",
-                              event_name_id: 1,
-                              resolution_id: 1,
-                              user_agent_id: 1,
-                              ip_id: 1,
-                              url_id: 1,
-                              client_id: 1)
-        PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                              responded_in: 50,
-                              referrer_id: 1,
-                              request_type_id: 2,
-                              parameters: "[]",
-                              event_name_id: 1,
-                              resolution_id: 2,
-                              user_agent_id: 2,
-                              ip_id: 1,
-                              url_id: 1,
-                              client_id: 1)
-        PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                              responded_in: 50,
-                              referrer_id: 1,
-                              request_type_id: 2,
-                              parameters: "[]",
-                              event_name_id: 1,
-                              resolution_id: 3,
-                              user_agent_id: 1,
-                              ip_id: 1,
-                              url_id: 1,
-                              client_id: 1)
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 50,
+                          referrer_id: 1,
+                          request_type_id: 2,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 3,
+                          user_agent_id: 1,
+                          ip_id: 1,
+                          url_id: 1,
+                          client_id: 1, key: "SHA-1")
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 100,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 4,
+                          user_agent_id: 3,
+                          ip_id: 1,
+                          url_id: 1,
+                          client_id: 2, key: "SHA-1")
 
-        PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                              responded_in: 50,
-                              referrer_id: 1,
-                              request_type_id: 2,
-                              parameters: "[]",
-                              event_name_id: 1,
-                              resolution_id: 3,
-                              user_agent_id: 1,
-                              ip_id: 1,
-                              url_id: 1,
-                              client_id: 1)
-        PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                              responded_in: 100,
-                              referrer_id: 1,
-                              request_type_id: 1,
-                              parameters: "[]",
-                              event_name_id: 1,
-                              resolution_id: 4,
-                              user_agent_id: 3,
-                              ip_id: 1,
-                              url_id: 1,
-                              client_id: 2)
+    client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
+    UserAgent.create(browser: 'IE', os: 'Windows')
+    UserAgent.create(browser: 'Chrome', os: 'Windows')
+    UserAgent.create(browser: 'Firefox', os: 'Windows')
 
-        client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
-        UserAgent.create(browser: 'IE', os: 'Windows')
-        UserAgent.create(browser: 'Chrome', os: 'Windows')
-        UserAgent.create(browser: 'Firefox', os: 'Windows')
-
-        expected = {"IE" => 3, "Chrome" => 1}
-        assert_equal expected, client.browser_breakdown_for_client
-
-
-      end
-
-      def test_it_provides_breakdown_of_all_operating_systems_for_client
-          PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                                responded_in: 48,
-                                referrer_id: 1,
-                                request_type_id: 1,
-                                parameters: "[]",
-                                event_name_id: 1,
-                                resolution_id: 1,
-                                user_agent_id: 1,
-                                ip_id: 1,
-                                url_id: 1,
-                                client_id: 1)
-          PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                                responded_in: 50,
-                                referrer_id: 1,
-                                request_type_id: 2,
-                                parameters: "[]",
-                                event_name_id: 1,
-                                resolution_id: 2,
-                                user_agent_id: 2,
-                                ip_id: 1,
-                                url_id: 1,
-                                client_id: 1)
-          PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                                responded_in: 50,
-                                referrer_id: 1,
-                                request_type_id: 2,
-                                parameters: "[]",
-                                event_name_id: 1,
-                                resolution_id: 3,
-                                user_agent_id: 1,
-                                ip_id: 1,
-                                url_id: 1,
-                                client_id: 1)
-
-          PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                                responded_in: 50,
-                                referrer_id: 1,
-                                request_type_id: 2,
-                                parameters: "[]",
-                                event_name_id: 1,
-                                resolution_id: 3,
-                                user_agent_id: 1,
-                                ip_id: 1,
-                                url_id: 1,
-                                client_id: 1)
-          PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                                responded_in: 100,
-                                referrer_id: 1,
-                                request_type_id: 1,
-                                parameters: "[]",
-                                event_name_id: 1,
-                                resolution_id: 4,
-                                user_agent_id: 3,
-                                ip_id: 1,
-                                url_id: 1,
-                                client_id: 2)
-
-          client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
-          UserAgent.create(browser: 'IE', os: 'Windows')
-          UserAgent.create(browser: 'Chrome', os: 'OSX')
-          UserAgent.create(browser: 'Firefox', os: 'Linux')
-          expected = {"Windows" => 3, "OSX" => 1}
-
-          assert_equal expected, client.operating_system_breakdown_for_client
+    expected = {"IE" => 3, "Chrome" => 1}
+    assert_equal expected, client.browser_breakdown_for_client
+  end
 
 
-        end
+  def test_it_provides_breakdown_of_all_operating_systems_for_client
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 48,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 1,
+                          user_agent_id: 1,
+                          ip_id: 1,
+                          url_id: 1,
+                          client_id: 1, key: "SHA-1")
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 50,
+                          referrer_id: 1,
+                          request_type_id: 2,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 2,
+                          user_agent_id: 2,
+                          ip_id: 1,
+                          url_id: 1,
+                          client_id: 1, key: "SHA-1")
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 50,
+                          referrer_id: 1,
+                          request_type_id: 2,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 3,
+                          user_agent_id: 1,
+                          ip_id: 1,
+                          url_id: 1,
+                          client_id: 1, key: "SHA-1")
 
-        def test_it_lists_all_urls_by_requests_for_client
-            PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                                  responded_in: 48,
-                                  referrer_id: 1,
-                                  request_type_id: 1,
-                                  parameters: "[]",
-                                  event_name_id: 1,
-                                  resolution_id: 1,
-                                  user_agent_id: 1,
-                                  ip_id: 1,
-                                  url_id: 1,
-                                  client_id: 1)
-            PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                                  responded_in: 50,
-                                  referrer_id: 1,
-                                  request_type_id: 2,
-                                  parameters: "[]",
-                                  event_name_id: 1,
-                                  resolution_id: 2,
-                                  user_agent_id: 2,
-                                  ip_id: 1,
-                                  url_id: 3,
-                                  client_id: 1)
-            PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                                  responded_in: 50,
-                                  referrer_id: 1,
-                                  request_type_id: 2,
-                                  parameters: "[]",
-                                  event_name_id: 1,
-                                  resolution_id: 3,
-                                  user_agent_id: 1,
-                                  ip_id: 1,
-                                  url_id: 3,
-                                  client_id: 1)
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 50,
+                          referrer_id: 1,
+                          request_type_id: 2,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 3,
+                          user_agent_id: 1,
+                          ip_id: 1,
+                          url_id: 1,
+                          client_id: 1, key: "SHA-1")
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 100,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 4,
+                          user_agent_id: 3,
+                          ip_id: 1,
+                          url_id: 1,
+                          client_id: 2, key: "SHA-1")
 
-            PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                                  responded_in: 50,
-                                  referrer_id: 1,
-                                  request_type_id: 2,
-                                  parameters: "[]",
-                                  event_name_id: 1,
-                                  resolution_id: 3,
-                                  user_agent_id: 1,
-                                  ip_id: 1,
-                                  url_id: 3,
-                                  client_id: 1)
-            PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                                  responded_in: 100,
-                                  referrer_id: 1,
-                                  request_type_id: 1,
-                                  parameters: "[]",
-                                  event_name_id: 1,
-                                  resolution_id: 4,
-                                  user_agent_id: 3,
-                                  ip_id: 1,
-                                  url_id: 1,
-                                  client_id: 2)
+    client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
+    UserAgent.create(browser: 'IE', os: 'Windows')
+    UserAgent.create(browser: 'Chrome', os: 'OSX')
+    UserAgent.create(browser: 'Firefox', os: 'Linux')
+    expected = {"Windows" => 3, "OSX" => 1}
 
-            client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
-            Url.create(address: "www.test.com")
-            Url.create(address: "www.test.com/list")
-            Url.create(address: "www.test.com/new")
-            expected = ["www.test.com/new", "www.test.com"]
+    assert_equal expected, client.operating_system_breakdown_for_client
 
-            assert_equal expected, client.url_list_ordered_by_request_count
+  end
 
+
+  def test_it_lists_all_urls_by_requests_for_client
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 48,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 1,
+                          user_agent_id: 1,
+                          ip_id: 1,
+                          url_id: 1,
+                          client_id: 1, key: "SHA-1")
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 50,
+                          referrer_id: 1,
+                          request_type_id: 2,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 2,
+                          user_agent_id: 2,
+                          ip_id: 1,
+                          url_id: 3,
+                          client_id: 1, key: "SHA-1")
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 50,
+                          referrer_id: 1,
+                          request_type_id: 2,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 3,
+                          user_agent_id: 1,
+                          ip_id: 1,
+                          url_id: 3,
+                          client_id: 1, key: "SHA-1")
+
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 50,
+                          referrer_id: 1,
+                          request_type_id: 2,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 3,
+                          user_agent_id: 1,
+                          ip_id: 1,
+                          url_id: 3,
+                          client_id: 1, key: "SHA-1")
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 100,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 4,
+                          user_agent_id: 3,
+                          ip_id: 1,
+                          url_id: 1,
+                          client_id: 2, key: "SHA-1")
+
+    client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
+    Url.create(address: "www.test.com")
+    Url.create(address: "www.test.com/list")
+    Url.create(address: "www.test.com/new")
+    expected = ["www.test.com/new", "www.test.com"]
+
+    assert_equal expected, client.url_list_ordered_by_request_count
   end
 
   def test_client_can_return_list_of_relative_paths
@@ -567,7 +564,7 @@ class ClientTest < Minitest::Test
                           user_agent_id: 1,
                           ip_id: 1,
                           url_id: 1,
-                          client_id: 1)
+                          client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 50,
                           referrer_id: 1,
@@ -578,7 +575,7 @@ class ClientTest < Minitest::Test
                           user_agent_id: 2,
                           ip_id: 1,
                           url_id: 3,
-                          client_id: 1)
+                          client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 50,
                           referrer_id: 1,
@@ -589,7 +586,7 @@ class ClientTest < Minitest::Test
                           user_agent_id: 1,
                           ip_id: 1,
                           url_id: 3,
-                          client_id: 1)
+                          client_id: 1, key: "SHA-1")
 
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 50,
@@ -601,7 +598,7 @@ class ClientTest < Minitest::Test
                           user_agent_id: 1,
                           ip_id: 1,
                           url_id: 2,
-                          client_id: 1)
+                          client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 100,
                           referrer_id: 1,
@@ -612,7 +609,7 @@ class ClientTest < Minitest::Test
                           user_agent_id: 3,
                           ip_id: 1,
                           url_id: 1,
-                          client_id: 2)
+                          client_id: 2, key: "SHA-1")
 
     client = Client.create(identifier: "BestBuy", root_url: "www.test.com")
     Url.create(address: "www.test.com")
@@ -635,7 +632,7 @@ class ClientTest < Minitest::Test
                           user_agent_id: 1,
                           ip_id: 1,
                           url_id: 1,
-                          client_id: 1)
+                          client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 50,
                           referrer_id: 1,
@@ -646,7 +643,7 @@ class ClientTest < Minitest::Test
                           user_agent_id: 2,
                           ip_id: 1,
                           url_id: 3,
-                          client_id: 1)
+                          client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 50,
                           referrer_id: 1,
@@ -657,7 +654,7 @@ class ClientTest < Minitest::Test
                           user_agent_id: 1,
                           ip_id: 1,
                           url_id: 3,
-                          client_id: 1)
+                          client_id: 1, key: "SHA-1")
 
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 50,
@@ -669,7 +666,7 @@ class ClientTest < Minitest::Test
                           user_agent_id: 1,
                           ip_id: 1,
                           url_id: 2,
-                          client_id: 1)
+                          client_id: 1, key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 100,
                           referrer_id: 1,
@@ -680,7 +677,7 @@ class ClientTest < Minitest::Test
                           user_agent_id: 3,
                           ip_id: 1,
                           url_id: 1,
-                          client_id: 2)
+                          client_id: 2, key: "SHA-1")
 
     client = Client.create(identifier: "BestBuy", root_url: "www.test.com")
     Url.create(address: "www.test.com")
@@ -698,54 +695,51 @@ class ClientTest < Minitest::Test
 
 
   def test_it_groups_events_by_hour_for_client
-  PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                        responded_in: 48,
-                        referrer_id: 1,
-                        request_type_id: 1,
-                        parameters: "[]",
-                        event_name_id: 1,
-                        resolution_id: 1,
-                        user_agent_id: 1,
-                        ip_id: 1,
-                        url_id: 1,
-                        client_id: 1)
-  PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                        responded_in: 48,
-                        referrer_id: 1,
-                        request_type_id: 1,
-                        parameters: "[]",
-                        event_name_id: 1,
-                        resolution_id: 1,
-                        user_agent_id: 1,
-                        ip_id: 1,
-                        url_id: 1,
-                        client_id: 1)
-  PayloadRequest.create(requested_at: "2013-02-16 20:38:28 -0700",
-                        responded_in: 48,
-                        referrer_id: 1,
-                        request_type_id: 1,
-                        parameters: "[]",
-                        event_name_id: 1,
-                        resolution_id: 1,
-                        user_agent_id: 1,
-                        ip_id: 1,
-                        url_id: 1,
-                        client_id: 1)
-  client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
-  event = EventName.create(name: "event1")
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 48,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 1,
+                          user_agent_id: 1,
+                          ip_id: 1,
+                          url_id: 1,
+                          client_id: 1, key: "SHA-1")
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 48,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 1,
+                          user_agent_id: 1,
+                          ip_id: 1,
+                          url_id: 1,
+                          client_id: 1, key: "SHA-1")
+    PayloadRequest.create(requested_at: "2013-02-16 20:38:28 -0700",
+                          responded_in: 48,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 1,
+                          user_agent_id: 1,
+                          ip_id: 1,
+                          url_id: 1,
+                          client_id: 1, key: "SHA-1")
+    client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
+    event = EventName.create(name: "event1")
+  
+    expected = {21.0 =>2, 20.0 =>1}
+    assert_equal expected, client.event_requests_by_hour("event1")
+  end
 
-  expected = {21.0 =>2, 20.0 =>1}
-  assert_equal expected, client.event_requests_by_hour("event1")
-end
-
-def test_groups_events_by_hour_returns_empty_if_no_requests
-
-  client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
-  event = EventName.create(name: "event1")
-
-  assert_equal ({}), client.event_requests_by_hour("event1")
-end
-
-
-
+  def test_groups_events_by_hour_returns_empty_if_no_requests
+  
+    client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
+    event = EventName.create(name: "event1")
+  
+    assert_equal ({}), client.event_requests_by_hour("event1")
+  end
 end

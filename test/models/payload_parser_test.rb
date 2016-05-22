@@ -25,14 +25,14 @@ class PayloadParserTest < Minitest::Test
     result = PayloadParser.parse_json(raw_json)
 
     expected = {requested_at: "2013-02-16 21:38:28 -0700",
-              responded_in: 37,
-                  referrer: { address: "http://jumpstartlab.com" },
-              request_type: { verb: "GET" },
-                event_name: { name: "socialLogin" },
-                resolution: { width: "1920", height: "1280" },
-                user_agent: { os: "Mac OS X 10.8.2", browser: "Chrome 24.0.1309" },
-                        ip: { address: "63.29.38.211" },
-                       url: { address: "http://jumpstartlab.com/blog"}}
+                responded_in: 37,
+                    referrer: { address: "http://jumpstartlab.com" },
+                request_type: { verb: "GET" },
+                  event_name: { name: "socialLogin" },
+                  resolution: { width: "1920", height: "1280" },
+                  user_agent: { os: "Mac OS X 10.8.2", browser: "Chrome 24.0.1309" },
+                          ip: { address: "63.29.38.211" },
+                         url: { address: "http://jumpstartlab.com/blog"}}
 
     assert_equal expected[:requested_at], result[:requested_at]
     assert_equal expected[:responded_in], result[:responded_in]
