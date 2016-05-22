@@ -99,7 +99,7 @@ class PayloadRequestTest < Minitest::Test
 
   def test_it_rejects_payload_request_with_missing_data
     pr = PayloadRequest.create
-    assert_equal 11, pr.errors.messages.length
+    assert_equal 12, pr.errors.messages.length
     assert_equal true, pr.invalid?
   end
 
