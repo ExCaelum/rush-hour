@@ -26,7 +26,7 @@ class UserAgentTest < Minitest::Test
                           user_agent_id: 1,
                           resolution_id: 1,
                           ip_id: 1,
-                          url_id: 1)
+                          url_id: 1, client_id: 1, key: "SHA-1")
 
     ua = UserAgent.create(os: "osX", browser: "Chrome")
 

@@ -19,15 +19,15 @@ class ResolutionTest < Minitest::Test
 
   def test_resolution_payload_requests_relationship
     pr = PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 48,
-                          referrer_id: 1,
-                          request_type_id: 1,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          user_agent_id: 1,
-                          resolution_id: 1,
-                          ip_id: 1,
-                          url_id: 1)
+                               responded_in: 48,
+                               referrer_id: 1,
+                               request_type_id: 1,
+                               parameters: "[]",
+                               event_name_id: 1,
+                               user_agent_id: 1,
+                               resolution_id: 1,
+                               ip_id: 1,
+                               url_id: 1, client_id: 1, key: "SHA-1")
 
     resolution = Resolution.create(height: "1000", width: "100")
 
@@ -39,26 +39,26 @@ class ResolutionTest < Minitest::Test
 
   def test_resolution_list
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-    responded_in: 48,
-    referrer_id: 1,
-    request_type_id: 1,
-    parameters: "[]",
-    event_name_id: 1,
-    user_agent_id: 1,
-    resolution_id: 1,
-    ip_id: 1,
-    url_id: 1)
+                          responded_in: 48,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip_id: 1,
+                          url_id: 1, client_id: 1, key: "SHA-1")
 
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-    responded_in: 48,
-    referrer_id: 1,
-    request_type_id: 1,
-    parameters: "[]",
-    event_name_id: 1,
-    user_agent_id: 1,
-    resolution_id: 1,
-    ip_id: 1,
-    url_id: 1)
+                          responded_in: 48,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          user_agent_id: 1,
+                          resolution_id: 1,
+                          ip_id: 1,
+                          url_id: 1, client_id: 1, key: "SHA-1")
 
 
     Resolution.create(height: "1", width: "1")
@@ -68,15 +68,15 @@ class ResolutionTest < Minitest::Test
     Resolution.create(height: "2", width: "2")
 
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-    responded_in: 48,
-    referrer_id: 1,
-    request_type_id: 1,
-    parameters: "[]",
-    event_name_id: 1,
-    user_agent_id: 1,
-    resolution_id: 2,
-    ip_id: 1,
-    url_id: 1)
+                          responded_in: 48,
+                          referrer_id: 1,
+                          request_type_id: 1,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          user_agent_id: 1,
+                          resolution_id: 2,
+                          ip_id: 1,
+                          url_id: 1, client_id: 1, key: "SHA-1")
 
     assert_equal ["1 x 1", "2 x 2"], Resolution.list_of_resolutions.sort
   end
