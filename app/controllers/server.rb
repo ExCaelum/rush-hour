@@ -5,7 +5,6 @@ module RushHour
       client = Client.new({identifier: params["identifier"],
                            root_url: params["rootUrl"]})
       name   = params[:identifier]
-
       if Client.find_by(identifier: params['identifier'])
         status 403
         body "Client with #{name.upcase} identifier is already registered."
@@ -56,25 +55,6 @@ module RushHour
       erb :error
     end
 
-    get '/sources/:identifier' do |identifier|
-      @client = Client.find_by(identifier: identifier)
-      pass unless @client
-      payload_requests = client.payload_requests
-      pass unless payload_requests
-      erb :dashboard
-    end
-
-
-    get '/sources/:identifier' do |identifier|
-      if !Client.find_by(identifier: identifier)
-        @error_message = "#{identifier.capitalize} does not exist"
-      else
-        @error_message = "There is no payload data for
-                         #{identifier.capitalize}"
-      end
-      erb :error
-    end
-
     get '/sources/:identifier/urls/:rel_path' do |identifier, rel_path|
       client = Client.find_by(identifier: identifier)
       @url = client.find_url_by_relative_path(rel_path)
@@ -82,11 +62,29 @@ module RushHour
       erb :url_dashboard
     end
 
-    get '/sources/:identifier/urls/:rel_path' do |identifier, rel_path|
-      @error_message = "The #{rel_path} URL for #{identifier.capitalize}
-                        has no request data"
+    get '/sources/:identifier/urls/*' do |identifier, splat|
+      @error_message = "No Data for #{splat} for #{identifier.capitalize}"
       erb :error
     end
-  end
 
+    get '/sources/:identifier' do |identifier|
+      @client = Client.find_by(identifier: identifier)
+      pass unless @client
+      payload_requests = @client.payload_requests
+      pass if payload_requests.empty?
+      erb :dashboard
+    end
+
+
+    get '/sources/*' do |splat|
+      if !Client.find_by(identifier: splat)
+        @error_message = "#{splat.capitalize} does not exist"
+      else
+        @error_message = "There is no payload data for:
+        #{splat.capitalize}"
+      end
+      erb :error
+    end
+
+  end
 end
