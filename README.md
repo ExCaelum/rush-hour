@@ -18,3 +18,21 @@ Rush Hour is a web traffic tracking and analysis tool that analyzes HTTP request
 * Parker Phillips
 * Brian Sayler
 * Kerry Sheldon
+
+
+## Basic Usage
+
+##### 1. Seed Database
+
+First start the server by running `shotgun` from the project root directory. To seed the development database, run the command `./test.sh` from the project root directory. If you don't have permissions to run the file, run `sudo chmod u+x test.sh` before `./test.sh`.
+
+##### 2. Use Application
+
+4 clients are loaded into the application from `test.sh`. To view a client's dashboard, navigate to the following links:
+
+* `localhost:9393/sources/google`
+* `localhost:9393/sources/jumpstartlab`
+* `localhost:9393/sources/apple`
+* `localhost:9393/sources/yahoo`
+
+On each client page, you'll find a dashboard displaying summary statistics. Links to URL statistics are located in the "All requested URLs" table.
