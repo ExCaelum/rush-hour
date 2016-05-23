@@ -1,5 +1,5 @@
 require 'pry'
-# this class is responsible for communicating with the Client table in the database
+# this class is responsible for interating Client table in the database
 class Client < ActiveRecord::Base
   validates :root_url, presence: true
   validates :identifier, presence: true, uniqueness: true
