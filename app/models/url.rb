@@ -1,3 +1,4 @@
+# responsible for interacting with urls table
 class Url < ActiveRecord::Base
   validates :address, presence: true
 
@@ -32,7 +33,8 @@ class Url < ActiveRecord::Base
                       order('count_all desc').count.keys.take(3)
 
     top_user_agents.map do |id|
-      "#{UserAgent.find(id).os} #{UserAgent.find(id).browser}"
+      agent = UserAgent.find(id)
+      "#{agent.os} #{agent.browser}"
     end
   end
 

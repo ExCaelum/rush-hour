@@ -1,3 +1,4 @@
+# class interacts with the Resolution table
 class Resolution < ActiveRecord::Base
   validates :height, presence: true
   validates :width, presence: true

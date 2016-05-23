@@ -1,3 +1,4 @@
+# class interacts with request_types table
 class RequestType < ActiveRecord::Base
   validates :verb, presence: true
 

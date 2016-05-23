@@ -1,4 +1,5 @@
 require 'pry'
+# this class is responsible for interating Client table in the database
 class Client < ActiveRecord::Base
   validates :root_url, presence: true
   validates :identifier, presence: true, uniqueness: true
@@ -67,12 +68,14 @@ class Client < ActiveRecord::Base
 
   def relative_path_exists?(relative_path)
     full_path = root_url + "/" + relative_path
-    !urls.find_by(address: full_path).nil?
+    !!urls.find_by(address: full_path)
   end
 
   def url_list_with_links_for_dashboard
-    url_list_ordered_by_request_count.map do |url|
-      "<a href=\"/sources/#{identifier}/urls/#{url.split('/').last}\">Dashboard: #{root_url}/#{url.split('/').last}</a>"
+    url_list_ordered_by_request_count.map do |raw_url|
+      url = raw_url.split('/').last
+      "<a href=\"/sources/#{identifier}/urls/#{url}\">" +
+      "Dashboard: #{root_url}/#{url}</a>"
     end
   end
 

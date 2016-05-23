@@ -1,3 +1,4 @@
+# class is responsible for interacting with the Payload Request join table
 class PayloadRequest < ActiveRecord::Base
   include PayloadParser
 
@@ -53,33 +54,28 @@ class PayloadRequest < ActiveRecord::Base
     parsed_payload = PayloadParser.parse_json(payload)
     parsed_payload[:client] = Client.find_by(identifier: client_identifier)
     key = PayloadParser.generate_sha(parsed_payload)
-    pr = PayloadRequest.find_by(key: key)
-    if pr.class == PayloadRequest
-      true
-    else
-      false
-    end
+    PayloadRequest.find_by(key: key).is_a?(PayloadRequest)
   end
 
   def self.record_payload(raw_json, client_identifier)
     payload = PayloadParser.parse_json(raw_json)
     client = Client.find_by(identifier: client_identifier)
-    inclusive_payload = payload
-    inclusive_payload[:client] = client
+    payload[:client] = client
 
     pr = PayloadRequest.new
-    pr.requested_at = payload[:requested_at]
-    pr.responded_in = payload[:responded_in]
-    pr.referrer = Referrer.find_or_create_by(payload[:referrer])
-    pr.request_type = RequestType.find_or_create_by(payload[:request_type])
-    pr.event_name = EventName.find_or_create_by(payload[:event_name])
-    pr.resolution = Resolution.find_or_create_by(payload[:resolution])
-    pr.user_agent = UserAgent.find_or_create_by(payload[:user_agent])
-    pr.ip = Ip.find_or_create_by(payload[:ip])
-    pr.url = Url.find_or_create_by(payload[:url])
-    pr.client = client
-    pr.parameters = payload[:parameters]
-    pr.key = PayloadParser.generate_sha(inclusive_payload)
+    pr.attributes =
+      { requested_at:  payload[:requested_at],
+        responded_in:  payload[:responded_in],
+        referrer: Referrer.where(payload[:referrer]).first_or_create,
+        request_type: RequestType.where(payload[:request_type]).first_or_create,
+        event_name: EventName.where(payload[:event_name]).first_or_create,
+        resolution: Resolution.where(payload[:resolution]).first_or_create,
+        user_agent: UserAgent.where(payload[:user_agent]).first_or_create,
+        ip: Ip.where(payload[:ip]).first_or_create,
+        url: Url.where(payload[:url]).first_or_create,
+        client: client,
+        parameters: payload[:parameters],
+        key: PayloadParser.generate_sha(payload) }
     pr.save
   end
 
