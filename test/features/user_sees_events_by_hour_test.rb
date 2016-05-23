@@ -15,7 +15,8 @@ class UserSeesSingleEventTest < FeatureTest
                                resolution_id: 1,
                                ip_id: 1,
                                url_id: 1,
-                               client_id: 1)
+                               client_id: 1,
+                               key: "SHA-1")
     PayloadRequest.create(requested_at: "2013-02-16 01:38:28 -0700",
                                responded_in: 48,
                                referrer_id: 1,
@@ -26,7 +27,8 @@ class UserSeesSingleEventTest < FeatureTest
                                resolution_id: 1,
                                ip_id: 1,
                                url_id: 1,
-                               client_id: 1)
+                               client_id: 1,
+                               key: "SHA-1")
    PayloadRequest.create(requested_at: "2013-02-16 02:38:28 -0700",
                               responded_in: 48,
                               referrer_id: 1,
@@ -37,7 +39,8 @@ class UserSeesSingleEventTest < FeatureTest
                               resolution_id: 1,
                               ip_id: 1,
                               url_id: 1,
-                              client_id: 1)
+                              client_id: 1,
+                              key: "SHA-1")
    PayloadRequest.create(requested_at: "2013-02-16 23:38:28 -0700",
                               responded_in: 48,
                               referrer_id: 1,
@@ -48,7 +51,8 @@ class UserSeesSingleEventTest < FeatureTest
                               resolution_id: 1,
                               ip_id: 1,
                               url_id: 1,
-                              client_id: 1)
+                              client_id: 1,
+                              key: "SHA-1")
     visit('/sources/Client1/events/Event1')
 
     assert page.has_content?("Total requests: 4")
