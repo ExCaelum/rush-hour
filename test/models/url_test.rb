@@ -146,7 +146,7 @@ class UrlTest < Minitest::Test
 
     url= Url.create(address: "www.url1.com")
 
-    assert_equal [48, 40], url.list_response_times
+    assert_equal [48, 40], url.list_response_times.sort.reverse
   end
 
 
