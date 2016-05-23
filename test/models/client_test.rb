@@ -4,51 +4,18 @@ class ClientTest < Minitest::Test
   include TestHelpers
 
   def test_client_connections
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 48,
-                          referrer_id: 1,
-                          request_type_id: 1,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          resolution_id: 1,
-                          user_agent_id: 1,
-                          ip_id: 1,
-                          url_id: 1,
-                          client_id: 1, key: "SHA-1")
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 48,
-                          referrer_id: 1,
-                          request_type_id: 1,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          resolution_id: 1,
-                          user_agent_id: 1,
-                          ip_id: 1,
-                          url_id: 1,
-                          client_id: 1, key: "SHA-1")
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 48,
-                          referrer_id: 1,
-                          request_type_id: 1,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          resolution_id: 1,
-                          user_agent_id: 1,
-                          ip_id: 1,
-                          url_id: 1,
-                          client_id: 2, key: "SHA-1")
-    c1 = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
-    Client.create(identifier: "KingSoopers", root_url: "www.KingSoopers.com")
-    url = Url.create(address: "www.BestBuy.com/cameras")
-
-    assert_equal 2, c1.payload_requests.length
-    assert_equal "www.BestBuy.com/cameras", c1.urls.first.address
-    assert_equal "www.BestBuy.com", url.clients.first.root_url
+    associations = standard_payload_with_associations
+    assert_equal 1, associations[:client].payload_requests.count
+    assert_equal "www.client.com/url", associations[:client].urls.first.address
+    assert_equal "www.client.com", associations[:url].clients.first.root_url
+    #SAID WE SHOULD DO ALL
   end
 
   def test_it_calculates_average_response_time_for_client
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 48,
+    associations = standard_payload_with_associations
+    client = associations[:client]
+    client.payload_requests.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 20,
                           referrer_id: 1,
                           request_type_id: 1,
                           parameters: "[]",
@@ -56,10 +23,9 @@ class ClientTest < Minitest::Test
                           resolution_id: 1,
                           user_agent_id: 1,
                           ip_id: 1,
-                          url_id: 1,
-                          client_id: 1, key: "SHA-1")
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 50,
+                          url_id: 1, key: "SHA-1")
+    client.payload_requests.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 30,
                           referrer_id: 1,
                           request_type_id: 1,
                           parameters: "[]",
@@ -67,8 +33,8 @@ class ClientTest < Minitest::Test
                           resolution_id: 1,
                           user_agent_id: 1,
                           ip_id: 1,
-                          url_id: 1,
-                          client_id: 1, key: "SHA-1")
+                          url_id: 1, key: "SHA-1")
+    # payload request for other client to ensure it's not using this one
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 100,
                           referrer_id: 1,
@@ -79,17 +45,20 @@ class ClientTest < Minitest::Test
                           user_agent_id: 1,
                           ip_id: 1,
                           url_id: 1,
-                          client_id: 2, key: "SHA-1")
+                          client_id: client.id + 1, key: "SHA-1")
 
-    client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
-    assert_equal 49, client.average_response_time_for_client
+
+    assert_equal 20, client.average_response_time_for_client
 
 
   end
 
   def test_it_calculates_min_response_time_for_client
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 48,
+
+    associations = standard_payload_with_associations
+    client = associations[:client]
+    client.payload_requests.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 20,
                           referrer_id: 1,
                           request_type_id: 1,
                           parameters: "[]",
@@ -97,10 +66,9 @@ class ClientTest < Minitest::Test
                           resolution_id: 1,
                           user_agent_id: 1,
                           ip_id: 1,
-                          url_id: 1,
-                          client_id: 1, key: "SHA-1")
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 50,
+                          url_id: 1, key: "SHA-1")
+    client.payload_requests.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 30,
                           referrer_id: 1,
                           request_type_id: 1,
                           parameters: "[]",
@@ -108,8 +76,8 @@ class ClientTest < Minitest::Test
                           resolution_id: 1,
                           user_agent_id: 1,
                           ip_id: 1,
-                          url_id: 1,
-                          client_id: 1, key: "SHA-1")
+                          url_id: 1, key: "SHA-1")
+    # payload request for other client to ensure it's not using this one
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 100,
                           referrer_id: 1,
@@ -120,17 +88,19 @@ class ClientTest < Minitest::Test
                           user_agent_id: 1,
                           ip_id: 1,
                           url_id: 1,
-                          client_id: 2, key: "SHA-1")
+                          client_id: client.id + 1, key: "SHA-1")
 
-    client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
-    assert_equal 48, client.min_response_time_for_client
+
+    assert_equal 10, client.min_response_time_for_client
 
 
   end
 
   def test_it_calculates_max_response_time_for_client
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 48,
+    associations = standard_payload_with_associations
+    client = associations[:client]
+    client.payload_requests.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 20,
                           referrer_id: 1,
                           request_type_id: 1,
                           parameters: "[]",
@@ -138,10 +108,9 @@ class ClientTest < Minitest::Test
                           resolution_id: 1,
                           user_agent_id: 1,
                           ip_id: 1,
-                          url_id: 1,
-                          client_id: 1, key: "SHA-1")
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 50,
+                          url_id: 1, key: "SHA-1")
+    client.payload_requests.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 30,
                           referrer_id: 1,
                           request_type_id: 1,
                           parameters: "[]",
@@ -149,8 +118,8 @@ class ClientTest < Minitest::Test
                           resolution_id: 1,
                           user_agent_id: 1,
                           ip_id: 1,
-                          url_id: 1,
-                          client_id: 1, key: "SHA-1")
+                          url_id: 1, key: "SHA-1")
+    # payload request for other client to ensure it's not using this one
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 100,
                           referrer_id: 1,
@@ -161,84 +130,64 @@ class ClientTest < Minitest::Test
                           user_agent_id: 1,
                           ip_id: 1,
                           url_id: 1,
-                          client_id: 2, key: "SHA-1")
+                          client_id: client.id + 1, key: "SHA-1")
 
-    client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
-    assert_equal 50, client.max_response_time_for_client
+    assert_equal 30, client.max_response_time_for_client
 
 
   end
 
-  def test_it_calculates_max_response_time_for_client
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 48,
-                          referrer_id: 1,
-                          request_type_id: 1,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          resolution_id: 1,
-                          user_agent_id: 1,
-                          ip_id: 1,
-                          url_id: 1,
-                          client_id: 1, key: "SHA-1")
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 50,
-                          referrer_id: 1,
-                          request_type_id: 2,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          resolution_id: 1,
-                          user_agent_id: 1,
-                          ip_id: 1,
-                          url_id: 1,
-                          client_id: 1, key: "SHA-1")
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 50,
-                          referrer_id: 1,
-                          request_type_id: 2,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          resolution_id: 1,
-                          user_agent_id: 1,
-                          ip_id: 1,
-                          url_id: 1,
-                          client_id: 1, key: "SHA-1")
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 100,
-                          referrer_id: 1,
-                          request_type_id: 1,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          resolution_id: 1,
-                          user_agent_id: 1,
-                          ip_id: 1,
-                          url_id: 1,
-                          client_id: 2, key: "SHA-1")
-
-    client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
-    req1 = RequestType.create(verb: "GET")
+  def test_it_ids_most_frequent_request_verb_for_client
+    associations = standard_payload_with_associations
+    client = associations[:client]
     req2 = RequestType.create(verb: "POST")
+
+    client.payload_requests.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 48,
+                          referrer_id: 1,
+                          request_type_id: req2.id,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 1,
+                          user_agent_id: 1,
+                          ip_id: 1,
+                          url_id: 1, key: "SHA-1")
+    client.payload_requests.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          responded_in: 50,
+                          referrer_id: 1,
+                          request_type_id: req2.id,
+                          parameters: "[]",
+                          event_name_id: 1,
+                          resolution_id: 1,
+                          user_agent_id: 1,
+                          ip_id: 1,
+                          url_id: 1,
+                          client_id: 1, key: "SHA-1")
+
     assert_equal req2.verb, client.most_frequent_request_type_for_client
 
 
   end
 
-  def test_it_calculates_max_response_time_for_client
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+  def test_it_lists_all_request_verbs_for_client
+    associations = standard_payload_with_associations
+    client = associations[:client]
+    req2 = RequestType.create(verb: "POST")
+
+    client.payload_requests.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 48,
                           referrer_id: 1,
-                          request_type_id: 1,
+                          request_type_id: req2.id,
                           parameters: "[]",
                           event_name_id: 1,
                           resolution_id: 1,
                           user_agent_id: 1,
                           ip_id: 1,
-                          url_id: 1,
-                          client_id: 1, key: "SHA-1")
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                          url_id: 1, key: "SHA-1")
+    client.payload_requests.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 50,
                           referrer_id: 1,
-                          request_type_id: 2,
+                          request_type_id: req2.id,
                           parameters: "[]",
                           event_name_id: 1,
                           resolution_id: 1,
@@ -246,110 +195,32 @@ class ClientTest < Minitest::Test
                           ip_id: 1,
                           url_id: 1,
                           client_id: 1, key: "SHA-1")
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 50,
-                          referrer_id: 1,
-                          request_type_id: 2,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          resolution_id: 1,
-                          user_agent_id: 1,
-                          ip_id: 1,
-                          url_id: 1,
-                          client_id: 1, key: "SHA-1")
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 100,
-                          referrer_id: 1,
-                          request_type_id: 1,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          resolution_id: 1,
-                          user_agent_id: 1,
-                          ip_id: 1,
-                          url_id: 1,
-                          client_id: 2, key: "SHA-1")
-
-    client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
-    req1 = RequestType.create(verb: "GET")
-    req2 = RequestType.create(verb: "POST")
-    req3 = RequestType.create(verb: "PUT")
-    req4 = RequestType.create(verb: "DELETE")
     assert_equal ["GET", "POST"], client.all_http_verbs_for_client.sort
   end
 
   def test_it_lists_all_resoultions_for_client
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+    associations = standard_payload_with_associations
+    client = associations[:client]
+    res2 = Resolution.create(height: '2', width: '1')
+
+    client.payload_requests.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 48,
                           referrer_id: 1,
                           request_type_id: 1,
                           parameters: "[]",
                           event_name_id: 1,
-                          resolution_id: 1,
+                          resolution_id: res2.id,
                           user_agent_id: 1,
                           ip_id: 1,
-                          url_id: 1,
-                          client_id: 1, key: "SHA-1")
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 50,
-                          referrer_id: 1,
-                          request_type_id: 2,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          resolution_id: 2,
-                          user_agent_id: 1,
-                          ip_id: 1,
-                          url_id: 1,
-                          client_id: 1, key: "SHA-1")
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 50,
-                          referrer_id: 1,
-                          request_type_id: 2,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          resolution_id: 3,
-                          user_agent_id: 1,
-                          ip_id: 1,
-                          url_id: 1,
-                          client_id: 1, key: "SHA-1")
-
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 50,
-                          referrer_id: 1,
-                          request_type_id: 2,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          resolution_id: 3,
-                          user_agent_id: 1,
-                          ip_id: 1,
-                          url_id: 1,
-                          client_id: 1, key: "SHA-1")
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 100,
-                          referrer_id: 1,
-                          request_type_id: 1,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          resolution_id: 4,
-                          user_agent_id: 1,
-                          ip_id: 1,
-                          url_id: 1,
-                          client_id: 2, key: "SHA-1")
-
-    client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
-    Resolution.create(height: '1', width: '1')
-    Resolution.create(height: '2', width: '1')
-    Resolution.create(height: '3', width: '1')
-    Resolution.create(height: '4', width: '1')
-
+                          url_id: 1, key: "SHA-1")
     assert_equal true, client.all_screen_resolutions_for_client.include?("1 x 1")
     assert_equal true, client.all_screen_resolutions_for_client.include?("1 x 2")
-    assert_equal true, client.all_screen_resolutions_for_client.include?("1 x 3")
-    assert_equal false, client.all_screen_resolutions_for_client.include?("1 x 4")
-    assert_equal ["1 x 1", "1 x 2", "1 x 3"], client.all_screen_resolutions_for_client.uniq.sort
+    assert_equal ["1 x 1", "1 x 2"], client.all_screen_resolutions_for_client.uniq.sort
 
   end
 
   def test_it_provides_breakdown_of_all_browswers_for_client
+    #LEFT OFF HERE
     PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
                           responded_in: 48,
                           referrer_id: 1,
@@ -730,16 +601,16 @@ class ClientTest < Minitest::Test
                           client_id: 1, key: "SHA-1")
     client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
     event = EventName.create(name: "event1")
-  
+
     expected = {21.0 =>2, 20.0 =>1}
     assert_equal expected, client.event_requests_by_hour("event1")
   end
 
   def test_groups_events_by_hour_returns_empty_if_no_requests
-  
+
     client = Client.create(identifier: "BestBuy", root_url: "www.BestBuy.com")
     event = EventName.create(name: "event1")
-  
+
     assert_equal ({}), client.event_requests_by_hour("event1")
   end
 end
