@@ -35,4 +35,22 @@ module PayloadParser
     end
   end
 
+  def self.get_client_response
+    if params.empty?|| !params.key?('payload')|| (payload && payload.empty?)
+      status 400
+      body "Payload data was not provided."
+    elsif PayloadRequest.duplicate?(params[:payload], identifier)
+      status 403
+      body "This payload was already received."
+    elsif !Client.identifier_exists?(identifier)
+      status 403
+      body "#{identifier} is not a registered application."
+    elsif PayloadRequest.record_payload(params[:payload], identifier)
+      status 200
+    else
+      status 418
+      body "Bad Data"
+    end
+  end
+
 end
