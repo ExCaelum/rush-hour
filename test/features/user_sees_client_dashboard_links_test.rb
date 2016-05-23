@@ -43,7 +43,7 @@ class UserSeesAllClientUrlsTest < FeatureTest
     assert page.has_content?("Client1 Payload Statistics")
     assert page.has_content?("URLs")
 
-    click_link("blog info")
+    click_link("Dashboard: www.client.com/blog")
     assert page.has_content?("www.client.com/blog")
     assert page.has_content?("Response Times")
     assert page.has_content?("Popular Referrers")
