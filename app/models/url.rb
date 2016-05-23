@@ -13,8 +13,6 @@ class Url < ActiveRecord::Base
     payload_requests.pluck(:responded_in)
   end
 
-  #tested it with event name instead bc didnt have referrer yet/passed
-  #doesn't handle ties for third in any manner
   def top_three_referrers
     top_referrer_ids = payload_requests.group(:referrer_id).
                        order('count_all desc').count.keys.take(3)
