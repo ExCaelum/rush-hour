@@ -17,7 +17,7 @@ module Response
       [403, "This payload was already received."]
     elsif !Client.identifier_exists?(identifier)
       [403, "#{identifier} is not a registered application."]
-    elsif PayloadRequest.record_payload(params[:payload], identifier)
+    elsif PayloadCreator.record_payload(params[:payload], identifier)
       [200]
     else
       [418, "Bad Data"]
