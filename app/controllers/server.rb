@@ -5,16 +5,10 @@ module RushHour
       client = Client.new({identifier: params["identifier"],
                            root_url: params["rootUrl"]})
       name   = params[:identifier]
-      if Client.find_by(identifier: params['identifier'])
-        status 403
-        body "Client with #{name.upcase} identifier is already registered."
-      elsif client.save
-        status 200
-        body "{\"Identifier\": #{name}}"
-      else
-        status 400
-        body "#{client.errors.full_messages.join(", ")}"
-      end
+      response = PayloadParser.get_response(name, client, params)
+
+      status response[0]
+      body response[1]
     end
 
     post '/sources/:identifier/data' do |identifier|

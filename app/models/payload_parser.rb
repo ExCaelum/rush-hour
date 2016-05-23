@@ -25,4 +25,14 @@ module PayloadParser
     Digest::SHA1.hexdigest(payload.to_s)
   end
 
+  def self.get_response(name, client, params)
+    if Client.find_by(identifier: params['identifier'])
+      [403, "Client with #{name.upcase} identifier is already registered."]
+    elsif client.save
+      [200, "{\"Identifier\": #{name}}"]
+    else
+      [400, "#{client.errors.full_messages.join(", ")}"]
+    end
+  end
+
 end
