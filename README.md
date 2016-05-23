@@ -28,7 +28,7 @@ First start the server by running `shotgun` from the project root directory. To 
 
 ##### 2. Use Application
 
-4 clients are loaded into the application from `test.sh`. To view a client's dashboard, navigate to the following links:
+4 clients are loaded into the application from `test.sh`. To view a client's dashboard, navigate to the following URLs:
 
 * `localhost:9393/sources/google`
 * `localhost:9393/sources/jumpstartlab`
@@ -36,3 +36,12 @@ First start the server by running `shotgun` from the project root directory. To 
 * `localhost:9393/sources/yahoo`
 
 On each client page, you'll find a dashboard displaying summary statistics. Links to URL statistics are located in the "All requested URLs" table.
+
+To view events associated with each client, navigate to the following URLs:
+
+* `localhost:9393/sources/google/events`
+* `localhost:9393/sources/jumpstartlab/events`
+* `localhost:9393/sources/apple/events`
+* `localhost:9393/sources/yahoo/events`
+
+On the Events page, you'll find links to each individual event names. Following these links will bring you to a page displaying the number of requests by hour for that event.
