@@ -1,5 +1,6 @@
 require 'json'
 require 'pry'
+# responsible for converting JSON to a clean hash, and generating SHA-1 hashes
 module PayloadParser
 
   def self.parse_json(params)
