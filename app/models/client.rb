@@ -74,7 +74,8 @@ class Client < ActiveRecord::Base
   def url_list_with_links_for_dashboard
     url_list_ordered_by_request_count.map do |raw_url|
       url = raw_url.split('/').last
-      "<a href=\"/sources/#{identifier}/urls/#{url}\">Dashboard: #{root_url}/#{url}</a>"
+      "<a href=\"/sources/#{identifier}/urls/#{url}\">" +
+      "Dashboard: #{root_url}/#{url}</a>"
     end
   end
 
