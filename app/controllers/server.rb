@@ -28,9 +28,11 @@ module RushHour
       elsif !Client.identifier_exists?(identifier)
         status 403
         body "#{identifier} is not a registered application."
-      else
-        PayloadRequest.record_payload(params[:payload], identifier)
+      elsif PayloadRequest.record_payload(params[:payload], identifier)
         status 200
+      else
+        status 418
+        body "Bad Data"
       end
     end
 
