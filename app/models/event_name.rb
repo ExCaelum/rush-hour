@@ -1,3 +1,4 @@
+# class responsible for interating with EventName table
 class EventName < ActiveRecord::Base
   validates :name, presence: true
 
