@@ -48,7 +48,8 @@ module RushHour
       pass unless event
       event_name = event.name
       count_by_hour = client.event_requests_by_hour(event_name)
-      erb :event_show, locals: { event_name: event_name, count_by_hour: count_by_hour }
+      erb :event_show, locals: { event_name: event_name,
+                                 count_by_hour: count_by_hour }
     end
 
     get '/sources/:identifier/events/*' do |identifier, splat|
