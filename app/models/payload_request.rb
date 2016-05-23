@@ -60,11 +60,10 @@ class PayloadRequest < ActiveRecord::Base
   def self.record_payload(raw_json, client_identifier)
     payload = PayloadParser.parse_json(raw_json)
     client = Client.find_by(identifier: client_identifier)
-    inclusive_payload = payload
-    inclusive_payload[:client] = client
+    payload[:client] = client
 
     pr = PayloadRequest.new
-    pr.attributes = 
+    pr.attributes =
       { requested_at:  payload[:requested_at],
         responded_in:  payload[:responded_in],
         referrer: Referrer.where(payload[:referrer]).first_or_create,
@@ -76,7 +75,7 @@ class PayloadRequest < ActiveRecord::Base
         url: Url.where(payload[:url]).first_or_create,
         client: client,
         parameters: payload[:parameters],
-        key: PayloadParser.generate_sha(inclusive_payload) }
+        key: PayloadParser.generate_sha(payload) }
     pr.save
   end
 
