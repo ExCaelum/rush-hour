@@ -23,5 +23,4 @@ module Response
       [418, "Bad Data"]
     end
   end
-
 end
