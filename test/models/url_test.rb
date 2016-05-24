@@ -66,7 +66,7 @@ class UrlTest < Minitest::Test
     url = Url.find_by(address: "www.most.com")
 
 
-    assert_equal ["OSX Chrome", "Linux Chrome", "Windows IE"], url.popular_agents
+    assert_equal ["Linux Chrome", "OSX Chrome", "Windows IE"], url.popular_agents.sort
   end
 
   def test_it_can_find_calculate_response_time_stats_for_one_url
