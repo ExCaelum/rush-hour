@@ -52,7 +52,7 @@ module TestHelpers
     @resolution_most = Resolution.find_or_create_by({width: "1920", height: "1080"})
     @resolution_least = Resolution.find_or_create_by({width: "1600", height: "1200"})
 
-    ip = Ip.find_or_create_by(address: "100.00.00.00")
+    ip = Ip.find_or_create_by(address: "127.0.0.1")
 
     response_time1 = 30
     response_time2 = 45

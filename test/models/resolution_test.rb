@@ -18,66 +18,19 @@ class ResolutionTest < Minitest::Test
   end
 
   def test_resolution_payload_requests_relationship
-    pr = PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                               responded_in: 48,
-                               referrer_id: 1,
-                               request_type_id: 1,
-                               parameters: "[]",
-                               event_name_id: 1,
-                               user_agent_id: 1,
-                               resolution_id: 1,
-                               ip_id: 1,
-                               url_id: 1, client_id: 1, key: "SHA-1")
+    aggregate_setup
+    pr = PayloadRequest.first
 
-    resolution = Resolution.create(height: "1000", width: "100")
-
-    assert_equal 1, resolution.payload_requests.count
-    assert_equal 1, resolution.payload_requests.first.resolution_id
-    assert_equal 48, resolution.payload_requests.first.responded_in
-    assert_equal "1000", pr.resolution.height
+    assert_equal 6, @resolution_most.payload_requests.count
+    assert_equal 6, @resolution_least.payload_requests.count
+    assert_equal 1, @resolution_most.payload_requests.first.resolution_id
+    assert_equal 30, @resolution_most.payload_requests.first.responded_in
+    assert_equal "1080", pr.resolution.height
   end
 
   def test_resolution_list
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 48,
-                          referrer_id: 1,
-                          request_type_id: 1,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          user_agent_id: 1,
-                          resolution_id: 1,
-                          ip_id: 1,
-                          url_id: 1, client_id: 1, key: "SHA-1")
+    aggregate_setup
 
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 48,
-                          referrer_id: 1,
-                          request_type_id: 1,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          user_agent_id: 1,
-                          resolution_id: 1,
-                          ip_id: 1,
-                          url_id: 1, client_id: 1, key: "SHA-1")
-
-
-    Resolution.create(height: "1", width: "1")
-
-    assert_equal ["1 x 1"], Resolution.list_of_resolutions
-
-    Resolution.create(height: "2", width: "2")
-
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 48,
-                          referrer_id: 1,
-                          request_type_id: 1,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          user_agent_id: 1,
-                          resolution_id: 2,
-                          ip_id: 1,
-                          url_id: 1, client_id: 1, key: "SHA-1")
-
-    assert_equal ["1 x 1", "2 x 2"], Resolution.list_of_resolutions.sort
+    assert_equal ["1080 x 1920" , "1200 x 1600" ], Resolution.list_of_resolutions.sort
   end
 end

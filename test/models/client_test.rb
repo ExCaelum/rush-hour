@@ -13,7 +13,7 @@ class ClientTest < Minitest::Test
     assert_equal "event_most", client.event_names.first.name
     assert_equal "OSX", client.user_agents.first.os
     assert_equal "1920", client.resolutions.first.width
-    assert_equal "100.00.00.00", client.ips.first.address
+    assert_equal "127.0.0.1", client.ips.first.address
 
   end
 
