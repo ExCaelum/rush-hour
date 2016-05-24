@@ -13,7 +13,7 @@ class ClientTest < Minitest::Test
     assert_equal "event_most", client.event_names.first.name
     assert_equal "OSX", client.user_agents.first.os
     assert_equal "1920", client.resolutions.first.width
-    assert_equal "100.00.00.00", client.ips.first.address
+    assert_equal "127.0.0.1", client.ips.first.address
 
   end
 
@@ -118,69 +118,20 @@ class ClientTest < Minitest::Test
   end
 
   def test_client_can_return_list_of_relative_paths
+    relative_url_setup
 
-    client = Client.create(identifier: "BestBuy", root_url: "www.test.com")
-    url = Url.create(address: "www.BestBuy.com/list")
-    client.payload_requests.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 48,
-                          referrer_id: 1,
-                          request_type_id: 1,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          resolution_id: 1,
-                          user_agent_id: 1,
-                          ip_id: 1,
-                          url_id: url.id,
-                          key: "SHA-1")
+    expected = "www.relative.com/path"
 
-    result = client.find_url_by_relative_path("list")
-
-    assert_equal "www.BestBuy.com/list", result.address
+    assert_equal expected, client.find_url_by_relative_path("path").address
   end
 
   def test_relative_path_exists
+    relative_url_setup
 
-    client = Client.create(identifier: "BestBuy", root_url: "www.test.com")
-    url1 = Url.create(address: "www.test.com")
-    url2 = Url.create(address: "www.test.com/list")
-    url3 = Url.create(address: "www.test.com/new")
-    client.payload_requests.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 48,
-                          referrer_id: 1,
-                          request_type_id: 1,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          resolution_id: 1,
-                          user_agent_id: 1,
-                          ip_id: 1,
-                          url_id: url1.id,
-                          key: "SHA-1")
-    client.payload_requests.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 50,
-                          referrer_id: 1,
-                          request_type_id: 2,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          resolution_id: 2,
-                          user_agent_id: 2,
-                          ip_id: 1,
-                          url_id: url2.id,
-                          key: "SHA-1")
-    client.payload_requests.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 50,
-                          referrer_id: 1,
-                          request_type_id: 2,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          resolution_id: 3,
-                          user_agent_id: 1,
-                          ip_id: 1,
-                          url_id: url3.id,
-                          key: "SHA-1")
-
+    assert client.relative_path_exists?("path")
     assert client.relative_path_exists?("list")
     assert client.relative_path_exists?("new")
-    refute client.relative_path_exists?("gokart")
+    refute client.relative_path_exists?("bad_path")
   end
 
   def test_it_groups_events_by_hour_for_client

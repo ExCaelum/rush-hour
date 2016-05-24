@@ -27,29 +27,6 @@ module TestHelpers
     super
   end
 
-  # def standard_payload_with_associations
-  #   client = Client.create(identifier: "Client", root_url: "www.client.com")
-  #   event = EventName.create(name: "Event")
-  #   referrer = Referrer.create(address: "www.referrer.com")
-  #   request_type = RequestType.create(verb: "GET")
-  #   resolution = Resolution.create(width: 1, height: 1)
-  #   url = Url.create(address: "www.client.com/url")
-  #   user_agent = UserAgent.create(os: "OS", browser: "Browser")
-  #   payload_request = PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-  #   responded_in: 10,
-  #   parameters: "[]",
-  #   url_id: url.id,
-  #   event_name_id: event.id,
-  #   request_type_id: request_type.id,
-  #   resolution_id: resolution.id,
-  #   referrer_id: referrer.id,
-  #   user_agent_id: user_agent.id,
-  #   ip_id: 1,
-  #   client_id: client.id,
-  #   key: "SHA")
-  #   {client: client, event: event, referrer: referrer, request_type: request_type, resolution: resolution, url: url, user_agent: user_agent, payload_request: payload_request}
-  # end
-
   def aggregate_setup
     @client = Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
 
@@ -75,7 +52,7 @@ module TestHelpers
     @resolution_most = Resolution.find_or_create_by({width: "1920", height: "1080"})
     @resolution_least = Resolution.find_or_create_by({width: "1600", height: "1200"})
 
-    ip = Ip.find_or_create_by(address: "100.00.00.00")
+    ip = Ip.find_or_create_by(address: "127.0.0.1")
 
     response_time1 = 30
     response_time2 = 45
@@ -241,7 +218,52 @@ module TestHelpers
     client: client,
     ip: ip,
     key: "SHA1")
+
+      end
+
+  def relative_url_setup
+    @client = Client.create(identifier: "client", root_url: "www.relative.com")
+
+    PayloadRequest.create(url: Url.find_or_create_by({address: "www.relative.com/path"}),
+                          requested_at: "2014-02-16 21:38:28 -0700",
+                          responded_in: 10, 
+                          referrer: Referrer.find_or_create_by(address: "www.referrer.com"),
+                          request_type: RequestType.find_or_create_by(verb: "GET"),
+                          parameters: "[]",
+                          event_name: EventName.find_or_create_by(name: "Event"),
+                          user_agent: UserAgent.find_or_create_by(os: "OS", browser: "Browser"),
+                          resolution: Resolution.find_or_create_by(width: "1920", height: "1080"),
+                          client: client,
+                          ip: Ip.find_or_create_by(address: "127.0.0.0"),
+                          key: "SHA1")
+
+    PayloadRequest.create(url: Url.find_or_create_by({address: "www.relative.com/list"}),
+                          requested_at: "2014-02-16 21:38:28 -0700",
+                          responded_in: 10, 
+                          referrer: Referrer.find_or_create_by(address: "www.referrer.com"),
+                          request_type: RequestType.find_or_create_by(verb: "GET"),
+                          parameters: "[]",
+                          event_name: EventName.find_or_create_by(name: "Event"),
+                          user_agent: UserAgent.find_or_create_by(os: "OS", browser: "Browser"),
+                          resolution: Resolution.find_or_create_by(width: "1920", height: "1080"),
+                          client: client,
+                          ip: Ip.find_or_create_by(address: "127.0.0.0"),
+                          key: "SHA1")
+
+    PayloadRequest.create(url: Url.find_or_create_by({address: "www.relative.com/new"}),
+                          requested_at: "2014-02-16 21:38:28 -0700",
+                          responded_in: 10, 
+                          referrer: Referrer.find_or_create_by(address: "www.referrer.com"),
+                          request_type: RequestType.find_or_create_by(verb: "GET"),
+                          parameters: "[]",
+                          event_name: EventName.find_or_create_by(name: "Event"),
+                          user_agent: UserAgent.find_or_create_by(os: "OS", browser: "Browser"),
+                          resolution: Resolution.find_or_create_by(width: "1920", height: "1080"),
+                          client: client,
+                          ip: Ip.find_or_create_by(address: "127.0.0.0"),
+                          key: "SHA1")
   end
+
 
 end
 

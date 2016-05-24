@@ -19,20 +19,9 @@ class ReferrerTest < Minitest::Test
   end
 
   def test_referrer_payload_relationship
-    pr = PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                               responded_in: 48,
-                               referrer_id: 1,
-                               request_type_id: 1,
-                               parameters: "[]",
-                               event_name_id: 1,
-                               user_agent_id: 1,
-                               resolution_id: 1,
-                               ip_id: 1,
-                               url_id: 1)
+    aggregate_setup
 
-    ref = Referrer.create(address: "www.turing.io")
-
-    assert_equal Referrer, pr.referrer.class
+    assert_kind_of Referrer, PayloadRequest.first.referrer
   end
 
 end

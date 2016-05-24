@@ -45,55 +45,40 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_it_can_add_a_payload_request
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 48,
-                          referrer_id: 1,
-                          request_type_id: 1,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          resolution_id: 1,
-                          user_agent_id: 1,
-                          ip_id: 1,
-                          url_id: 1, client_id: 1, key: "SHA-1")
+    aggregate_setup
 
-    assert_equal 1, PayloadRequest.count
+    assert_equal 12, PayloadRequest.count
     assert_equal 1, PayloadRequest.first.id
-    assert_equal 48, PayloadRequest.first.responded_in
+    assert_equal 30, PayloadRequest.first.responded_in
     assert "SHA-1", PayloadRequest.first.key
   end
 
   def test_payload_info_stored_in_correct_format
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 48,
-                          referrer_id: 1,
-                          request_type_id: 1,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          resolution_id: 1,
-                          user_agent_id: 1,
-                          ip_id: 1,
-                          url_id: 1, client_id: 1, key: "SHA-1")
+    aggregate_setup
 
-    assert_equal Fixnum, PayloadRequest.first.id.class
-    assert_equal Time, PayloadRequest.first.requested_at.class
-    assert_equal Fixnum, PayloadRequest.first.responded_in.class
+    assert_kind_of Fixnum, PayloadRequest.first.id
+    assert_respond_to PayloadRequest.first, :id
+    assert_kind_of Time, PayloadRequest.first.requested_at
+    assert_kind_of Fixnum, PayloadRequest.first.responded_in
+    assert_kind_of Fixnum, PayloadRequest.first.responded_in
+    assert_kind_of String, PayloadRequest.first.key
+    assert_kind_of String, PayloadRequest.first.parameters
+
+    assert_kind_of Referrer, PayloadRequest.first.referrer
+    assert_kind_of RequestType, PayloadRequest.first.request_type
+    assert_kind_of EventName, PayloadRequest.first.event_name
+    assert_kind_of UserAgent, PayloadRequest.first.user_agent
+    assert_kind_of Resolution, PayloadRequest.first.resolution
+    assert_kind_of Client, PayloadRequest.first.client
+    assert_kind_of Ip, PayloadRequest.first.ip
   end
 
   def test_payload_request_can_be_found_by_id
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 48,
-                          referrer_id: 1,
-                          request_type_id: 1,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          resolution_id: 1,
-                          ip_id: 1,
-                          user_agent_id: 1,
-                          url_id: 1, client_id: 1, key: "SHA-1")
+    aggregate_setup
 
-    time = Time.new(2013, 02, 16, 21, 38, 28, "-07:00")
-
-    assert_equal time, PayloadRequest.find(1).requested_at
+    time_zone = 'Mountain Time (US & Canada)'
+    time = Time.new(2013, 02, 16, 20, 38, 28, "-07:00").in_time_zone(time_zone)
+    assert_equal time, PayloadRequest.first.requested_at.in_time_zone(time_zone)
   end
 
 
@@ -104,102 +89,32 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_that_the_payload_request_is_valid
-    pr = PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                               responded_in: 48,
-                               referrer_id: 1,
-                               request_type_id: 1,
-                               parameters: "[]",
-                               event_name_id: 1,
-                               resolution_id: 1,
-                               user_agent_id: 1,
-                               ip_id: 1,
-                               url_id: 1, client_id: 1, key: "SHA-1")
+    aggregate_setup
 
+    pr = PayloadRequest.find(1)
     assert_equal true, pr.valid?
     assert_equal 0, pr.errors.messages.length
   end
 
   def test_that_the_payload_request_can_find_all_browsers
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 48,
-                          referrer_id: 1,
-                          request_type_id: 1,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          resolution_id: 1,
-                          user_agent_id: 1,
-                          ip_id: 1,
-                          url_id: 1, client_id: 1, key: "SHA-1")
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 48,
-                          referrer_id: 1,
-                          request_type_id: 1,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          resolution_id: 1,
-                          user_agent_id: 2,
-                          ip_id: 1,
-                          url_id: 1, client_id: 1, key: "SHA-1")
-    UserAgent.create(os: "Macintosh", browser: "Chrome")
-    UserAgent.create(os: "Macintosh", browser: "Safari")
+    aggregate_setup
 
-    assert_equal ["Chrome", "Safari"], PayloadRequest.web_browser_breakdown.sort
+    assert_equal ["Chrome", "IE", "Safari"], PayloadRequest.web_browser_breakdown.sort.uniq
   end
 
   def test_that_the_payload_request_can_find_all_os
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 48,
-                          referrer_id: 1,
-                          request_type_id: 1,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          resolution_id: 1,
-                          user_agent_id: 1,
-                          ip_id: 1,
-                          url_id: 1, client_id: 1, key: "SHA-1")
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                          responded_in: 48,
-                          referrer_id: 1,
-                          request_type_id: 1,
-                          parameters: "[]",
-                          event_name_id: 1,
-                          resolution_id: 1,
-                          user_agent_id: 2,
-                          ip_id: 1,
-                          url_id: 1, client_id: 1, key: "SHA-1")
-    UserAgent.create(os: "Macintosh", browser: "Chrome")
-    UserAgent.create(os: "Windows", browser: "Safari")
+    aggregate_setup
 
-    assert_equal ["Macintosh", "Windows"], PayloadRequest.os_breakdown.sort
+    assert_equal ["Linux", "OSX", "Windows"], PayloadRequest.os_breakdown.sort.uniq
   end
 
   def test_it_can_find_calculate_response_time_stats_for_all_urls
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                               responded_in: 100,
-                               referrer_id: 1,
-                               request_type_id: 1,
-                               parameters: "[]",
-                               event_name_id: 1,
-                               user_agent_id: 1,
-                               resolution_id: 1,
-                               ip_id: 1,
-                               url_id: 1, client_id: 1, key: "SHA-1")
+    aggregate_setup
 
-    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
-                               responded_in: 20,
-                               referrer_id: 1,
-                               request_type_id: 1,
-                               parameters: "[]",
-                               event_name_id: 1,
-                               user_agent_id: 1,
-                               resolution_id: 1,
-                               ip_id: 1,
-                               url_id: 2, client_id: 1, key: "SHA-1")
-
-    assert_equal 2, PayloadRequest.count
-    assert_equal 100, PayloadRequest.max_response
-    assert_equal 20, PayloadRequest.min_response
-    assert_equal 60, PayloadRequest.average_response
+    assert_equal 12, PayloadRequest.count
+    assert_equal 55, PayloadRequest.max_response
+    assert_equal 30, PayloadRequest.min_response
+    assert_equal 42, PayloadRequest.average_response.to_i
   end
 
   def test_that_parsed_json_has_client_key_value_pair

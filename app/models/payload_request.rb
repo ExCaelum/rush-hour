@@ -53,11 +53,6 @@ class PayloadRequest < ActiveRecord::Base
     parsed_payload = PayloadParser.parse_json(payload)
     parsed_payload[:client] = Client.find_by(identifier: client_identifier)
     key = PayloadParser.generate_sha(parsed_payload)
-    pr = PayloadRequest.find_by(key: key)
-    if pr.class == PayloadRequest
-      true
-    else
-      false
-    end
+    PayloadRequest.find_by(key: key).is_a?(PayloadRequest)
   end
 end
