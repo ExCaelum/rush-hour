@@ -42,7 +42,7 @@ class UrlTest < Minitest::Test
     url_most = Url.find_by(address: "www.most.com")
 
     assert_equal [45, 45], url_least.list_response_times
-    assert_equal [30, 40, 55, 30, 40, 55, 30, 45, 40, 55], url_most.list_response_times
+    assert_equal [30, 30, 30, 40, 40, 40, 45, 55, 55, 55], url_most.list_response_times.sort
   end
 
   def test_returns_top_referrers
