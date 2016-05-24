@@ -24,5 +24,4 @@ module PayloadParser
   def self.generate_sha(payload)
     Digest::SHA1.hexdigest(payload.to_s)
   end
-
 end
