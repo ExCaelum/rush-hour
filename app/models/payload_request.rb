@@ -1,4 +1,3 @@
-# class is responsible for interacting with the Payload Request join table
 class PayloadRequest < ActiveRecord::Base
   include PayloadParser
 

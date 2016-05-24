@@ -1,4 +1,3 @@
-# responsible for interacting with urls table
 class Url < ActiveRecord::Base
   validates :address, presence: true
 
