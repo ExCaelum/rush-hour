@@ -19,9 +19,15 @@ class ReferrerTest < Minitest::Test
   end
 
   def test_referrer_payload_relationship
-    aggregate_setup
+    standard_payload_with_associations
 
     assert_kind_of Referrer, PayloadRequest.first.referrer
+  end
+
+  def test_referrer_payload_connection
+    referrer = Referrer.create
+
+    assert referrer.respond_to?(:payload_requests)
   end
 
 end

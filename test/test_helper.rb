@@ -27,6 +27,30 @@ module TestHelpers
     super
   end
 
+  def standard_payload_with_associations
+    @client = Client.create(identifier: "Client", root_url: "www.client.com")
+    event = EventName.create(name: "MostEvent")
+    referrer = Referrer.create(address: "www.MostReferrer.com")
+    request_type = RequestType.create(verb: "MOST")
+    resolution = Resolution.create(width: 1, height: 1)
+    url = Url.create(address: "www.client.com/most")
+    user_agent = UserAgent.create(os: "MostOS", browser: "MostBrowser")
+    ip = Ip.create(address: "ip")
+    payload_request = PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                      responded_in: 10,
+                      parameters: "[]",
+                      url: url,
+                      event_name: event,
+                      request_type: request_type,
+                      resolution: resolution,
+                      referrer: referrer,
+                      user_agent: user_agent,
+                      ip: ip,
+                      client: @client,
+                      key: "SHA1")
+    {client: @client, event: event, referrer: referrer, request_type: request_type, resolution: resolution, url: url, user_agent: user_agent, payload_request: payload_request}
+  end
+
   def aggregate_setup
     @client = Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
 
@@ -226,7 +250,7 @@ module TestHelpers
 
     PayloadRequest.create(url: Url.find_or_create_by({address: "www.relative.com/path"}),
                           requested_at: "2014-02-16 21:38:28 -0700",
-                          responded_in: 10, 
+                          responded_in: 10,
                           referrer: Referrer.find_or_create_by(address: "www.referrer.com"),
                           request_type: RequestType.find_or_create_by(verb: "GET"),
                           parameters: "[]",
@@ -239,7 +263,7 @@ module TestHelpers
 
     PayloadRequest.create(url: Url.find_or_create_by({address: "www.relative.com/list"}),
                           requested_at: "2014-02-16 21:38:28 -0700",
-                          responded_in: 10, 
+                          responded_in: 10,
                           referrer: Referrer.find_or_create_by(address: "www.referrer.com"),
                           request_type: RequestType.find_or_create_by(verb: "GET"),
                           parameters: "[]",
@@ -252,7 +276,7 @@ module TestHelpers
 
     PayloadRequest.create(url: Url.find_or_create_by({address: "www.relative.com/new"}),
                           requested_at: "2014-02-16 21:38:28 -0700",
-                          responded_in: 10, 
+                          responded_in: 10,
                           referrer: Referrer.find_or_create_by(address: "www.referrer.com"),
                           request_type: RequestType.find_or_create_by(verb: "GET"),
                           parameters: "[]",
