@@ -76,12 +76,13 @@ class UrlTest < Minitest::Test
 
     url = Url.find_by(address: "www.most.com")
 
-    assert_equal ["GET", "PATCH", "POST"], url.http_verbs
+    assert_equal ["GET", "PATCH", "POST"], url.http_verbs.sort
   end
 
   def test_url_can_find_popular_agents
     aggregate_setup
     url = Url.find_by(address: "www.most.com")
+
 
     assert_equal "Linux Chrome", url.popular_agents.sort.first
     assert_equal 3, url.popular_agents.count
