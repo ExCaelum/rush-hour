@@ -17,20 +17,37 @@ class ResolutionTest < Minitest::Test
     assert_equal 1, resolution.errors.messages.length
   end
 
+  def test_resolution_payload_connection
+    resolution = Resolution.create
+
+    assert resolution.respond_to?(:payload_requests)
+  end
+
   def test_resolution_payload_requests_relationship
-    aggregate_setup
+    associations = standard_payload_with_associations
     pr = PayloadRequest.first
 
-    assert_equal 6, @resolution_most.payload_requests.count
-    assert_equal 6, @resolution_least.payload_requests.count
-    assert_equal 1, @resolution_most.payload_requests.first.resolution_id
-    assert_equal 30, @resolution_most.payload_requests.first.responded_in
-    assert_equal "1080", pr.resolution.height
+    assert_equal 1, associations[:resolution].payload_requests.count
+
   end
 
   def test_resolution_list
-    aggregate_setup
+    standard_payload_with_associations
+    standard_payload_with_associations
+    other_resolution = Resolution.create(width: 2, height: 2)
+    PayloadRequest.create(requested_at: "2013-02-16 01:38:28 -0700",
+                      responded_in: 20,
+                      parameters: "[]",
+                      url_id: 1,
+                      event_name_id: 1,
+                      request_type_id: 1,
+                      resolution: other_resolution,
+                      referrer_id: 1,
+                      user_agent_id: 1,
+                      ip_id: 1,
+                      client_id: 100,
+                      key: "SHA2")
 
-    assert_equal ["1080 x 1920" , "1200 x 1600" ], Resolution.list_of_resolutions.sort
+    assert_equal ["1 x 1" , "2 x 2" ], Resolution.list_of_resolutions.sort
   end
 end

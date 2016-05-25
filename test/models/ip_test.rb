@@ -10,8 +10,14 @@ class IpTest < Minitest::Test
   end
 
   def test_ip_payload_requests_relationship
-    aggregate_setup
+    standard_payload_with_associations
 
-    assert_equal "127.0.0.1", PayloadRequest.first.ip.address
+    assert_equal "ip", PayloadRequest.first.ip.address
+  end
+
+  def test_ip_payload_connection
+    ip = Ip.create
+
+    assert ip.respond_to?(:payload_requests)
   end
 end

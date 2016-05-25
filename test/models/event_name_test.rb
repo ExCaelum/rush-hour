@@ -16,19 +16,49 @@ class EventNameTest < Minitest::Test
     assert_equal 1, event_name.errors.messages.length
   end
 
+  def test_event_payload_connection
+    event_name = EventName.create
+
+    assert event_name.respond_to?(:payload_requests)
+  end
+
   def test_event_name_payload_requests_relationship
-    aggregate_setup
+    associations = standard_payload_with_associations
 
-    assert_equal 9, @event_name_most.payload_requests.count
-    assert_equal 3, @event_name_least.payload_requests.count
+    assert_equal 1, associations[:event].payload_requests.count
 
-    assert_equal "event_least", PayloadRequest.first.event_name.name
   end
 
   def test_it_sorts_by_requested
-    aggregate_setup
+    associations = standard_payload_with_associations
+    event_least = EventName.create(name: "LeastEvent")
 
-    expected = ["event_most", "event_least"]
+    PayloadRequest.create(requested_at: "2013-02-16 01:38:28 -0700",
+                      responded_in: 20,
+                      parameters: "[]",
+                      url_id: 1,
+                      event_name: associations[:event],
+                      request_type_id: 1,
+                      resolution_id: 1,
+                      referrer_id: 1,
+                      user_agent_id: 1,
+                      ip_id: 1,
+                      client_id: 1,
+                      key: "SHA2")
+    PayloadRequest.create(requested_at: "2013-02-16 01:38:28 -0700",
+                      responded_in: 20,
+                      parameters: "[]",
+                      url_id: 1,
+                      event_name: event_least,
+                      request_type_id: 1,
+                      resolution_id: 1,
+                      referrer_id: 1,
+                      user_agent_id: 1,
+                      ip_id: 1,
+                      client_id: 1,
+                      key: "SHA2")
+
+    expected = ["MostEvent", "LeastEvent"]
 
     assert_equal expected, EventName.most_to_least_received
   end

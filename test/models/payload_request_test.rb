@@ -28,7 +28,7 @@ class PayloadRequestTest < Minitest::Test
     assert PayloadRequest.first.key
   end
 
-  def test_it_handles_similar_payload_requests
+  def test_it_does_not_duplicate_db_entries_for_same_entities
     raw_json_1 = '{"url":"http://jumpstartlab.com/blog","requestedAt":"2013-02-16 21:38:28 -0700","respondedIn":37,"referredBy":"http://jumpstartlab.com","requestType":"GET","parameters":[],"eventName": "socialLogin","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"1920","resolutionHeight":"1280","ip":"63.29.38.211"}'
     Client.create(identifier: "client1", root_url: "www.example.com")
     PayloadCreator.record_payload(raw_json_1, "client1")
@@ -45,16 +45,21 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_it_can_add_a_payload_request
-    aggregate_setup
+    standard_payload_with_associations
 
-    assert_equal 12, PayloadRequest.count
+    assert_equal 1, PayloadRequest.count
     assert_equal 1, PayloadRequest.first.id
-    assert_equal 30, PayloadRequest.first.responded_in
-    assert "SHA-1", PayloadRequest.first.key
+    assert_equal 10, PayloadRequest.first.responded_in
+    assert_equal "[]", PayloadRequest.first.parameters
+    assert_equal "1", PayloadRequest.first.resolution.width
+    assert_equal "www.MostReferrer.com", PayloadRequest.first.referrer.address
+    assert_equal "MostOS", PayloadRequest.first.user_agent.os
+    assert_equal "Client", PayloadRequest.first.client.identifier
+    assert_equal "SHA1", PayloadRequest.first.key
   end
 
   def test_payload_info_stored_in_correct_format
-    aggregate_setup
+    standard_payload_with_associations
 
     assert_kind_of Fixnum, PayloadRequest.first.id
     assert_respond_to PayloadRequest.first, :id
@@ -74,10 +79,10 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_payload_request_can_be_found_by_id
-    aggregate_setup
+    standard_payload_with_associations
 
     time_zone = 'Mountain Time (US & Canada)'
-    time = Time.new(2013, 02, 16, 20, 38, 28, "-07:00").in_time_zone(time_zone)
+    time = Time.new(2013, 02, 16, 21, 38, 28, "-07:00").in_time_zone(time_zone)
     assert_equal time, PayloadRequest.first.requested_at.in_time_zone(time_zone)
   end
 
@@ -89,7 +94,7 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_that_the_payload_request_is_valid
-    aggregate_setup
+    standard_payload_with_associations
 
     pr = PayloadRequest.find(1)
     assert_equal true, pr.valid?
@@ -97,24 +102,63 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_that_the_payload_request_can_find_all_browsers
-    aggregate_setup
+    standard_payload_with_associations
+    user_agent = UserAgent.create(os: "OtherOS", browser: "OtherBrowser")
+    PayloadRequest.create(requested_at: "2013-02-16 01:38:28 -0700",
+                      responded_in: 20,
+                      parameters: "[]",
+                      url_id: 1,
+                      event_name_id: 1,
+                      request_type_id: 1,
+                      resolution_id: 1,
+                      referrer_id: 1,
+                      user_agent: user_agent,
+                      ip_id: 1,
+                      client_id: 1,
+                      key: "SHA2")
 
-    assert_equal ["Chrome", "IE", "Safari"], PayloadRequest.web_browser_breakdown.sort.uniq
+
+    assert_equal ["MostBrowser", "OtherBrowser"], PayloadRequest.web_browser_breakdown.sort.uniq
   end
 
   def test_that_the_payload_request_can_find_all_os
-    aggregate_setup
+    standard_payload_with_associations
+    user_agent = UserAgent.create(os: "OtherOS", browser: "OtherBrowser")
+    PayloadRequest.create(requested_at: "2013-02-16 01:38:28 -0700",
+                      responded_in: 20,
+                      parameters: "[]",
+                      url_id: 1,
+                      event_name_id: 1,
+                      request_type_id: 1,
+                      resolution_id: 1,
+                      referrer_id: 1,
+                      user_agent: user_agent,
+                      ip_id: 1,
+                      client_id: 1,
+                      key: "SHA2")
 
-    assert_equal ["Linux", "OSX", "Windows"], PayloadRequest.os_breakdown.sort.uniq
+    assert_equal ["MostOS", "OtherOS"], PayloadRequest.os_breakdown.sort.uniq
   end
 
   def test_it_can_find_calculate_response_time_stats_for_all_urls
-    aggregate_setup
+    standard_payload_with_associations
+    PayloadRequest.create(requested_at: "2013-02-16 21:38:28 -0700",
+                      responded_in: 20,
+                      parameters: "[]",
+                      url_id: 1,
+                      event_name_id: 1,
+                      request_type_id: 1,
+                      resolution_id: 1,
+                      referrer_id: 1,
+                      user_agent_id: 1,
+                      ip_id: 1,
+                      client_id: 2,
+                      key: "SHA2")
 
-    assert_equal 12, PayloadRequest.count
-    assert_equal 55, PayloadRequest.max_response
-    assert_equal 30, PayloadRequest.min_response
-    assert_equal 42, PayloadRequest.average_response.to_i
+    assert_equal 2, PayloadRequest.count
+    assert_equal 20, PayloadRequest.max_response
+    assert_equal 10, PayloadRequest.min_response
+    assert_equal 15, PayloadRequest.average_response.to_i
   end
 
   def test_that_parsed_json_has_client_key_value_pair
@@ -138,6 +182,7 @@ class PayloadRequestTest < Minitest::Test
 
     assert_equal String, key.class
     assert_equal 40, key.length
+    
   end
 
   def test_duplicates_payloads_share_same_sha
