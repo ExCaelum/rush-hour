@@ -83,6 +83,7 @@ class UrlTest < Minitest::Test
     aggregate_setup
     url = Url.find_by(address: "http://jumpstartlab.com/most")
 
+
     assert_equal "Linux Chrome", url.popular_agents.sort.first
     assert_equal 3, url.popular_agents.count
   end
