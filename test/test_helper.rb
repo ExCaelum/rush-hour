@@ -48,14 +48,21 @@ module TestHelpers
                       ip: ip,
                       client: @client,
                       key: "SHA1")
-    {client: @client, event: event, referrer: referrer, request_type: request_type, resolution: resolution, url: url, user_agent: user_agent, payload_request: payload_request}
+    {client: @client,
+     event: event, 
+     referrer: referrer, 
+     request_type: request_type, 
+     resolution: resolution, 
+     url: url, 
+     user_agent: user_agent, 
+     payload_request: payload_request}
   end
 
   def aggregate_setup
     @client = Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
 
-    @url_least = Url.find_or_create_by({address: "www.least.com"})
-    @url_most = Url.find_or_create_by({address: "www.most.com"})
+    @url_least = Url.find_or_create_by({address: "http://jumpstartlab.com/least"})
+    @url_most = Url.find_or_create_by({address: "http://jumpstartlab.com/most"})
 
     @referrer1 = Referrer.find_or_create_by({address: "www.@referrer1.com"})
     referrer2 = Referrer.find_or_create_by({address: "www.referrer2.com"})
