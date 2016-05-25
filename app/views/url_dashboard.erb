@@ -17,7 +17,8 @@
       <%= erb :_dashboard_response_time_table,
         locals: {average: url.average_response_for_url,
                  min: url.min_response_for_url,
-                 max: url.max_response_for_url} %>
+                 max: url.max_response_for_url,
+                 freq: nil } %>
     </div>
     <div id="all-times" class="text-center col-md-6">
       <h4>All Response Times</h4>

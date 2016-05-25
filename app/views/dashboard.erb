@@ -12,129 +12,45 @@
 </div>
 
 <div class="container-fluid">
-  <div class="text-center row">
+  <div id="stats" lass="text-center row">
     <h4><%= @client.identifier.capitalize %> Payload Statistics</h4>
     <div class="col-md-offset-3 col-md-6">
-      <table class="table table-striped table-bordered table-hover table-sm">
-        <tbody>
-          <%= erb :_dashboard_response_time_table, locals: {average: @client.average_response_time_for_client, min: @client.min_response_time_for_client, max: @client.max_response_time_for_client} %>
-          <tr class="active">
-            <td> Most Frequent Request Type </td>
-            <td> <%= @client.most_frequent_request_type_for_client %> </td>
-          </tr>
-        </tbody>
-      </table>
+          <%= erb :_dashboard_response_time_table,
+            locals: {average: @client.average_response_time_for_client,
+                     min: @client.min_response_time_for_client,
+                     max: @client.max_response_time_for_client, 
+                     freq: @client.most_frequent_request_type_for_client} %>
     </div>
   </div>
 </div>
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-6 text-center">
+    <div id= "verbs" class="col-md-6 text-center">
       <h5>HTTP Verbs</h5>
       <%= erb :_dashboard_list_table, locals: {ordered_list: @client.all_http_verbs_for_client }%>
-
-      <!-- <table class="table table-striped table-bordered table-hover table-sm">
-        <% @client.all_http_verbs_for_client.each_with_index do |verb, index| %>
-          <% if index % 2 == 1 %>
-            <tr class="active">
-              <td> <%= verb %> </td>
-            </tr>
-          <% else %>
-            <tr class="info">
-              <td> <%= verb %> </td>
-            </tr>
-          <% end %>
-        <% end %>
-      </table> -->
     </div>
     <div class="text-center">
-      <div class="col-md-6">
-        <h5>All Requested URLs (link to URL dashboard)</h5>
+      <div id="all-urls" class="col-md-6">
+        <h5>All Requested URLs (link to URL dashboard)</h6>
         <%= erb :_dashboard_list_table, locals: {ordered_list: @client.url_list_with_links_for_dashboard }%>
-        <!-- <table class="table table-striped table-bordered table-hover table-sm">
-          <% @client.url_list_ordered_by_request_count.each_with_index do |url, index| %>
-            <% if index % 2 == 1 %>
-              <tr class="active">
-                <td> <%= url %>: <a href="/sources/<%= @client.identifier %>/urls/<%= url.split('/').last %>"><%= url.split('/').last %> info </a> </td>
-              </tr>
-            <% else %>
-              <tr class="info">
-                <td> <%= url %> </td>
-                <td> <a href="/sources/<%= @client.identifier %>/urls/<%= url.split('/').last %>"><%= url.split('/').last %> info</a></td>
-              </tr>
-            <% end %>
-          <% end %>
-        </table> -->
       </div>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-6 text-center">
+    <div id="browsers" class="col-md-6 text-center">
       <h5>Web Browsers</h5>
       <%= erb :_dashboard_count_table, locals: {count_hash: @client.browser_breakdown_for_client }%>
-      <!-- <table class="table table-striped table-bordered table-hover table-sm">
-        <% @client.browser_breakdown_for_client.each_with_index do |(browser, visits), index| %>
-          <% if index % 2 == 1 %>
-            <tr class="active">
-              <td> <%= browser %> </td>
-              <td> <%= visits %> </td>
-            </tr>
-          <% else %>
-            <tr class="info">
-              <td> <%= browser %> </td>
-              <td> <%= visits %> </td>
-            </tr>
-          <% end %>
-        <% end %>
-      </table> -->
     </div>
-    <div class="col-md-6 text-center">
+    <div id="os" class="col-md-6 text-center">
       <h5>Operating Systems</h5>
-
       <%= erb :_dashboard_count_table, locals: {count_hash: @client.operating_system_breakdown_for_client }%>
-      <!-- <table class="table table-striped table-bordered table-hover table-sm">
-        <% @client.operating_system_breakdown_for_client.each_with_index do |(os, visits), index| %>
-          <% if index % 2 == 1 %>
-            <tr class="active">
-              <td> <%= os %> </td>
-              <td> <%= visits %> </td>
-            </tr>
-          <% else %>
-            <tr class="info">
-              <td> <%= os %> </td>
-              <td> <%= visits %> </td>
-            </tr>
-          <% end %>
-        <% end %>
-      </table> -->
     </div>
   </div>
   <div class="row">
-    <div class="col-md-12 text-center">
+    <div id ="resolutions" class="col-md-12 text-center">
       <h5>Resolutions</h5>
-      <!-- WILL IMPACT FEATURE TESTS  -->
       <%= erb :_dashboard_list_table, locals: {ordered_list: @client.all_screen_resolutions_for_client }%>
-
-      <!-- <table class="table table-striped table-bordered table-hover table-sm">
-        <% @client.all_screen_resolutions_for_client.each_with_index do |array, index| %>
-          <% if index % 2 == 0 %>
-            <tr class="active">
-              <td> Width </td>
-              <td> <%= array.split('x').first.strip %> </td>
-              <td> Height </td>
-              <td> <%= array.split('x').first.strip %> </td>
-            </tr>
-          <% else %>
-            <tr class="info">
-              <td> Width </td>
-              <td> <%= array.split('x').first.strip %> </td>
-              <td> Height </td>
-              <td> <%= array.split('x').first.strip %> </td>
-            </tr>
-          <% end %>
-        <% end %>
-      </table> -->
     </div>
   </div>
 </div>

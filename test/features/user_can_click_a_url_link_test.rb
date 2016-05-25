@@ -5,7 +5,6 @@ class UserCanClickAUrlLink < FeatureTest
   def test_user_can_click_a_url_link
     aggregate_setup
 
-
     visit("/sources/jumpstartlab")
 
     click_link("Dashboard: http://jumpstartlab.com/most")

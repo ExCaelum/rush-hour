@@ -53,5 +53,4 @@ class Url < ActiveRecord::Base
     list_response_times.sort.reverse
   end
 
-
 end
