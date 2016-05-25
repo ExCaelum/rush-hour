@@ -8,8 +8,6 @@ class UserCanClickAUrlLink < FeatureTest
 
     visit("/sources/jumpstartlab")
 
-    save_and_open_page
-
     click_link("Dashboard: http://jumpstartlab.com/most")
 
     assert page.has_content?("http://jumpstartlab.com/most")
