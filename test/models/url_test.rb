@@ -58,7 +58,7 @@ class UrlTest < Minitest::Test
 
     url = Url.find_by(address: "www.most.com")
 
-    assert_equal ["GET", "PATCH", "POST"], url.http_verbs
+    assert_equal ["GET", "PATCH", "POST"], url.http_verbs.sort
   end
 
   def test_url_can_find_popular_agents
@@ -66,7 +66,7 @@ class UrlTest < Minitest::Test
     url = Url.find_by(address: "www.most.com")
 
 
-    assert_equal ["Linux Chrome", "OSX Chrome", "Windows IE"], url.popular_agents.sort
+    assert_equal ["Linux Chrome", "OSX Chrome", "Windows Chrome"], url.popular_agents.sort
   end
 
   def test_it_can_find_calculate_response_time_stats_for_one_url
