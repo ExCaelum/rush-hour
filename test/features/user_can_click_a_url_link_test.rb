@@ -5,7 +5,10 @@ class UserCanClickAUrlLink < FeatureTest
   def test_user_can_click_a_url_link
     aggregate_setup
 
+
     visit("/sources/jumpstartlab")
+
+    save_and_open_page
 
     click_link("Dashboard: http://jumpstartlab.com/most")
 
@@ -23,7 +26,7 @@ class UserCanClickAUrlLink < FeatureTest
 
     within "div#referrers" do
       assert page.has_content?("Popular Referrers")
-      assert page.has_content?("www.referrer1.com")
+      assert page.has_content?("www.@referrer1.com")
     end
 
     within "div#agents" do

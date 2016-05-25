@@ -64,7 +64,7 @@ module TestHelpers
     @url_least = Url.find_or_create_by({address: "http://jumpstartlab.com/least"})
     @url_most = Url.find_or_create_by({address: "http://jumpstartlab.com/most"})
 
-    @referrer1 = Referrer.find_or_create_by({address: "www.referrer1.com"})
+    @referrer1 = Referrer.find_or_create_by({address: "www.@referrer1.com"})
     referrer2 = Referrer.find_or_create_by({address: "www.referrer2.com"})
 
     @request_type_most = RequestType.find_or_create_by({verb: "GET"})

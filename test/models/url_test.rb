@@ -56,8 +56,8 @@ class UrlTest < Minitest::Test
   def test_response_time_list_includes_all_when_multiple_urls
     aggregate_setup
 
-    url_least = Url.find_by(address: "www.least.com")
-    url_most = Url.find_by(address: "www.most.com")
+    url_most = Url.find_by(address: "http://jumpstartlab.com/most")
+    url_least = Url.find_by(address: "http://jumpstartlab.com/least")
 
     assert_equal [45, 45], url_least.list_response_times
     assert_equal [30, 30, 30, 40, 40, 40, 45, 55, 55, 55], url_most.list_response_times.sort
@@ -66,7 +66,7 @@ class UrlTest < Minitest::Test
   def test_returns_top_referrers
     aggregate_setup
 
-    url = Url.find_by(address: "www.most.com")
+    url = Url.find_by(address: "http://jumpstartlab.com/most")
 
     assert_equal ["www.@referrer1.com", "www.referrer2.com"], url.top_three_referrers
   end
@@ -74,14 +74,14 @@ class UrlTest < Minitest::Test
   def test_url_has_verb_association
     aggregate_setup
 
-    url = Url.find_by(address: "www.most.com")
+    url = Url.find_by(address: "http://jumpstartlab.com/most")
 
     assert_equal ["GET", "PATCH", "POST"], url.http_verbs.sort
   end
 
   def test_url_can_find_popular_agents
     aggregate_setup
-    url = Url.find_by(address: "www.most.com")
+    url = Url.find_by(address: "http://jumpstartlab.com/most")
 
     assert_equal "Linux Chrome", url.popular_agents.sort.first
     assert_equal 3, url.popular_agents.count
@@ -89,8 +89,7 @@ class UrlTest < Minitest::Test
 
   def test_it_can_find_calculate_response_time_stats_for_one_url
     aggregate_setup
-    url = Url.find_by(address: "www.most.com")
-
+    url = Url.find_by(address: "http://jumpstartlab.com/most")
 
     assert_equal 55, url.max_response_for_url
     assert_equal 30, url.min_response_for_url
