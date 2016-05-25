@@ -4,16 +4,14 @@ module RushHour
     post '/sources' do
       client = Client.new({identifier: params["identifier"],
                            root_url: params["rootUrl"]})
-      response = Response.get_response(client, params)
 
+      response = Response.get_response(client, params)
       status response[0]
       body response[1]
     end
 
     post '/sources/:identifier/data' do |identifier|
-      payload = params[:payload]
       response = Response.get_client_response(identifier, params)
-
       status response[0]
       body response[1]
     end
