@@ -16,10 +16,17 @@ class EventNameTest < Minitest::Test
     assert_equal 1, event_name.errors.messages.length
   end
 
+  def test_event_payload_connection
+    event_name = EventName.create
+
+    assert event_name.respond_to?(:payload_requests)
+  end
+
   def test_event_name_payload_requests_relationship
     associations = standard_payload_with_associations
 
     assert_equal 1, associations[:event].payload_requests.count
+
   end
 
   def test_it_sorts_by_requested

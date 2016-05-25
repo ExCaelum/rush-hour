@@ -14,4 +14,10 @@ class IpTest < Minitest::Test
 
     assert_equal "ip", PayloadRequest.first.ip.address
   end
+
+  def test_ip_payload_connection
+    ip = Ip.create
+
+    assert ip.respond_to?(:payload_requests)
+  end
 end
