@@ -16,22 +16,40 @@ class UrlTest < Minitest::Test
     assert_equal 1, url.errors.messages.length
   end
 
-  def test_url_payload_requests_relationship
-    aggregate_setup
+  def test_url_payload_connection
+    url = Url.create
 
-    url = Url.first
-    pr = PayloadRequest.first
-
-    assert_equal 2, url.payload_requests.count
-    assert_equal 1, url.payload_requests.first.event_name_id
-    assert_equal 45, url.payload_requests.first.responded_in
-    assert_equal "www.most.com", pr.url.address
+    assert url.respond_to?(:payload_requests)
   end
 
-  def test_it_sorts_by_requested
-    aggregate_setup
+  def test_url_payload_requests_relationship
+    associations = standard_payload_with_associations
 
-    assert_equal ["www.most.com", "www.least.com"], Url.most_to_least_requested
+    assert_equal 1, associations[:url].payload_requests.count
+    assert_equal "Client", associations[:url].payload_requests.first.client.identifier
+    assert_equal "www.client.com/most", associations[:payload_request].url.address
+  end
+
+
+  def test_it_sorts_by_requested
+    standard_payload_with_associations
+    standard_payload_with_associations
+    least_url = Url.create(address: "www.client.com/least")
+    PayloadRequest.create(requested_at: "2013-02-16 01:38:28 -0700",
+                      responded_in: 20,
+                      parameters: "[]",
+                      url: least_url,
+                      event_name_id: 1,
+                      request_type_id: 1,
+                      resolution_id: 1,
+                      referrer_id: 1,
+                      user_agent_id: 1,
+                      ip_id: 1,
+                      client_id: 100,
+                      key: "SHA2")
+
+    assert_equal ["www.client.com/most", "www.client.com/least"], Url.most_to_least_requested
+
   end
 
 
@@ -66,7 +84,8 @@ class UrlTest < Minitest::Test
     url = Url.find_by(address: "www.most.com")
 
 
-    assert_equal ["Linux Chrome", "OSX Chrome", "Windows Chrome"], url.popular_agents.sort
+    assert_equal "Linux Chrome", url.popular_agents.sort.first
+    assert_equal 3, url.popular_agents.count
   end
 
   def test_it_can_find_calculate_response_time_stats_for_one_url
