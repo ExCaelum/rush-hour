@@ -11,8 +11,7 @@ module RushHour
     end
 
     post '/sources/:identifier/data' do |identifier|
-      payload = params[:payload]
-      response = Response.get_client_response(params, payload, identifier)
+      response = Response.get_client_response(identifier, params)
 
       status response[0]
       body response[1]

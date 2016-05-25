@@ -10,8 +10,9 @@ module Response
     end
   end
 
-  def self.get_client_response(params, payload, identifier)
-    if params.empty?|| !params.key?('payload')|| (payload && payload.empty?)
+  def self.get_client_response(identifier, params)
+    if params.empty?|| !params.key?('payload')|| (params[:payload] &&
+                                                  params[:payload].empty?)
       [400, "Payload data was not provided."]
     elsif PayloadRequest.duplicate?(params[:payload], identifier)
       [403, "This payload was already received."]
